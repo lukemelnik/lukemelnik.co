@@ -17,14 +17,65 @@ type ContentSearchProps = {
   collectionType: string; // "recipes" or "blog"
 };
 
+// New ContentCard component
+const ContentCard = ({
+  item,
+  collectionType,
+}: {
+  item: ContentItem;
+  collectionType: string;
+}) => (
+  <article className="border-b pb-8">
+    <h2 className="text-2xl font-semibold mb-2">
+      <a href={`/${collectionType}/${item.id}`} className="">
+        {item.data.title}
+      </a>
+    </h2>
+    <div className="flex flex-wrap items-center gap-x-3 mb-3">
+      <time
+        dateTime={new Date(item.data.publishDate).toISOString()}
+        className="text-sm text-foreground/60"
+      >
+        {new Date(item.data.publishDate).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}
+      </time>
+      {item.data.tags && item.data.tags.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {item.data.tags.map((tag: string) => (
+            <a
+              key={tag}
+              href={`/${collectionType}?search=${tag}`}
+              className="text-sm text-foreground/60 hover:text-amber-600 transition-colors"
+            >
+              #{tag}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+    <p className="text-foreground/80 leading-relaxed mb-4">
+      {item.data.description}
+    </p>
+    <a href={`/${collectionType}/${item.id}`} className="fancy-link">
+      {collectionType === "recipes"
+        ? "View recipe"
+        : collectionType === "blog"
+        ? "Read more"
+        : "View   "}{" "}
+      →
+    </a>
+  </article>
+);
+
 export default function ContentSearch({
   collection,
   collectionType,
 }: ContentSearchProps) {
-  // Get search query from URL
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<ContentItem[]>([]);
-  const [isSearching, setIsSearching] = useState(false);
 
   // Initialize Fuse.js
   const fuse = new Fuse(collection, {
@@ -39,62 +90,41 @@ export default function ContentSearch({
     .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
     .slice(0, 5);
 
-  // Handle search on mount and when URL changes
+  // Handle search on mount to check for URL parameters
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const query = params.get("search") || "";
     setSearchQuery(query);
+  }, []);
 
-    if (query) {
-      setIsSearching(true);
-      const results = fuse.search(query).map((result) => result.item);
-      setSearchResults(results);
-    } else {
-      setIsSearching(false);
-      setSearchResults([]);
-    }
-  }, [window.location.search]);
-
-  // Handle form submission
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const params = new URLSearchParams(window.location.search);
-
-    if (searchQuery) {
-      params.set("search", searchQuery);
-      setIsSearching(true);
-    } else {
-      params.delete("search");
-      setIsSearching(false);
-    }
-
-    // Update URL without full page reload
-    window.history.pushState(
-      {},
-      "",
-      `${window.location.pathname}?${params.toString()}`
-    );
-
-    // Perform search
+  // Perform search as user types and update URL
+  useEffect(() => {
     if (searchQuery) {
       const results = fuse.search(searchQuery).map((result) => result.item);
       setSearchResults(results);
+
+      // Update URL without full page reload
+      const params = new URLSearchParams(window.location.search);
+      params.set("search", searchQuery);
+      window.history.pushState(
+        {},
+        "",
+        `${window.location.pathname}?${params.toString()}`
+      );
     } else {
       setSearchResults([]);
+      // Remove search param from URL if search is cleared
+      window.history.pushState({}, "", window.location.pathname);
     }
-  };
+  }, [searchQuery]);
 
-  const clearSearch = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const clearSearch = () => {
     setSearchQuery("");
-    setIsSearching(false);
-    setSearchResults([]);
-    window.history.pushState({}, "", window.location.pathname);
   };
 
   return (
     <div>
-      <form onSubmit={handleSearch} className="mb-16">
+      <div className="mb-16">
         <div className="flex items-center gap-2">
           <input
             type="text"
@@ -103,25 +133,18 @@ export default function ContentSearch({
             placeholder={`Search ${collectionType}...`}
             className="bg-foreground text-background text-base rounded-lg px-2 py-1 mt-1"
           />
-          <button
-            type="submit"
-            className="bg-foreground text-background rounded-lg p-1 px-2 cursor-pointer font-normal text-base"
-          >
-            Search
-          </button>
-          {searchQuery && (
-            <button
-              type="submit"
-              className="border-2 border-foreground rounded-lg p-1 px-2 cursor-pointer font-normal text-base"
-              onClick={clearSearch}
-            >
-              Clear
-            </button>
-          )}
-        </div>
-      </form>
 
-      {isSearching && (
+          <button
+            type="button"
+            className=" bg-foreground text-background rounded-lg p-1 px-2 cursor-pointer font-normal text-base"
+            onClick={clearSearch}
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+
+      {searchQuery ? (
         <div className="mb-6">
           <p className="text-sm">
             {searchResults.length === 0
@@ -131,65 +154,19 @@ export default function ContentSearch({
                 } for "${searchQuery}"`}
           </p>
         </div>
-      )}
-
-      {!isSearching && (
+      ) : (
         <h2 className="text-2xl font-semibold mb-6">Recent Additions</h2>
       )}
 
       <div className="space-y-6">
-        {isSearching ? (
+        {searchQuery ? (
           searchResults.length > 0 ? (
             searchResults.map((item) => (
-              <article
+              <ContentCard
                 key={item.id}
-                className="group border-b border-gray-200 pb-6"
-              >
-                <h2 className="text-2xl font-semibold mb-2">
-                  <a
-                    href={`/${collectionType}/${item.id}`}
-                    className="hover:text-blue-600 transition-colors"
-                  >
-                    {item.data.title}
-                  </a>
-                </h2>
-                <div className="flex items-center gap-4 text-sm mb-3">
-                  <time
-                    dateTime={new Date(item.data.publishDate).toISOString()}
-                  >
-                    {new Date(item.data.publishDate).toLocaleDateString(
-                      "en-US",
-                      {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      }
-                    )}
-                  </time>
-                  {item.data.tags && (
-                    <div className="flex gap-2">
-                      {item.data.tags.map((tag: string) => (
-                        <a
-                          key={tag}
-                          href={`/${collectionType}?search=${tag}`}
-                          className="hover:text-blue-600 transition-colors"
-                        >
-                          #{tag}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <p className="text-gray-700 leading-relaxed mb-3">
-                  {item.data.description}
-                </p>
-                <a
-                  href={`/${collectionType}/${item.id}`}
-                  className="inline-block text-blue-600 hover:text-blue-800 transition-colors"
-                >
-                  View {collectionType === "recipes" ? "recipe" : "post"} →
-                </a>
-              </article>
+                item={item}
+                collectionType={collectionType}
+              />
             ))
           ) : (
             <div className="text-center py-10">
@@ -198,50 +175,11 @@ export default function ContentSearch({
           )
         ) : (
           recentItems.map((item) => (
-            <article
+            <ContentCard
               key={item.id}
-              className="group border-b border-gray-200 pb-6"
-            >
-              <h2 className="text-2xl font-semibold mb-2">
-                <a
-                  href={`/${collectionType}/${item.id}`}
-                  className="hover:text-blue-600 transition-colors"
-                >
-                  {item.data.title}
-                </a>
-              </h2>
-              <div className="flex items-center gap-4 text-sm mb-3">
-                <time dateTime={new Date(item.data.publishDate).toISOString()}>
-                  {new Date(item.data.publishDate).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </time>
-                {item.data.tags && (
-                  <div className="flex gap-2">
-                    {item.data.tags.map((tag: string) => (
-                      <a
-                        key={tag}
-                        href={`/${collectionType}?search=${tag}`}
-                        className="hover:text-blue-600 transition-colors"
-                      >
-                        #{tag}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <p className="text-gray-700 leading-relaxed mb-3">
-                {item.data.description}
-              </p>
-              <a
-                href={`/${collectionType}/${item.id}`}
-                className="inline-block text-blue-600 hover:text-blue-800 transition-colors"
-              >
-                View {collectionType === "recipes" ? "recipe" : "post"} →
-              </a>
-            </article>
+              item={item}
+              collectionType={collectionType}
+            />
           ))
         )}
       </div>
