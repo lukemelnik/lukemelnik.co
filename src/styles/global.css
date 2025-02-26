@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin '@tailwindcss/typography';
 
 :root {
   --background: hsl(0.72 0.11 178);
@@ -20,10 +21,10 @@
 
 @layer base {
   h1 {
-    @apply text-4xl font-serif font-bold mb-3;
+    @apply text-4xl font-serif font-bold mb-3 text-foreground;
   }
   h2 {
-    @apply text-2xl font-serif font-bold mb-2;
+    @apply text-2xl font-serif font-bold mb-2 text-foreground;
   }
 }
 
