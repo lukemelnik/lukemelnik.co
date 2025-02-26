@@ -13,14 +13,14 @@ const totalBlogPosts = blogPosts.length;
 ---
 
 <BaseLayout title="Blog" description="Thoughts, ideas, and learnings about development, music, and more">
-  <div class="max-w-2xl mx-auto mt-10 min-w-4xl px-4">
+  <div class="max-w-2xl mx-au to mt-10 min-w-4xl px-4">
     <div class="mb-2">
       <h1>Blog</h1>
       <p>Writing to understand. I don't know what I know until I write about it.</p>
     </div>
     
     <ContentSearch
-      client:only 
+      client:load 
       collection={blogPosts}
       collectionType="blog"
     />

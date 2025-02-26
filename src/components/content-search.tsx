@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Fuse from "fuse.js";
+import ClearButton from "./ClearButton";
 
 type ContentItem = {
   id: string;
@@ -134,13 +135,7 @@ export default function ContentSearch({
             className="bg-foreground text-background text-base rounded-lg px-2 py-1 mt-1"
           />
 
-          <button
-            type="button"
-            className=" bg-foreground text-background rounded-lg p-1 px-2 cursor-pointer font-normal text-base"
-            onClick={clearSearch}
-          >
-            Clear
-          </button>
+          <ClearButton onClick={clearSearch} />
         </div>
       </div>
 
