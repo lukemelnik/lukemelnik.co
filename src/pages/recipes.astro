@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import ContentSearch from "../components/content-search";
+
+// Get all recipes
+const recipes = await getCollection("recipes", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+
+// Total count for "View all" button
+const totalRecipes = recipes.length;
+---
+
+<BaseLayout title="Recipes" description="This is where I keep track of the best recipes I've found/tweaked">
+  <div class="max-w-2xl mx-auto mt-10 min-w-2xl px-4">
+    <div class="mb-2">
+      <h1>Recipes</h1>
+      <p>Only the recipes I'd 10/10 recommend. Always looking for practical ways of making A+ dishes you can pull off on a weeknight. And simplifying the breadmaking process.</p>
+    </div>
+    
+    <ContentSearch
+      client:only 
+      collection={recipes}
+      collectionType="recipes"
+    />
+
+    {totalRecipes > 5 && (
+      <div class="mt-8 text-center">
+        <a 
+          href="/recipes/all" 
+          class="inline-block bg-foreground text-background rounded-lg px-4 py-2 hover:opacity-90 transition-opacity"
+        >
+          View all recipes
+        </a>
+      </div>
+    )}
+  </div>
+</BaseLayout> 
