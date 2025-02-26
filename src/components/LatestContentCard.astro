@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  item: CollectionEntry<"blog" | "recipes" | "projects">;
+  type: "blog" | "recipes" | "projects";
+  showDate?: boolean;
+}
+
+const { item, type, showDate = true } = Astro.props;
+const typeLabels = {
+  blog: "Read more",
+  recipes: "View recipe",
+  projects: "View project"
+};
+---
+
+<article class="group">
+  <div class="transition-all duration-300">
+    <h3 class="text-xl font-medium mb-2">
+      <a href={`/${type}/${item.id}`} class="hover:text-blue-600 transition-colors">
+        {item.data.title}
+      </a>
+    </h3>
+    {showDate && (
+      <time datetime={item.data.publishDate.toISOString()} class="text-sm text-gray-600 block mb-2">
+        {item.data.publishDate.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}
+      </time>
+    )}
+    <p class="text-gray-700 leading-relaxed line-clamp-3">{item.data.description}</p>
+    <a 
+      href={`/${type}/${item.id}`}
+      class="inline-block mt-4 text-blue-600 hover:text-blue-800 transition-colors"
+    >
+      {typeLabels[type]} →
+    </a>
+  </div>
+</article> 

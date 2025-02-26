@@ -61,21 +61,21 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-3">
           <p>Recipe scale: </p>
-          <p className="min-w-8">{scale}x</p>
+          <p className={`min-w-8 ${scale > 1 && "text-amber-600"}`}>{scale}x</p>
           <div>
             <div className="flex items-center gap-1">
               <button
                 className="bg-foreground text-background rounded-lg size-8 flex justify-center items-center text-center"
                 onClick={handleScaleUp}
               >
-                <Plus className="text-background" />
+                <Plus size={16} className="text-background" />
               </button>
               <button
                 className="bg-foreground text-background justify-center rounded-lg size-8 flex items-center"
                 onClick={handleScaleDown}
                 disabled={scale <= 1}
               >
-                <Minus />
+                <Minus size={16} />
               </button>
             </div>
           </div>

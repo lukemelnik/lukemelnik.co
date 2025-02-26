@@ -30,7 +30,7 @@ export default function ContentSearch({
   const fuse = new Fuse(collection, {
     keys: ["data.title", "data.description", "data.tags"],
     includeScore: true,
-    threshold: 0.4,
+    threshold: 0.1,
     ignoreLocation: true,
   });
 
@@ -94,14 +94,14 @@ export default function ContentSearch({
 
   return (
     <div>
-      <form onSubmit={handleSearch} className="mb-3">
+      <form onSubmit={handleSearch} className="mb-16">
         <div className="flex items-center gap-2">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={`Search ${collectionType}...`}
-            className="bg-foreground text-background rounded-lg px-2 py-1"
+            className="bg-foreground text-background text-base rounded-lg px-2 py-1 mt-1"
           />
           <button
             type="submit"
