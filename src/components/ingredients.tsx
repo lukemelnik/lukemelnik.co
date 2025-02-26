@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 
 type Ingredient = {
   name: string;
-  quantity: number;
-  unit: string;
+  quantity?: number;
+  unit?: string;
+  note?: string;
 };
 
 type IngredientsProps = {
@@ -27,6 +28,8 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
   }
 
   function scaleQuantity(ingredient: Ingredient) {
+    if (ingredient.quantity === undefined) return undefined;
+
     const scaled = ingredient.quantity * scale;
     if (ingredient.name.toLowerCase() === "yeast" && scaled > yeastLimit) {
       return yeastLimit;
@@ -38,6 +41,7 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
     const hasYeastOverLimit = ingredients.some(
       (ingredient) =>
         ingredient.name.toLowerCase() === "yeast" &&
+        ingredient.quantity !== undefined &&
         ingredient.quantity * scale > yeastLimit
     );
     setYeastLimitReached(hasYeastOverLimit);
@@ -53,7 +57,12 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
       <ul className="mb-4 list-disc pl-5">
         {scaledIngredients.map((ingredient, index) => (
           <li key={index}>
-            {ingredient.quantity} {ingredient.unit} {ingredient.name}
+            {ingredient.quantity !== undefined
+              ? `${ingredient.quantity} ${ingredient.unit || ""} ${
+                  ingredient.name
+                }`
+              : ingredient.name}{" "}
+            {ingredient.note}
           </li>
         ))}
       </ul>

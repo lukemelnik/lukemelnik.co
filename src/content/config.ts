@@ -3,14 +3,16 @@ import { defineCollection, z } from "astro:content";
 
 const blog = defineCollection({
   loader: glob({ pattern: ["*.md", "*.mdx"], base: "./src/content/blog" }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    publishDate: z.date(),
-    draft: z.boolean().optional(),
-    tags: z.array(z.string()).optional(),
-    image: z.string().optional(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      cover: z.string().optional(),
+      alt: z.string().optional(),
+      title: z.string(),
+      description: z.string(),
+      publishDate: z.date(),
+      draft: z.boolean().optional(),
+      tags: z.array(z.string()).optional(),
+    }),
 });
 
 const recipes = defineCollection({
@@ -20,7 +22,12 @@ const recipes = defineCollection({
     description: z.string(),
     publishDate: z.date(),
     ingredients: z.array(
-      z.object({ name: z.string(), quantity: z.number(), unit: z.string() })
+      z.object({
+        name: z.string(),
+        quantity: z.number().optional(),
+        unit: z.string().optional(),
+        note: z.string().optional(),
+      })
     ),
     draft: z.boolean().optional(),
     tags: z.array(z.string()).optional(),
