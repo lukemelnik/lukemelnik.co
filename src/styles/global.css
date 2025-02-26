@@ -1,1 +1,36 @@
 @import "tailwindcss";
+
+:root {
+  --background: hsl(0.72 0.11 178);
+}
+
+@theme {
+  --color-background: hsl(198, 52%, 5%);
+  --color-foreground: hsl(60, 11%, 72%);
+  --font-sans: "DM Sans", sans-serif;
+  --font-serif: "DM Serif Display", serif;
+}
+/* 
+@layer base {
+  h1 {
+    font-size: var(--text-4xl);
+    font-family: var(--font-serif);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--mb-3);
+  }
+} */
+
+@layer base {
+  h1 {
+    @apply text-4xl font-serif font-bold mb-3;
+  }
+  h2 {
+    @apply text-2xl font-serif font-bold mb-2;
+  }
+}
+
+@layer components {
+  .fancy-link {
+    @apply text-amber-600 hover:underline underline-offset-4 transition-all duration-300;
+  }
+}
