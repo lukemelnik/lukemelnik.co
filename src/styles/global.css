@@ -9,16 +9,14 @@
   --color-foreground: hsl(60, 11%, 72%);
   --font-sans: "DM Sans", sans-serif;
   --font-serif: "DM Serif Display", serif;
-}
-/* 
-@layer base {
-  h1 {
-    font-size: var(--text-4xl);
-    font-family: var(--font-serif);
-    font-weight: var(--font-bold);
-    margin-bottom: var(--mb-3);
+
+  --animate-spin-slow: spin 8s linear infinite;
+  @keyframes spin-slow {
+    to {
+      transform: rotate(360deg);
+    }
   }
-} */
+}
 
 @layer base {
   h1 {

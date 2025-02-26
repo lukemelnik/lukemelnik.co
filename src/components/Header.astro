@@ -14,9 +14,11 @@ const navItems = [
   <div class="mx-auto max-w-4xl px-4">
     <nav class="flex h-16 items-center justify-between">
       <!-- Logo/Brand -->
-       <div class="flex items-center gap-2 text-3xl">
-         <SquareIcon/>
-               <a href="/" class=" font-bold font-serif">
+       <div class="flex items-center gap-2 text-3xl hover:text-amber-600 transition-colors duration-300 group">
+         <span class="animate-spin-slow">
+           <SquareIcon />
+         </span>
+               <a href="/" class=" font-bold font-serif ">
           Luke Melnik
                </a>
        </div>
@@ -38,12 +40,13 @@ const navItems = [
           <li>
             <a
               href={href}
-              class="transition-colors"
+              class="transition-colors hover:text-amber-600 duration-300 group relative"
               {...isExternal && { 
                 target: "_blank", 
                 rel: "noopener noreferrer" 
               }}
             >
+              <span class="group-hover:opacity-100 opacity-0 transition-opacity duration-300 absolute -left-4 ">•</span>
               {label}
             </a>
           </li>

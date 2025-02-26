@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import LatestContentCard from "../components/LatestContentCard.astro";
+import { Code, BookOpen, Utensils } from "lucide-astro";
 
 // Get blog posts
 const blogPosts = await getCollection("blog", ({ data }: { data: CollectionEntry<"blog">["data"] }) => {
@@ -39,17 +40,22 @@ const latestProject = projects
 	description="Developer and musician."
 	image="/social-image.jpg"
 >
-	<main class="max-w-4xl mx-auto px-4 py-12">
-		<section class="mb-16">
-			<p class="text-xl leading-relaxed">
-				Welcome! This is my digital garden where I share my projects, thoughts, and favourite recipes (those are mostly for my mom but you're welcome to get on board).
+	<main class="max-w-4xl mx-auto px-4 pt-6">
+		<section class="mb-10">
+			<p class="text-xl leading-relaxed text-foreground/80">
+				Welcome! This is my digital garden where I share my projects, writing, and favourite recipes (<span class="italic">those are mostly for my mom but you're welcome to get on board</span>). The site is built with Astro (with React) and is <a href="" class="fancy-link" target="_blank" referrerpolicy="no-referrer">open source</a>. 
 			</p>
 		</section>
 		
-		<div class="flex flex-col gap-10">
+		<div class="flex flex-col gap-4">
 			<!-- Latest Project -->
 			<section class="space-y-4">
-				<h2 class="text-2xl font-semibold border-b border-gray-200 pb-2">Latest Project</h2>
+				<div class="flex items-center justify-between border-b">
+					<h2 class="text-2xl font-semibold pb-2 flex items-center gap-2">
+						 Latest Project
+					</h2>
+					<Code size={24} />
+				</div>
 				{latestProject ? (
 					<LatestContentCard item={latestProject} type="projects" showDate={false} />
 				) : (
@@ -59,7 +65,12 @@ const latestProject = projects
 
 			<!-- Latest Blog Post -->
 			<section class="space-y-4">
-				<h2 class="text-2xl font-semibold border-b border-gray-200 pb-2">Latest Post</h2>
+				<div class="flex items-center justify-between border-b">
+					<h2 class="text-2xl font-semibold pb-2 flex items-center gap-2">
+						Latest Post
+					</h2>
+					<BookOpen size={24} />
+				</div>
 				{latestBlogPost && (
 					<LatestContentCard item={latestBlogPost} type="blog" />
 				)}
@@ -67,7 +78,12 @@ const latestProject = projects
 
 			<!-- Latest Recipe -->
 			<section class="space-y-4">
-				<h2 class="text-2xl font-semibold border-b border-gray-200 pb-2">Latest Recipe</h2>
+				<div class="flex items-center justify-between border-b">
+					<h2 class="text-2xl font-semibold pb-2 flex items-center gap-2">
+						Latest Recipe
+					</h2>
+					<Utensils size={24} />
+				</div>
 				{latestRecipe ? (
 					<LatestContentCard item={latestRecipe} type="recipes" />
 				) : (

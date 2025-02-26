@@ -17,11 +17,11 @@ const typeLabels = {
 
 <article class="group">
   <div class="transition-all duration-300">
-    <h3 class="text-xl font-medium mb-2">
-      <a href={`/${type}/${item.id}`} class="hover:text-blue-600 transition-colors">
+    <h2 class="text-3xl">
+      <a href={`/${type}/${item.id}`} class="">
         {item.data.title}
       </a>
-    </h3>
+    </h2>
     {showDate && (
       <time datetime={item.data.publishDate.toISOString()} class="text-sm text-gray-600 block mb-2">
         {item.data.publishDate.toLocaleDateString('en-US', {
@@ -31,10 +31,10 @@ const typeLabels = {
         })}
       </time>
     )}
-    <p class="text-gray-700 leading-relaxed line-clamp-3">{item.data.description}</p>
+    <p class="text-foreground/80 leading-relaxed line-clamp-3">{item.data.description}</p>
     <a 
       href={`/${type}/${item.id}`}
-      class="inline-block mt-4 text-blue-600 hover:text-blue-800 transition-colors"
+      class="inline-block mt-4  transition-colors fancy-link"
     >
       {typeLabels[type]} →
     </a>
