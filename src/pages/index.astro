@@ -1,16 +1,143 @@
 ---
-import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+// Get blog posts
+const blogPosts = await getCollection("blog", ({ data }: { data: CollectionEntry<"blog">["data"] }) => {
+	return import.meta.env.PROD ? data.draft !== true : true;
+});
+
+// Sort and get latest blog post
+const latestBlogPost = blogPosts
+	.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+	.at(0);
+
+// Get recipes (assuming you have a "recipes" collection)
+const recipes = await getCollection("recipes", ({ data }: { data: CollectionEntry<"recipes">["data"] }) => {
+	return import.meta.env.PROD ? data.draft !== true : true;
+});
+
+// Sort and get latest recipe
+const latestRecipe = recipes
+	.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+	.at(0);
+
+// Get projects (placeholder for now)
+// Uncomment when you've created the projects collection
+// const projects = await getCollection("projects", ({ data }: { data: CollectionEntry<"projects">["data"] }) => {
+// 	return import.meta.env.PROD ? data.draft !== true : true;
+// });
+// 
+// const latestProject = projects
+//   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+//   .at(0);
+
+// Placeholder for latest project until collection is created
+const latestProject = null;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Luke Melnik</title>
-	</head>
-	<body>
-		<h1 class="font-bold underline text-5xl">Luke Melnik</h1>
-	</body>
-</html>
+<BaseLayout 
+	title="Luke Melnik"
+	description="Developer and musician."
+	image="/social-image.jpg"
+>
+	<main class="max-w-4xl mx-auto px-4 py-12">
+		<section class="mb-16">
+			<p class="text-xl  leading-relaxed">
+				Welcome! This is my digital garden where I share my projects, thoughts, and favourite recipes (those are mostly for my mom but you're welcome to get on board).
+			</p>
+		</section>
+		
+		<div class="flex flex-col gap-10">
+			<!-- Latest Project -->
+			<section class="space-y-4">
+				<h2 class="text-2xl font-semibold border-b border-gray-200 pb-2">Latest Project</h2>
+				{latestProject ? (
+					<article class="group">
+						<div class="transition-all duration-300">
+							<h3 class="text-xl font-medium mb-2">
+								<a href={`/projects/${latestProject.id}`} class="hover:text-blue-600 transition-colors">
+									{latestProject.data.title}
+								</a>
+							</h3>
+							<p class="text-gray-700 leading-relaxed line-clamp-3">{latestProject.data.description}</p>
+							<a 
+								href={`/projects/${latestProject.id}`}
+								class="inline-block mt-4 text-blue-600 hover:text-blue-800 transition-colors"
+							>
+								View project →
+							</a>
+						</div>
+					</article>
+				) : (
+					<p class="text-gray-500 italic">Projects coming soon...</p>
+				)}
+			</section>
+
+			<!-- Latest Blog Post -->
+			<section class="space-y-4">
+				<h2 class="text-2xl font-semibold border-b border-gray-200 pb-2">Latest Post</h2>
+				{latestBlogPost && (
+					<article class="group">
+						<div class="transition-all duration-300">
+							<h3 class="text-xl font-medium mb-2">
+								<a href={`/blog/${latestBlogPost.id}`} class="hover:text-blue-600 transition-colors">
+									{latestBlogPost.data.title}
+								</a>
+							</h3>
+							<time datetime={latestBlogPost.data.publishDate.toISOString()} class="text-sm text-gray-600 block mb-2">
+								{latestBlogPost.data.publishDate.toLocaleDateString('en-US', {
+									year: 'numeric',
+									month: 'long',
+									day: 'numeric'
+								})}
+							</time>
+							<p class="text-gray-700 leading-relaxed line-clamp-3">{latestBlogPost.data.description}</p>
+							<a 
+								href={`/blog/${latestBlogPost.id}`}
+								class="inline-block mt-4 text-blue-600 hover:text-blue-800 transition-colors"
+							>
+								Read more →
+							</a>
+						</div>
+					</article>
+				)}
+			</section>
+
+			<!-- Latest Recipe -->
+			<section class="space-y-4">
+				<h2 class="text-2xl font-semibold border-b border-gray-200 pb-2">Latest Recipe</h2>
+				{latestRecipe ? (
+					<article class="group">
+						<div class="transition-all duration-300">
+							<h3 class="text-xl font-medium mb-2">
+								<a href={`/recipes/${latestRecipe.id}`} class="hover:text-blue-600 transition-colors">
+									{latestRecipe.data.title}
+								</a>
+							</h3>
+							<time datetime={latestRecipe.data.publishDate.toISOString()} class="text-sm text-gray-600 block mb-2">
+								{latestRecipe.data.publishDate.toLocaleDateString('en-US', {
+									year: 'numeric',
+									month: 'long',
+									day: 'numeric'
+								})}
+							</time>
+							<p class="text-gray-700 leading-relaxed line-clamp-3">{latestRecipe.data.description}</p>
+							<a 
+								href={`/recipes/${latestRecipe.id}`}
+								class="inline-block mt-4 text-blue-600 hover:text-blue-800 transition-colors"
+							>
+								View recipe →
+							</a>
+						</div>
+					</article>
+				) : (
+					<p class="text-gray-500 italic">Recipes coming soon...</p>
+				)}
+			</section>
+		</div>
+
+		</div>
+	</main>
+</BaseLayout>
