@@ -1,22 +1,29 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import ContentSearch from "../components/content-search";
+import ContentCard from "../components/ContentCard.astro";
 
 // Get all recipes
-const recipes = await getCollection("recipes", ({ data }) => {
+const recipes = await getCollection("recipes", ({ data }: { data: CollectionEntry<"recipes">["data"] }) => {
   return import.meta.env.PROD ? data.draft !== true : true;
 });
+
+// Sort recipes by publish date (newest first)
+const sortedRecipes = recipes.sort((a, b) => 
+  b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
 
 // Total count for "View all" button
 const totalRecipes = recipes.length;
 ---
 
-<BaseLayout title="Recipes" description="This is where I keep track of the best recipes I've found/tweaked">
-  <div class="max-w-2xl mx-auto mt-10 min-w-2xl px-4">
+<BaseLayout title="Recipes" description="A collection of my favourite recipes that I've found and/or tweaked.">
+  <div class="max-w-2xl mx-auto mt-10 min-w-4xl px-4">
     <div class="mb-2">
       <h1>Recipes</h1>
-      <p>Only the recipes I'd 10/10 recommend. Always looking for practical ways of making A+ dishes you can pull off on a weeknight. And simplifying the breadmaking process.</p>
+      <p>Hi mom. Only the favourites in here. Always trying to simplify things.</p>
     </div>
     
     <ContentSearch

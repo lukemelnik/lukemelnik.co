@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import ContentCard from "../components/ContentCard.astro";
 
 // Get all projects
 const projects = await getCollection("projects", ({ data }: { data: CollectionEntry<"projects">["data"] }) => {
@@ -15,7 +16,7 @@ const sortedProjects = projects.sort((a, b) =>
 ---
 
 <BaseLayout title="Projects" description="A collection of my development projects and experiments">
-  <div class="max-w-2xl mx-auto mt-10 px-4">
+  <div class="max-w-4xl mx-auto mt-10 px-4 min-w-4xl">
     <div class="mb-8">
       <h1>Projects</h1>
       <p>A showcase of my development work, experiments, and side projects.</p>
@@ -24,27 +25,7 @@ const sortedProjects = projects.sort((a, b) =>
     <div class="space-y-12">
       {sortedProjects.length > 0 ? (
         sortedProjects.map((project) => (
-          <article class="border-b border-gray-200 pb-8">
-            <h2 class="text-2xl font-semibold mb-2">
-              <a href={`/projects/${project.id}`} class="hover:text-blue-600 transition-colors">
-                {project.data.title}
-              </a>
-            </h2>
-            <time datetime={project.data.publishDate.toISOString()} class="text-sm text-gray-600 block mb-3">
-              {project.data.publishDate.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </time>
-            <p class="text-gray-700 leading-relaxed mb-4">{project.data.description}</p>
-            <a 
-              href={`/projects/${project.id}`}
-              class="inline-block text-blue-600 hover:text-blue-800 transition-colors"
-            >
-              View project →
-            </a>
-          </article>
+          <ContentCard item={project} type="projects" />
         ))
       ) : (
         <div class="text-center py-10">
