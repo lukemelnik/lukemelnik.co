@@ -1,0 +1,54 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  item: CollectionEntry<"blog" | "projects" | "recipes">;
+  type: "blog" | "projects" | "recipes";
+  showDate?: boolean;
+}
+
+const { item, type, showDate = true } = Astro.props;
+const href = `/${type}/${item.id}`;
+---
+
+<article class="border-b border-gray-200 pb-8">
+  <h2 class="text-2xl font-semibold mb-2">
+    <a href={href} class="">
+      {item.data.title}
+    </a>
+  </h2>
+  
+  <div class="flex flex-wrap items-center gap-x-3 mb-3">
+    {showDate && (
+      <time datetime={item.data.publishDate.toISOString()} class="text-sm text-foreground/60">
+        {item.data.publishDate.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}
+      </time>
+    )}
+    
+    {type !== "projects" && item.data.tags && item.data.tags.length > 0 && (
+      <div class="flex flex-wrap gap-2">
+        {item.data.tags.map((tag: string) => (
+          <a 
+            href={`/${type}/tag/${tag}`} 
+            class="text-sm text-foreground/60 hover:text-amber-600 transition-colors"
+          >
+            #{tag}
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+  
+  <p class="text-foreground/80 leading-relaxed mb-4">{item.data.description}</p>
+  
+  <a 
+    href={href}
+    class="fancy-link"
+  >
+    View {type.slice(0, -1)} →
+  </a>
+</article> 
