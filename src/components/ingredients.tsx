@@ -87,13 +87,7 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
               <h3 className="text-lg font-medium mb-2">{item.section}</h3>
               <ul className="mb-4 list-disc pl-5">
                 {item.items.map((ingredient, index) =>
-                  renderIngredient(
-                    {
-                      ...ingredient,
-                      quantity: scaleQuantity(ingredient),
-                    },
-                    index
-                  )
+                  renderIngredient(ingredient, index)
                 )}
               </ul>
             </div>
@@ -107,13 +101,7 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
                 {ingredients
                   .filter((i) => !isSection(i))
                   .map((ingredient, index) =>
-                    renderIngredient(
-                      {
-                        ...(ingredient as Ingredient),
-                        quantity: scaleQuantity(ingredient as Ingredient),
-                      },
-                      index
-                    )
+                    renderIngredient(ingredient as Ingredient, index)
                   )}
               </ul>
             );
