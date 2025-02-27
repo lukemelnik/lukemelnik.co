@@ -1,7 +1,7 @@
 ---
 title: "Forember"
 description: "An AI-powered spaced repetition app"
-publishDate: 2024-03-20
+publishDate: 2024-08-20
 technologies: ["Next.js", "Shadcn", "Node.js", "TailwindCSS", "Supabase"]
 tags: ["projects"]
 ---

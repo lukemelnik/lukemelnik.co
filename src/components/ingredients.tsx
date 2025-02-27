@@ -8,8 +8,13 @@ type Ingredient = {
   note?: string;
 };
 
+type IngredientSection = {
+  section: string;
+  items: Ingredient[];
+};
+
 type IngredientsProps = {
-  ingredients: Ingredient[];
+  ingredients: (Ingredient | IngredientSection)[];
 };
 
 export default function Ingredients({ ingredients }: IngredientsProps) {
@@ -37,35 +42,86 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
     return scaled;
   }
 
+  // Helper to check if an item is a section
+  function isSection(
+    item: Ingredient | IngredientSection
+  ): item is IngredientSection {
+    return "section" in item && "items" in item;
+  }
+
+  // Get all ingredients from all sections for yeast limit check
+  const allIngredients = ingredients.flatMap((item) =>
+    isSection(item) ? item.items : [item]
+  );
+
   useEffect(() => {
-    const hasYeastOverLimit = ingredients.some(
+    const hasYeastOverLimit = allIngredients.some(
       (ingredient) =>
         ingredient.name.toLowerCase() === "yeast" &&
         ingredient.quantity !== undefined &&
         ingredient.quantity * scale > yeastLimit
     );
     setYeastLimitReached(hasYeastOverLimit);
-  }, [ingredients, scale, yeastLimit]);
+  }, [allIngredients, scale, yeastLimit]);
 
-  const scaledIngredients = ingredients.map((ingredient) => ({
-    ...ingredient,
-    quantity: scaleQuantity(ingredient),
-  }));
+  // Render a single ingredient
+  const renderIngredient = (ingredient: Ingredient, index: number) => {
+    const scaledQuantity = scaleQuantity(ingredient);
+    return (
+      <li key={index}>
+        {scaledQuantity !== undefined
+          ? `${scaledQuantity} ${ingredient.unit || ""} ${ingredient.name}`
+          : ingredient.name}{" "}
+        {ingredient.note}
+      </li>
+    );
+  };
 
   return (
     <div>
-      <ul className="mb-4 list-disc pl-5">
-        {scaledIngredients.map((ingredient, index) => (
-          <li key={index}>
-            {ingredient.quantity !== undefined
-              ? `${ingredient.quantity} ${ingredient.unit || ""} ${
-                  ingredient.name
-                }`
-              : ingredient.name}{" "}
-            {ingredient.note}
-          </li>
-        ))}
-      </ul>
+      {ingredients.map((item, idx) => {
+        if (isSection(item)) {
+          // Render a section with its own heading and ingredients
+          return (
+            <div key={idx} className="mb-6">
+              <h3 className="text-lg font-medium mb-2">{item.section}</h3>
+              <ul className="mb-4 list-disc pl-5">
+                {item.items.map((ingredient, index) =>
+                  renderIngredient(
+                    {
+                      ...ingredient,
+                      quantity: scaleQuantity(ingredient),
+                    },
+                    index
+                  )
+                )}
+              </ul>
+            </div>
+          );
+        } else {
+          // If there are no sections, just render the ingredients directly
+          if (idx === 0) {
+            // Only create the ul wrapper for the first non-section item
+            return (
+              <ul key={idx} className="mb-4 list-disc pl-5">
+                {ingredients
+                  .filter((i) => !isSection(i))
+                  .map((ingredient, index) =>
+                    renderIngredient(
+                      {
+                        ...(ingredient as Ingredient),
+                        quantity: scaleQuantity(ingredient as Ingredient),
+                      },
+                      index
+                    )
+                  )}
+              </ul>
+            );
+          }
+          // Skip other non-section items as they're handled in the first one
+          return null;
+        }
+      })}
 
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-3">
@@ -91,7 +147,7 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
         </div>
         {yeastLimitReached && (
           <p className="text-amber-600">
-            * No more yeast requried after {yeastLimit}g
+            * No more yeast required after {yeastLimit}g
           </p>
         )}
       </div>

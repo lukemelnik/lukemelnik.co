@@ -15,25 +15,38 @@ const blog = defineCollection({
     }),
 });
 
+// Define the ingredient schema to be reused
+const ingredientSchema = z.object({
+  name: z.string(),
+  quantity: z.number().optional(),
+  unit: z.string().optional(),
+  note: z.string().optional(),
+});
+
+// Define a section schema for grouped ingredients
+const sectionSchema = z.object({
+  section: z.string(),
+  items: z.array(ingredientSchema),
+});
+
 const recipes = defineCollection({
   loader: glob({ pattern: ["*.md", "*.mdx"], base: "./src/content/recipes" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
     publishDate: z.date(),
-    ingredients: z.array(
-      z.object({
-        name: z.string(),
-        quantity: z.number().optional(),
-        unit: z.string().optional(),
-        note: z.string().optional(),
-      })
-    ),
+    source: z.string().optional(),
+    ingredients: z.union([
+      // Support both flat arrays of ingredients and sectioned ingredients
+      z.array(ingredientSchema),
+      z.array(sectionSchema),
+    ]),
     draft: z.boolean().optional(),
     tags: z.array(z.string()).optional(),
     image: z.string().optional(),
   }),
 });
+
 const projects = defineCollection({
   loader: glob({ pattern: ["*.md", "*.mdx"], base: "./src/content/projects" }),
   schema: z.object({
