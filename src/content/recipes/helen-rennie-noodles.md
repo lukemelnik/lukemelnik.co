@@ -1,17 +1,13 @@
 ---
 title: Helen Rennie Noodles
-created: 2024-12-06 19:26
 description: "Homemade pasta recipe from Helen Rennie"
 publishDate: 2024-12-06
+source: https://www.youtube.com/watch?v=m_fu5RaXMVk
 tags:
   - "noodles"
-  - "recipe"
   - "pasta"
 category:
   - Recipes
-website:
-video: https://www.youtube.com/watch?v=m_fu5RaXMVk
-related:
 ingredients:
   - name: flour
     quantity: 600
