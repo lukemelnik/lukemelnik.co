@@ -32,6 +32,42 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
     }
   }
 
+  // Convert decimal to fraction
+  function decimalToFraction(decimal: number): string {
+    // Handle whole numbers
+    if (Number.isInteger(decimal)) {
+      return decimal.toString();
+    }
+
+    // Handle common fractions
+    const tolerance = 0.01;
+    const commonFractions: [number, string][] = [
+      [0.25, "¼"],
+      [0.33, "⅓"],
+      [0.5, "½"],
+      [0.67, "⅔"],
+      [0.75, "¾"],
+      [0.125, "⅛"],
+      [0.375, "⅜"],
+      [0.625, "⅝"],
+      [0.875, "⅞"],
+    ];
+
+    // Get whole number part
+    const wholePart = Math.floor(decimal);
+    const decimalPart = decimal - wholePart;
+
+    // Check if close to common fraction
+    for (const [value, fraction] of commonFractions) {
+      if (Math.abs(decimalPart - value) < tolerance) {
+        return wholePart > 0 ? `${wholePart} ${fraction}` : fraction;
+      }
+    }
+
+    // If no common fraction matches, round to 1 decimal place
+    return decimal.toFixed(1);
+  }
+
   function scaleQuantity(ingredient: Ingredient) {
     if (ingredient.quantity === undefined) return undefined;
 
@@ -70,7 +106,9 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
     return (
       <li key={index}>
         {scaledQuantity !== undefined
-          ? `${scaledQuantity} ${ingredient.unit || ""} ${ingredient.name}`
+          ? `${decimalToFraction(scaledQuantity)} ${ingredient.unit || ""} ${
+              ingredient.name
+            }`
           : ingredient.name}{" "}
         {ingredient.note}
       </li>
