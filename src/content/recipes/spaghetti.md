@@ -74,10 +74,10 @@ ingredients:
 ## Instructions
 
 - Brown up the meat and break it down into small chunks
-- Toss in onion, garlic and some salt. Cook it down a bit. **Note: he makes a great point about adding salt in multiple stages to make sure all parts of a dish taste seasoned**
+- Toss in onion, garlic and some salt. Cook it down a bit. Note: he makes a great point about adding salt in multiple stages to make sure all parts of a dish taste seasoned
 - Add spices and tomato paste
 - Add beef bouillon
 - Add crushed tomatoes & extra water (amount depends on whether you're cooking dry spaghetti)
 - Add fresh basil
-- **If cooking from dry** break the pasta up and add it. **For fresh noodles** just cook the pasta and pour it over them.
+- If cooking from dry break the pasta up and add it. For fresh noodles just cook the pasta and pour it over them.
 - He puts it in the oven to finish, I've had great results just finishing on the stove with the dutch oven.
