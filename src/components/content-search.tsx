@@ -7,6 +7,7 @@ type ContentItem = {
   data: {
     title: string;
     description: string;
+    source?: string;
     publishDate: Date;
     tags?: string[];
     [key: string]: any;
@@ -30,6 +31,9 @@ const ContentCard = ({
     <h2 className="text-2xl font-semibold mb-2">
       <a href={`/${collectionType}/${item.id}`} className="">
         {item.data.title}
+        {item.data.source === "Family Recipe" && (
+          <sup className="text-xs ml-1">F</sup>
+        )}
       </a>
     </h2>
     <div className="flex flex-wrap items-center gap-x-3 mb-3">
