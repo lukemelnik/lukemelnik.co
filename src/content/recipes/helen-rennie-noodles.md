@@ -27,9 +27,13 @@ ingredients:
 
 ## Notes
 
-She recommends 00 flour originally, but bread flour is fine. This recipe uses a ridiculous amount of eggs, and turns out quite dry but that make the rolling so much nicer.
+She recommends 00 flour originally, but bread flour is fine. This recipe uses a ridiculous amount of eggs and turns out quite dry but that makes the rolling so much nicer.
 
 On that note, when kneading don't try to do to much at once. You can just fold an edge over and work it in. And don't be afraid of the salt, it looks like lot but it's just right.
+
+Use rice flour to keep the noodles from sticking together after cutting. 
+
+For freezing, twist up and put on a tray then freeze for an hour. Then transfer to a bag. 
 
 ## Instructions
 

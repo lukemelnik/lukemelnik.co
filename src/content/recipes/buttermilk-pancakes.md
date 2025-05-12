@@ -27,6 +27,7 @@ ingredients:
   - name: buttermilk
     quantity: 530
     unit: ml
+    note: (1/3 sour cream with regular milk is just as good. Cream cheese is also great.)
   - name: large eggs
     quantity: 2
     unit: whole
