@@ -15,7 +15,7 @@ const { title, description, publishDate, image, ingredients, source } = recipe.d
 <BaseLayout title={title} description={description} image={image}>
   <article class="max-w-4xl mx-auto px-4 pt-8 prose w-full prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground lg:prose-lg text-foreground/80 prose-headings:text-foreground prose-li:m-0 prose-a:text-amber-600 prose-a:no-underline prose-strong:text-foreground">
     <a href="/recipes" class="text-sm font-extralight"><span class="items-center flex gap group not-prose text-foreground/80 mb-5"><ArrowLeft size={15} className="group-hover:-translate-x-1 transition-all duration-300"/>  Back to search</span></a>
-    <div class="flex justify-between">
+    <div class="flex md:flex-row flex-col justify-between gap-1 md:gap-0">
       <h1 class="not-prose mb-0">{title}{source === 'Family Recipe' ? <sup class="text-xs ml-1">F</sup> : ""}</h1>
       <time datetime={publishDate.toISOString()} class="font-extralight">
         {publishDate.toLocaleDateString('en-US', {
