@@ -1,6 +1,6 @@
 ---
 title: Mary's Dip
-description: A creamy and flavorful dip with sour cream, mayo, and a blend of herbs and spices.
+description: A classic creamy vegetable dip. 
 publishDate: 2025-05-19
 source: Family Recipe
 ingredients:

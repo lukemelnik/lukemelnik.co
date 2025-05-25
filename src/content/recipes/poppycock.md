@@ -1,6 +1,6 @@
 ---
 title: Celine Reichert's Poppycock
-description: A crunchy, nutty popcorn treat coated in a rich buttery caramel syrup
+description: Popcorn and nuts with a caramel coating.
 publishDate: 2025-05-19
 source: Family Recipe
 tags:

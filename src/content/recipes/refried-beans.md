@@ -1,6 +1,6 @@
 ---
 title: Refried Beans Recipe
-description: Homemade refried beans using pinto beans and bacon fat
+description: Homemade refried beans using pinto beans and bacon fat.
 publishDate: 2024-12-22
 source: https://www.youtube.com/watch?v=fO5BosTSo6I
 tags:

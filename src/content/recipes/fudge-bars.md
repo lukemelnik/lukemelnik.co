@@ -1,6 +1,6 @@
 ---
 title: Fudge Bars (Mary Smith)
-description: A rich and delicious fudge bar recipe featuring an oatmeal base with a chocolate chip topping.
+description: Fudge bars with oatmeal.  
 publishDate: 2025-05-19
 source: Family Recipe
 tags:

@@ -1,6 +1,6 @@
 ---
 title: Mary's Brownies
-description: Classic homemade brownies with a rich chocolate flavor, moist texture, and optional nuts.
+description: Classic homemade brownies. 
 publishDate: 2025-05-19
 source: Family Recipe
 ingredients:

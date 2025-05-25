@@ -1,6 +1,6 @@
 ---
 title: Helen Rennie Noodles
-description: "Homemade pasta recipe from Helen Rennie"
+description: Homemade pasta recipe from Helen Rennie.
 publishDate: 2024-12-06
 source: https://www.youtube.com/watch?v=m_fu5RaXMVk
 tags:

@@ -1,6 +1,6 @@
 ---
-title: Puffed Wheat Cake (A Western Canadian staple – Bonnie McBain's)
-description: A classic sweet treat made by coating puffed wheat cereal in a rich cocoa caramel mixture and pressing it into bars.
+title: Puffed Wheat Cake 
+description: A Western Canadian desert staple. From Bonnie McBain.
 publishDate: 2025-05-19
 source: Family Recipe
 tags:

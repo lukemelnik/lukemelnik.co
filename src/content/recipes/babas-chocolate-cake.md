@@ -1,6 +1,6 @@
 ---
 title: Baba's Classic Chocolate Cake
-description: A moist and flavorful chocolate cake with a hint of coffee
+description: Chocolate cake with a hint of coffee.
 publishDate: 2025-05-19
 source: Family Recipe
 tags:
@@ -22,10 +22,6 @@ ingredients:
   - name: buttermilk or sour milk
     quantity: 1
     unit: cup
-  - name: milk with vinegar
-    quantity: 1
-    unit: cup
-    note: (1 tsp vinegar, stir and sit)
   - name: strong black coffee
     quantity: 1
     unit: cup

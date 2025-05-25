@@ -1,6 +1,6 @@
 ---
 title: Dill Pickles (Baba's Cold packed)
-description: Traditional cold-packed dill pickles with a tangy, spicy vinegar solution and fresh garlic.
+description: Traditional cold-packed dill pickles (not canned).
 publishDate: 2025-05-19
 source: Family Recipe
 tags:

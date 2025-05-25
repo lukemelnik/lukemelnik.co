@@ -1,6 +1,6 @@
 ---
 title: Cowboy Cookies (Mary's)
-description: Classic chewy cowboy cookies with oatmeal & chocolate chips
+description: Classic chewy cowboy cookies with oatmeal & chocolate chips.
 publishDate: 2025-05-19
 source: Family Recipe
 tags:

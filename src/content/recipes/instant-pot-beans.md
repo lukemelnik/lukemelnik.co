@@ -1,6 +1,6 @@
 ---
 title: Instant Pot Beans
-description: "How to make beans in the instant pot"
+description: The quickest way to make beans.
 publishDate: 2024-12-13
 tags:
   - "beans"
@@ -21,7 +21,7 @@ ingredients:
     quantity: 1
     unit: cup
   - name: water
-    quantity: 2
+    quantity: 1
     unit: cup
 ---
 

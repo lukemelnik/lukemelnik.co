@@ -1,6 +1,6 @@
 ---
-title: Mary's Buns (For pizza dough or anything you like)
-description: A versatile yeast dough recipe perfect for making buns, pizza bases, or bread with a soft texture and mild flavor.
+title: Mary's Buns 
+description: A versatile dough recipe with oil. 
 publishDate: 2025-05-19
 source: Family Recipe
 tags:

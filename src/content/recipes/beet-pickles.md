@@ -1,6 +1,6 @@
 ---
 title: Nellie's Beet Pickles
-description: Tangy and sweet beet pickles with a fresh dill flavor, perfect for preserving and enjoying year-round.
+description: Traditional canned beet pickle.  
 publishDate: 2025-05-19
 source: Family Recipe
 ingredients:

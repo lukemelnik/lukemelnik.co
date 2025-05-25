@@ -1,6 +1,6 @@
 ---
 title: Caramel Dumplings
-description: Soft and sweet caramel dumplings cooked in a rich buttery sauce, perfect served with whipping cream or ice cream.
+description: Caramel dumplings. 
 publishDate: 2025-05-19
 source: Family Recipe
 tags:

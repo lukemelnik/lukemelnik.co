@@ -1,6 +1,6 @@
 ---
 title: Dutch Cream Frosting
-description: A rich and fluffy buttercream-style frosting made with a cooked milk and flour base, perfect for icing cakes.
+description: A buttercream-style icing. 
 publishDate: 2025-05-19
 source: Family Recipe
 tags:

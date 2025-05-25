@@ -1,6 +1,6 @@
 ---
 title: Boterkoek
-description: Classic Dutch butter cake with a rich, almond flavor and a golden, tender crumb.
+description: Classic Dutch butter cake with almond flavor. 
 publishDate: 2025-05-12
 source: Family Recipe
 tags:

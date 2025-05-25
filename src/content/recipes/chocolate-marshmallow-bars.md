@@ -1,6 +1,6 @@
 ---
 title: Deluxe Chocolate Marshmallow Bars (Mary Smith)
-description: Rich chocolate bars with a moist cocoa base topped with melted chocolate, peanut butter, and crispy rice krispies, finished with marshmallows.
+description: Chocolate marshmallow bar.
 publishDate: 2025-05-19
 source: Family Recipe
 tags:

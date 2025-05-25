@@ -1,6 +1,6 @@
 ---
 title: Caramel Corn
-description: Sweet and crunchy caramel-coated popcorn baked to perfection with a rich buttery caramel sauce.
+description: Caramel-coated popcorn.
 publishDate: 2025-05-19
 source: Family Recipe
 tags:
