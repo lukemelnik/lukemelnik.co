@@ -4,19 +4,17 @@
     ".astro/types.d.ts",
     "**/*"
   ],
-  "complilerOptions": {
+  "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
       ]
     },
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
   },
   "exclude": [
     "dist"
-  ],
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "react"
-  }
+  ]
 }
