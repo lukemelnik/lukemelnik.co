@@ -11,7 +11,7 @@ const { item, type, showDate = true } = Astro.props;
 const href = `/${type}/${item.id}`;
 ---
 
-<article class="border-b border-gray-200 pb-8">
+<article class="pb-8">
   <h2 class="text-2xl font-semibold mb-2">
     <a href={href} class="">
       {item.data.title}
@@ -43,11 +43,11 @@ const href = `/${type}/${item.id}`;
     )}
   </div>
   
-  <p class="text-foreground/80 leading-relaxed mb-4">{item.data.description}</p>
+  <p class="text-foreground/80 leading-relaxed">{item.data.description}</p>
   
   <a 
     href={href}
-    class="fancy-link"
+    class="font-bold fancy-link"
   >
     View {type.slice(0, -1)} →
   </a>

@@ -17,13 +17,13 @@ const typeLabels = {
 
 <article class="group">
   <div class="transition-all duration-300">
-    <h2 class="text-3xl">
-      <a href={`/${type}/${item.id}`} class="">
+    <h2 class="text-2xl font-bold">
+      <a href={`/${type}/${item.id}`} class="p-0">
         {item.data.title}
       </a>
     </h2>
     {showDate && (
-      <time datetime={item.data.publishDate.toISOString()} class="text-sm text-gray-600 block mb-2">
+      <time datetime={item.data.publishDate.toISOString()} class="text-sm -mt-2 text-gray-600 block mb-2">
         {item.data.publishDate.toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long',
@@ -31,10 +31,10 @@ const typeLabels = {
         })}
       </time>
     )}
-    <p class="text-foreground/80 leading-relaxed line-clamp-3">{item.data.description}</p>
+    <p class="text-foreground/80 leading-relaxed font-extralight text-sm  line-clamp-3">{item.data.description}</p>
     <a 
       href={`/${type}/${item.id}`}
-      class="inline-block mt-4  transition-colors fancy-link"
+      class="inline-block font-medium  transition-colors fancy-link"
     >
       {typeLabels[type]} →
     </a>

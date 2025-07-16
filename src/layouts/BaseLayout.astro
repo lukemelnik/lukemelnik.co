@@ -2,8 +2,9 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import "../styles/global.css";
-import "@fontsource-variable/dm-sans"
-import "@fontsource/dm-serif-display"
+import "@fontsource-variable/jetbrains-mono";
+// import "@fontsource-variable/dm-sans"
+// import "@fontsource/dm-serif-display"
 interface Props {
   title: string;
   description: string;
@@ -40,7 +41,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
   
   </head>
-  <body class="min-h-screen flex flex-col bg-background text-foreground font-sans tracking-[.015em] font-light text-lg/7">
+  <body class="min-h-screen flex flex-col bg-background text-foreground tracking-[.015em] font-light text-lg/7">
     <Header />
     <slot />
     <Footer />

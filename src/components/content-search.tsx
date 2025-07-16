@@ -27,8 +27,8 @@ const ContentCard = ({
   item: ContentItem;
   collectionType: string;
 }) => (
-  <article className="border-b pb-8">
-    <h2 className="text-2xl font-semibold mb-2">
+  <article className="border-b-[1px]/80 pb-8">
+    <h2 className="text-2xl font-bold">
       <a href={`/${collectionType}/${item.id}`} className="">
         {item.data.title}
         {item.data.source === "Family Recipe" && (
@@ -36,10 +36,10 @@ const ContentCard = ({
         )}
       </a>
     </h2>
-    <div className="flex flex-wrap items-center gap-x-3 mb-3">
+    <div className="flex flex-wrap items-center -mt-2 gap-x-3 mb-3">
       <time
         dateTime={new Date(item.data.publishDate).toISOString()}
-        className="text-sm text-foreground/60"
+        className="text-sm text-foreground/60 font-extralight"
       >
         {new Date(item.data.publishDate).toLocaleDateString("en-US", {
           year: "numeric",
@@ -53,7 +53,7 @@ const ContentCard = ({
             <a
               key={tag}
               href={`/${collectionType}?search=${tag}`}
-              className="text-sm text-foreground/60 hover:text-amber-600 transition-colors"
+              className="font-extralight text-sm text-foreground/60 hover:text-amber-600 transition-colors"
             >
               #{tag}
             </a>
@@ -61,10 +61,10 @@ const ContentCard = ({
         </div>
       )}
     </div>
-    <p className="text-foreground/80 leading-relaxed mb-4">
+    <p className="text-foreground/80 text-base leading-relaxed">
       {item.data.description}
     </p>
-    <a href={`/${collectionType}/${item.id}`} className="fancy-link">
+    <a href={`/${collectionType}/${item.id}`} className="font-bold fancy-link">
       {collectionType === "recipes"
         ? "View recipe"
         : collectionType === "blog"
@@ -127,11 +127,12 @@ export default function ContentSearch({
     setSearchQuery("");
   };
 
+
   return (
     <div>
       <div className="mb-10">
         <div className="flex items-center justify-between">
-          <h1 className="m-0">Blog</h1>
+          <h1 className="m-0">{collectionType === 'blog' ? "Blog" : "Recipes"}</h1>
           <div className="flex items-center gap-2">
             <input
               type="text"
@@ -144,20 +145,23 @@ export default function ContentSearch({
             <ClearButton onClick={clearSearch} />
           </div>
         </div>
+        {collectionType === 'recipes' && <p className="mt-4">Some recipes I love. Family ones are marked with <sup>F</sup>. </p>}
       </div>
 
-      {searchQuery ? (
-        <div className="mb-6">
-          <p className="text-sm">
-            {searchResults.length === 0
-              ? `No ${collectionType} found for "${searchQuery}"`
-              : `Found ${searchResults.length} ${collectionType}${searchResults.length === 1 ? "" : "s"
-              } for "${searchQuery}"`}
-          </p>
-        </div>
-      ) : (
-        <h2 className="text-2xl font-semibold mb-6">Recent Additions</h2>
-      )}
+      {
+        searchQuery ? (
+          <div className="mb-6">
+            <p className="text-sm">
+              {searchResults.length === 0
+                ? `No ${collectionType} found for "${searchQuery}"`
+                : `Found ${searchResults.length} ${collectionType}${searchResults.length === 1 ? "" : "s"
+                } for "${searchQuery}"`}
+            </p>
+          </div>
+        ) : (
+          <h2 className="text-lg font-extralight mb-4">Recent Additions:</h2>
+        )
+      }
 
       <div className="space-y-6">
         {searchQuery ? (
@@ -184,6 +188,6 @@ export default function ContentSearch({
           ))
         )}
       </div>
-    </div>
+    </div >
   );
 }
