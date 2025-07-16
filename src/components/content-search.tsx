@@ -68,8 +68,8 @@ const ContentCard = ({
       {collectionType === "recipes"
         ? "View recipe"
         : collectionType === "blog"
-        ? "Read more"
-        : "View   "}{" "}
+          ? "Read more"
+          : "View   "}{" "}
       →
     </a>
   </article>
@@ -129,17 +129,20 @@ export default function ContentSearch({
 
   return (
     <div>
-      <div className="mb-16">
-        <div className="flex items-center gap-2">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={`Search ${collectionType}...`}
-            className="bg-foreground text-background text-base rounded-lg px-2 py-1 mt-1"
-          />
+      <div className="mb-10">
+        <div className="flex items-center justify-between">
+          <h1 className="m-0">Blog</h1>
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={`Search ${collectionType}...`}
+              className="bg-foreground text-background text-base rounded-lg px-2 py-1 m-0"
+            />
 
-          <ClearButton onClick={clearSearch} />
+            <ClearButton onClick={clearSearch} />
+          </div>
         </div>
       </div>
 
@@ -148,9 +151,8 @@ export default function ContentSearch({
           <p className="text-sm">
             {searchResults.length === 0
               ? `No ${collectionType} found for "${searchQuery}"`
-              : `Found ${searchResults.length} ${collectionType}${
-                  searchResults.length === 1 ? "" : "s"
-                } for "${searchQuery}"`}
+              : `Found ${searchResults.length} ${collectionType}${searchResults.length === 1 ? "" : "s"
+              } for "${searchQuery}"`}
           </p>
         </div>
       ) : (
