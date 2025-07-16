@@ -13,7 +13,7 @@ const { title, description, publishDate, cover, alt} = post.data;
 ---
 
 <BaseLayout title={title} description={description} image={cover}>
-  <article class="max-w-2xl mx-auto px-4 py-12 prose prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground lg:prose-lg text-foreground/80 prose-headings:text-foreground">
+  <article class="max-w-2xl mx-auto py-12 prose prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground lg:prose-lg text-foreground/80 prose-headings:text-foreground">
     <h1>{title}</h1>
     <time datetime={publishDate.toISOString()} class="">
       {publishDate.toLocaleDateString('en-US', {
