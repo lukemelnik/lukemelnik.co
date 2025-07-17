@@ -130,9 +130,9 @@ export default function ContentSearch({
 
   return (
     <div>
-      <div className="mb-10">
-        <div className="flex items-center justify-between">
-          <h1 className="m-0">{collectionType === 'blog' ? "Blog" : "Recipes"}</h1>
+      <div className="sm:mb-10 mb-6">
+        <div className="sm:flex flex-col sm:flex-row  items-center justify-between">
+          <h1 className="sm:m-0 ">{collectionType === 'blog' ? "Blog" : "Recipes"}</h1>
           <div className="flex items-center gap-2">
             <input
               type="text"

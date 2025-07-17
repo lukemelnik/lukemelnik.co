@@ -11,9 +11,9 @@ const navItems = [
 ];
 ---
 
-<header class="sticky top-0 z-50 max-w-2xl w-full mx-auto border-b backdrop-blur-xl">
+<header class="sticky top-0 z-50 max-w-2xl w-full mx-auto border-b bg-background">
   <div class="mx-auto max-w-2xl">
-    <nav class="flex h-16 items-center w-full justify-between">
+    <nav class="flex h-16 items-center w-full justify-between sm:px-0 px-6">
       <!-- Logo/Brand -->
        <div class="flex items-center gap-2 text-2xl hover:text-amber-600 transition-colors duration-300 group">
          <span class="animate-spin-slow">
@@ -30,8 +30,8 @@ const navItems = [
         class="md:hidden"
         aria-label="Toggle menu"
       >
-        <span id="menu-icon"><Menu /></span>
-        <span id="close-icon" class="hidden"><X /></span>
+        <span id="menu-icon"><Menu size={30} /></span>
+        <span id="close-icon" class="hidden"><X size={30}/></span>
       </button>
 
       <!-- Desktop Navigation -->
