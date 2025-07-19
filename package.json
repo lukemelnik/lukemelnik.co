@@ -15,6 +15,7 @@
     "@fontsource-variable/dm-sans": "^5.1.1",
     "@fontsource-variable/jetbrains-mono": "^5.2.6",
     "@fontsource/dm-serif-display": "^5.1.1",
+    "@r4ai/remark-callout": "^0.6.2",
     "@tailwindcss/vite": "^4.0.3",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
@@ -25,6 +26,7 @@
     "lucide-react": "^0.476.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "remark-github": "^12.0.0",
     "tailwindcss": "^4.0.3",
     "zod": "^3.24.1"
   },

@@ -1,27 +1,47 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import { type CollectionEntry } from 'astro:content';
-import {Image} from "astro:assets"
-
+import BaseLayout from "./BaseLayout.astro";
+import { type CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
 
 interface Props {
-  post: CollectionEntry<'blog'>;
+  post: CollectionEntry<"blog">;
 }
 
 const { post } = Astro.props;
-const { title, description, publishDate, cover, alt} = post.data;
+const { title, description, publishDate, cover, tags } = post.data;
+console.log(tags);
 ---
 
 <BaseLayout title={title} description={description} image={cover}>
-  <article class="max-w-2xl mx-auto py-12 prose prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground lg:prose-lg text-foreground/80 prose-headings:text-foreground">
-    <h1>{title}</h1>
-    <time datetime={publishDate.toISOString()} class="">
-      {publishDate.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })}
-    </time>
-    <slot />
+  <article
+    class="prose-a:no-underline prose-a:hover:underline prose-strong:text-foreground prose-strong:font-bold prose-headings:mb-4 prose-a:text-amber-600 prose-h1:text-4xl prose-a:font-bold prose-p:text-base prose prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground lg:prose-lg text-foreground/80 prose-headings:text-foreground mx-auto max-w-2xl py-12 marker:text-amber-600"
+  >
+    <h1 class="">{title}</h1>
+    <div>
+      <div class="flex flex-col sm:flex-row  sm:items-center sm:gap-6">
+        <time datetime={publishDate.toISOString()} class="">
+          {
+            publishDate.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
+        </time>
+        <div>
+          {
+            tags?.map((tag, index) => (
+              <span>
+            <a class="fancylink" href={`/blog/?search=${tag}`}>
+                  #{tag}
+                </a>
+                <!-- {tags[index + 1] !== undefined && "piss"} -->
+              </span>
+            ))
+          }
+        </div>
+      </div>
+      <slot />
+    </div>
   </article>
-</BaseLayout> 
+</BaseLayout>
