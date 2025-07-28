@@ -10,7 +10,6 @@ const blogPosts = await getCollection("blog", ({ data }) => {
 
 // Total count for "View all" button
 const totalBlogPosts = blogPosts.length;
-const category = Astro.url.searchParams.get("category") || "";
 ---
 
 <BaseLayout
@@ -18,20 +17,19 @@ const category = Astro.url.searchParams.get("category") || "";
   description="Thoughts, ideas, and learnings about development, music, and more"
 >
   <main class="mx-auto w-full max-w-2xl pt-6">
-    <p>YOU SEARCHED FOR {category}</p>
     <ContentSearch client:load collection={blogPosts} collectionType="blog" />
 
-    {
-      totalBlogPosts > 5 && (
-        <div class="mt-8 text-center">
-          <a
-            href="/blog/all"
-            class="bg-foreground text-background inline-block rounded-lg px-4 py-2 transition-opacity hover:opacity-90"
-          >
-            View all posts
-          </a>
-        </div>
-      )
-    }
+    <!-- { -->
+    <!--   totalBlogPosts > 5 && ( -->
+    <!--     <div class="mt-8 text-center"> -->
+    <!--       <a -->
+    <!--         href="/blog/all" -->
+    <!--         class="bg-foreground text-background inline-block rounded-lg px-4 py-2 transition-opacity hover:opacity-90" -->
+    <!--       > -->
+    <!--         View all posts -->
+    <!--       </a> -->
+    <!--     </div> -->
+    <!--   ) -->
+    <!-- } -->
   </main>
 </BaseLayout>
