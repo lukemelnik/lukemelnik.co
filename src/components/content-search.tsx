@@ -131,8 +131,11 @@ export default function ContentSearch({
     <div>
       <div className="mb-6 sm:mb-10">
         <div className="flex-col items-center justify-between sm:flex sm:flex-row">
-          <h1 className="sm:m-0">
+          <h1 className="flex items-center sm:m-0">
             {collectionType === "blog" ? "Blog" : "Recipes"}
+            <span className="ml-6 text-base font-thin">
+              ({collection.length} total)
+            </span>
           </h1>
           <div className="flex items-center gap-2">
             <input
@@ -148,7 +151,7 @@ export default function ContentSearch({
         </div>
         {collectionType === "recipes" && (
           <p className="mt-4">
-            Some recipes I love. Family ones are marked with <sup>F</sup>.{" "}
+            Some recipes I love. Family ones are marked with <sup>F</sup>.
           </p>
         )}
       </div>

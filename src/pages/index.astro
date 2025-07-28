@@ -6,90 +6,116 @@ import LatestContentCard from "../components/LatestContentCard.astro";
 import { Code, BookOpen, Utensils } from "lucide-astro";
 
 // Get blog posts
-const blogPosts = await getCollection("blog", ({ data }: { data: CollectionEntry<"blog">["data"] }) => {
-	return import.meta.env.PROD ? data.draft !== true : true;
-});
+const blogPosts = await getCollection(
+  "blog",
+  ({ data }: { data: CollectionEntry<"blog">["data"] }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  },
+);
 
 // Sort and get latest blog post
 const latestBlogPost = blogPosts
-	.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-	.at(0);
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .at(0);
 
 // Get recipes (assuming you have a "recipes" collection)
-const recipes = await getCollection("recipes", ({ data }: { data: CollectionEntry<"recipes">["data"] }) => {
-	return import.meta.env.PROD ? data.draft !== true : true;
-});
+const recipes = await getCollection(
+  "recipes",
+  ({ data }: { data: CollectionEntry<"recipes">["data"] }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  },
+);
 
 // Sort and get latest recipe
 const latestRecipe = recipes
-	.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-	.at(0);
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .at(0);
 
-const projects = await getCollection("projects", ({ data }: { data: CollectionEntry<"projects">["data"] }) => {
-	return import.meta.env.PROD ? data.draft !== true : true;
-});
+const projects = await getCollection(
+  "projects",
+  ({ data }: { data: CollectionEntry<"projects">["data"] }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  },
+);
 
 const latestProject = projects
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
   .at(0);
-
 ---
 
-<BaseLayout 
-	title="Luke Melnik"
-	description="Developer and musician."
-	image="/social-image.jpg"
+<BaseLayout
+  title="Luke Melnik"
+  description="Developer and musician."
+  image="/social-image.jpg"
 >
-	<main class="max-w-2xl mx-auto pt-6 w-full">
-		<section class="mb-10">
-			<p class="text-xl leading-relaxed text-foreground/80">
-				Hey, I'm Luke. Welcome to my digital garden 🪴
-			</p>
-		</section>
+  <main class="mx-auto min-h-screen w-full max-w-2xl pt-6">
+    <section class="mb-10">
+      <p class="text-foreground/80 text-xl leading-relaxed">
+        Hey, I'm Luke. Welcome to my digital garden 🪴
+      </p>
+    </section>
 
-		<div class="flex flex-col gap-10">
-			<!-- Latest Project -->
-			<section class="space-y-4">
-				<div class="flex items-center justify-between border-b text-foreground/80">
-					<h2 class="text-lg tracking-tight flex items-center gap-2  font-light">
+    <div class="flex flex-col gap-10">
+      <!-- Latest Project -->
+      <section class="space-y-4">
+        <div
+          class="text-foreground/80 flex items-center justify-between border-b"
+        >
+          <h2 class="flex items-center gap-2 text-lg font-light tracking-tight">
             What I'm Building
-					</h2>
-					<Code size={24} />
-				</div>
-				{latestProject ? (
-					<LatestContentCard item={latestProject} type="projects" showDate={false} />
-				) : (
-					<p class="text-gray-500 italic">Projects coming soon...</p>
-				)}
-			</section>
+          </h2>
+          <Code size={24} />
+        </div>
+        {
+          latestProject ? (
+            <LatestContentCard
+              item={latestProject}
+              type="projects"
+              showDate={false}
+            />
+          ) : (
+            <p class="text-gray-500 italic">Projects coming soon...</p>
+          )
+        }
+      </section>
 
-			<!-- Latest Blog Post -->
-			<section class="space-y-4">
-				<div class="flex items-center justify-between tracking-tight border-b text-foreground/80">
-					<h2 class="text-lg font-light  flex items-center gap-2">
+      <!-- Latest Blog Post -->
+      <section class="space-y-4">
+        <div
+          class="text-foreground/80 flex items-center justify-between border-b tracking-tight"
+        >
+          <h2 class="flex items-center gap-2 text-lg font-light">
             What I'm Thinking About
-					</h2>
-					<BookOpen size={24} />
-				</div>
-				{latestBlogPost && (
-					<LatestContentCard item={latestBlogPost} type="blog" />
-				)}
-			</section>
+          </h2>
+          <BookOpen size={24} />
+        </div>
+        {
+          latestBlogPost && (
+            <LatestContentCard item={latestBlogPost} type="blog" />
+          )
+        }
+      </section>
 
-			<!-- Latest Recipe -->
-			<section class="space-y-4">
-				<div class="flex items-center justify-between border-b text-foreground/80">
-					<h2 class="text-lg font-extralight tracking-tight flex items-center gap-2">
+      <!-- Latest Recipe -->
+      <section class="space-y-4">
+        <div
+          class="text-foreground/80 flex items-center justify-between border-b"
+        >
+          <h2
+            class="flex items-center gap-2 text-lg font-extralight tracking-tight"
+          >
             What I'm Cooking
-					</h2>
-					<Utensils size={24} />
-				</div>
-				{latestRecipe ? (
-					<LatestContentCard item={latestRecipe} type="recipes" />
-				) : (
-					<p class="text-gray-500 italic">Recipes coming soon...</p>
-				)}
-			</section>
-		</div>
-	</main>
+          </h2>
+          <Utensils size={24} />
+        </div>
+        {
+          latestRecipe ? (
+            <LatestContentCard item={latestRecipe} type="recipes" />
+          ) : (
+            <p class="text-gray-500 italic">Recipes coming soon...</p>
+          )
+        }
+      </section>
+    </div>
+  </main>
 </BaseLayout>

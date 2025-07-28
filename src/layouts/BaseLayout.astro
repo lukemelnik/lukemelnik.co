@@ -1,6 +1,6 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 import "@fontsource-variable/jetbrains-mono";
 // import "@fontsource-variable/dm-sans"
@@ -11,7 +11,7 @@ interface Props {
   image?: string;
 }
 
-const { title, description, image = '/default-social.jpg' } = Astro.props;
+const { title, description, image = "/default-social.jpg" } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -20,32 +20,33 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    
+
     <!-- SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, Astro.url)} />
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
-  
   </head>
-  <body class=" min-h-screen flex flex-col bg-background text-foreground tracking-[.015em] font-light text-base">
+  <body
+    class="bg-background text-foreground flex min-h-screen flex-col text-base font-light tracking-[.015em]"
+  >
     <Header />
-    <div class="sm:px-0 px-6">
-    <slot />
-    <Footer />
+    <div class="h-full flex-1 px-6 sm:px-0">
+      <slot />
     </div>
+    <Footer />
   </body>
-</html> 
+</html>
