@@ -143,7 +143,7 @@ export default function ContentSearch({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={`Search ${collectionType}...`}
-              className="bg-foreground text-background m-0 rounded-lg px-2 py-2 text-sm"
+              className="bg-foreground text-background m-0 rounded-lg px-2 py-2 text-base"
             />
 
             <ClearButton onClick={clearSearch} />
