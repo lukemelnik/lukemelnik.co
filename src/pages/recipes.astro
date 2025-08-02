@@ -6,37 +6,38 @@ import ContentSearch from "../components/content-search";
 import ContentCard from "../components/ContentCard.astro";
 
 // Get all recipes
-const recipes = await getCollection("recipes", ({ data }: { data: CollectionEntry<"recipes">["data"] }) => {
-  return import.meta.env.PROD ? data.draft !== true : true;
-});
+const recipes = await getCollection(
+  "recipes",
+  ({ data }: { data: CollectionEntry<"recipes">["data"] }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  },
+);
 
 // Sort recipes by publish date (newest first)
-const sortedRecipes = recipes.sort((a, b) => 
-  b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+const sortedRecipes = recipes.sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
 );
 
 // Total count for "View all" button
 const totalRecipes = recipes.length;
 ---
 
-<BaseLayout title="Recipes" description="A collection of my favourite recipes that I've found and/or tweaked.">
-  <main class="max-w-2xl mx-auto  pt-6 w-full">
-    
-    <ContentSearch
-      client:load 
-      collection={recipes}
-      collectionType="recipes"
-    />
+<BaseLayout
+  title="Recipes"
+  description="A collection of my favourite recipes that I've found and/or tweaked."
+>
+  <main class="mx-auto w-full max-w-2xl pt-6">
+    <ContentSearch client:load collection={recipes} collectionType="recipes" />
 
-    {totalRecipes > 5 && (
-      <div class="mt-8 text-center">
-        <a 
-          href="/recipes/all" 
-          class="inline-block bg-foreground text-background rounded-lg px-4 py-2 hover:opacity-90 transition-opacity"
-        >
-          View all recipes
-        </a>
-      </div>
-    )}
+    <!-- {totalRecipes > 5 && ( -->
+    <!--   <div class="mt-8 text-center"> -->
+    <!--     <a  -->
+    <!--       href="/recipes/all"  -->
+    <!--       class="inline-block bg-foreground text-background rounded-lg px-4 py-2 hover:opacity-90 transition-opacity" -->
+    <!--     > -->
+    <!--       View all recipes -->
+    <!--     </a> -->
+    <!--   </div> -->
+    <!-- )} -->
   </main>
-</BaseLayout> 
+</BaseLayout>
