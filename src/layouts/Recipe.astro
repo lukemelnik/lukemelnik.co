@@ -1,35 +1,43 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import { type CollectionEntry } from 'astro:content';
-import Ingredients from "../components/ingredients"
-import { ArrowLeft } from 'lucide-react';
+import BaseLayout from "./BaseLayout.astro";
+import { type CollectionEntry } from "astro:content";
+import Ingredients from "../components/ingredients";
+import { ArrowLeft } from "lucide-react";
 
 interface Props {
-  recipe: CollectionEntry<'recipes'>;
+  recipe: CollectionEntry<"recipes">;
 }
 
 const { recipe } = Astro.props;
-const { title, description, publishDate, image, ingredients, source } = recipe.data;
+const { title, description, publishDate, image, ingredients, source } =
+  recipe.data;
 ---
 
 <BaseLayout title={title} description={description} image={image}>
-  <article class="max-w-2xl  mx-auto pt-8 prose w-full prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground lg:prose-lg text-foreground/80 prose-headings:text-foreground prose-li:m-0 prose-a:text-amber-600 prose-a:no-underline prose-strong:text-foreground">
-    <a href="/recipes" class="text-sm font-extralight"><span class="items-center flex gap group not-prose text-foreground/80 mb-5"><ArrowLeft size={15} className="group-hover:-translate-x-1 transition-all duration-300"/>  Back to search</span></a>
-    <div class="flex md:flex-row flex-col justify-between gap-1 md:gap-0">
-      <h1 class="not-prose mb-0">{title}{source === 'Family Recipe' ? <sup class="text-xs ml-1">F</sup> : ""}</h1>
-      <time datetime={publishDate.toISOString()} class="font-extralight">
-        {publishDate.toLocaleDateString('en-US', {
-          year: 'numeric',  
-          month: 'long',
-          day: 'numeric'
-        })}
-      </time>
+  <article
+    class="prose prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground lg:prose-lg text-foreground/80 prose-headings:text-foreground prose-li:m-0 prose-a:text-amber-600 prose-a:no-underline prose-strong:text-foreground mx-auto w-full max-w-2xl pt-8"
+  >
+    <a href="/recipes" class="text-sm font-extralight"
+      ><span
+        class="gap group not-prose text-foreground/80 mb-5 flex items-center"
+        ><ArrowLeft
+          size={15}
+          className="transition-all duration-300 group-hover:-translate-x-1"
+        /> Back to search</span
+      ></a
+    >
+    <div class="flex flex-col justify-between gap-1 md:flex-row md:gap-0">
+      <h1 class="not-prose mb-0">
+        {title}{
+          source === "Family Recipe" ? <sup class="ml-1 text-xs">F</sup> : ""
+        }
+      </h1>
     </div>
     <p>{description}</p>
     <div class="border-b-1"></div>
     <h2>Ingredients</h2>
-    <Ingredients ingredients={ingredients} client:load/>
-    <div class="border-b-1 my-3"></div>
+    <Ingredients ingredients={ingredients} client:load />
+    <div class="my-3 border-b-1"></div>
     <slot />
   </article>
-</BaseLayout> 
+</BaseLayout>
