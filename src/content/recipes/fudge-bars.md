@@ -18,7 +18,6 @@ ingredients:
     unit: cup
   - name: eggs
     quantity: 2
-    unit: whole
   - name: vanilla
     quantity: 1
     unit: tsp

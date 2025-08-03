@@ -36,7 +36,6 @@ ingredients:
     note: (6 tablespoons)
   - name: eggs
     quantity: 2
-    unit: whole
     note: (large, room temperature)
   - name: cornmeal or semolina
     note: (for dusting)

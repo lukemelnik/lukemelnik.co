@@ -11,7 +11,7 @@ category:
 ingredients:
   - name: meat
     quantity: 1.5
-    unit: lbs
+    unit: lb
     note: (your choice of all ground beef, pork or a mixture)
   - name: onion
     quantity: 1
@@ -29,7 +29,7 @@ ingredients:
     unit: tsp
   - name: tomato paste
     quantity: 0.33
-    unit: cups
+    unit: cup
   - name: beef better than bouillon
     quantity: 1
     unit: tbsp
@@ -52,7 +52,7 @@ ingredients:
     note: (broken in half)
   - name: grated parmesan
     quantity: 0.5
-    unit: cups
+    unit: cup
 ---
 
 ## Notes

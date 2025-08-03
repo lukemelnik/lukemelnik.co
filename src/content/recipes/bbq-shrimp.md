@@ -39,7 +39,7 @@ ingredients:
     quantity: 3
     unit: tbsp
     note: (chopped)
-  - name: Tabasco or hot sauce
+  - name: tabasco or hot sauce
     quantity: 1
     unit: tsp
   - name: salt

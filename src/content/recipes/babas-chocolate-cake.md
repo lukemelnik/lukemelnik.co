@@ -18,7 +18,6 @@ ingredients:
     unit: cup
   - name: eggs
     quantity: 2
-    unit: whole
   - name: buttermilk or sour milk
     quantity: 1
     unit: cup

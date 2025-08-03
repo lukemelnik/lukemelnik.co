@@ -17,10 +17,8 @@ ingredients:
     unit: g
   - name: large eggs
     quantity: 4
-    unit: whole
   - name: large egg yolks
     quantity: 6
-    unit: whole
   - name: water
     note: (see the notes)
 ---

@@ -21,7 +21,6 @@ ingredients:
     unit: tsp
   - name: egg
     quantity: 1
-    unit: whole
     note: (beaten)
   - name: all-purpose flour
     quantity: 1.5
@@ -31,7 +30,6 @@ ingredients:
     unit: tsp
   - name: egg (for topping)
     quantity: 1
-    unit: whole
   - name: milk (for topping)
     quantity: 1
     unit: tbsp

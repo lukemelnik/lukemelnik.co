@@ -12,7 +12,6 @@ ingredients:
     unit: cup
   - name: eggs
     quantity: 4
-    unit: whole
   - name: water
     quantity: 0.25
     unit: cup

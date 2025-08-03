@@ -39,7 +39,6 @@ ingredients:
     unit: tbsp
   - name: eggs
     quantity: 2
-    unit: whole
   - name: all-purpose flour
     quantity: 8
     unit: cup

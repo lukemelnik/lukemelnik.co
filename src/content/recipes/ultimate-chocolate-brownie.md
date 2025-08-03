@@ -28,7 +28,6 @@ ingredients:
     unit: cup
   - name: eggs
     quantity: 2
-    unit: whole
   - name: all-purpose flour
     quantity: 1.33
     unit: cup

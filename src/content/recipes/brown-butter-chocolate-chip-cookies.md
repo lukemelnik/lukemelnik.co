@@ -22,30 +22,28 @@ ingredients:
     unit: cup
   - name: egg
     quantity: 1
-    unit: large
     note: at room temperature
   - name: egg yolk
     quantity: 1
-    unit: whole
     note: at room temperature
   - name: pure vanilla extract
     quantity: 2
-    unit: teaspoons
+    unit: tsp
   - name: all-purpose flour
     quantity: 2.5
-    unit: cups
+    unit: cup
   - name: cornstarch
     quantity: 1
-    unit: teaspoon
+    unit: tsp
   - name: baking soda
     quantity: 1
-    unit: teaspoon
+    unit: tsp
   - name: salt
     quantity: 0.5
-    unit: teaspoon
+    unit: tsp
   - name: milk
     quantity: 2
-    unit: tablespoons
+    unit: tbsp
   - name: semi-sweet chocolate chips
     quantity: 1
     unit: cup
