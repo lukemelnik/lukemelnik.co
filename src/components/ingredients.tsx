@@ -65,6 +65,9 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
     }
 
     // If no common fraction matches, round to 1 decimal place
+    return Number.isInteger(decimal)
+      ? decimal.toString()
+      : decimal.toFixed(1).replace(/\.0$/, "");
     return decimal.toFixed(1);
   }
 
@@ -80,14 +83,14 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
 
   // Helper to check if an item is a section
   function isSection(
-    item: Ingredient | IngredientSection
+    item: Ingredient | IngredientSection,
   ): item is IngredientSection {
     return "section" in item && "items" in item;
   }
 
   // Get all ingredients from all sections for yeast limit check
   const allIngredients = ingredients.flatMap((item) =>
-    isSection(item) ? item.items : [item]
+    isSection(item) ? item.items : [item],
   );
 
   useEffect(() => {
@@ -95,20 +98,37 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
       (ingredient) =>
         ingredient.name.toLowerCase() === "yeast" &&
         ingredient.quantity !== undefined &&
-        ingredient.quantity * scale > yeastLimit
+        ingredient.quantity * scale > yeastLimit,
     );
     setYeastLimitReached(hasYeastOverLimit);
   }, [allIngredients, scale, yeastLimit]);
 
+  function fixIngredientPlural(
+    unit: string | undefined,
+    quantity: number | undefined,
+  ) {
+    if (unit === undefined) return undefined;
+    const unitInfo = [
+      { match: /cup/i, singular: "cup", plural: "cups" },
+      { match: /clove/i, singular: "clove", plural: "cloves" },
+      { match: /lb/i, singular: "lb", plural: "lbs" },
+    ];
+    for (const { match, singular, plural } of unitInfo) {
+      if (match.test(unit) && quantity) {
+        return quantity <= 1 ? singular : plural;
+      }
+    }
+    return unit;
+  }
+
   // Render a single ingredient
   const renderIngredient = (ingredient: Ingredient, index: number) => {
     const scaledQuantity = scaleQuantity(ingredient);
+    const unit = fixIngredientPlural(ingredient?.unit, scaledQuantity);
     return (
       <li key={index}>
         {scaledQuantity !== undefined
-          ? `${decimalToFraction(scaledQuantity)} ${ingredient.unit || ""} ${
-              ingredient.name
-            }`
+          ? `${decimalToFraction(scaledQuantity)} ${unit} ${ingredient.name}`
           : ingredient.name}{" "}
         {ingredient.note}
       </li>
@@ -122,10 +142,10 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
           // Render a section with its own heading and ingredients
           return (
             <div key={idx} className="mb-6">
-              <h3 className="text-lg font-medium mb-2">{item.section}</h3>
+              <h3 className="mb-2 text-lg font-medium">{item.section}</h3>
               <ul className="mb-4 list-disc pl-5">
                 {item.items.map((ingredient, index) =>
-                  renderIngredient(ingredient, index)
+                  renderIngredient(ingredient, index),
                 )}
               </ul>
             </div>
@@ -139,7 +159,7 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
                 {ingredients
                   .filter((i) => !isSection(i))
                   .map((ingredient, index) =>
-                    renderIngredient(ingredient as Ingredient, index)
+                    renderIngredient(ingredient as Ingredient, index),
                   )}
               </ul>
             );
@@ -156,13 +176,13 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
           <div>
             <div className="flex items-center gap-1">
               <button
-                className="bg-foreground text-background rounded-lg size-8 flex justify-center items-center text-center"
+                className="bg-foreground text-background flex size-8 items-center justify-center rounded-lg text-center"
                 onClick={handleScaleUp}
               >
                 <Plus size={16} className="text-background" />
               </button>
               <button
-                className="bg-foreground text-background justify-center rounded-lg size-8 flex items-center"
+                className="bg-foreground text-background flex size-8 items-center justify-center rounded-lg"
                 onClick={handleScaleDown}
                 disabled={scale <= 1}
               >
