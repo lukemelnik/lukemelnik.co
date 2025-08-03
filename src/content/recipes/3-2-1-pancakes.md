@@ -9,16 +9,16 @@ tags:
 category:
   - Recipes
 ingredients:
-  - name: Flour
+  - name: flour
     quantity: 1
     unit: cup
   - name: milk
     quantity: 2
     unit: cup
-  - name: Eggs
+  - name: eggs
     quantity: 3
 
-  - name: Vanilla
+  - name: vanilla
     quantity: 1
     unit: tsp
 ---

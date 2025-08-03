@@ -41,11 +41,6 @@ ingredients:
     note: (melted and cooled)
 ---
 
-## Notes
-
-- Room temperature eggs work best
-- Let the melted butter cool slightly before adding to the batter
-
 ## Instructions
 
 - Mix dry ingredients together in a bowl

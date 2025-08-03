@@ -1,6 +1,6 @@
 ---
 title: Spaghetti
-description: One-pot spaghetti recipe cooked directly in the sauce. From Brian Lagerstrom.
+description: One-pot spaghetti with noodles cooked directly in the sauce. Originally from Brian Lagerstrom.
 publishDate: 2024-12-24
 source: https://www.youtube.com/watch?v=vrFQkLyGLzc
 tags:
@@ -9,67 +9,55 @@ tags:
 category:
   - Recipes
 ingredients:
-  - name: ground chuck (80/20)
-    quantity: 450
-    unit: g
-    note: (about 1 lb)
-  - name: hot italian pork sausage
-    quantity: 225
-    unit: g
-    note: (about 2 links)
+  - name: meat
+    quantity: 1.5
+    unit: lbs
+    note: (your choice of all ground beef, pork or a mixture)
   - name: onion
-    quantity: 200
-    unit: g
+    quantity: 1
+    unit: full
     note: (medium-large, medium diced)
   - name: garlic
-    quantity: 20
-    unit: g
-    note: (about 4 cloves, minced/pressed)
+    quantity: 4
+    unit: cloves
+    note: (minced)
   - name: dried oregano
-    quantity: 1
-    unit: g
-    note: (about 1/2 tsp)
+    quantity: 0.5
+    unit: tsp
   - name: red chili flake
-    quantity: 1
-    unit: g
-    note: (about 1/2 tsp)
+    quantity: 0.5
+    unit: tsp
   - name: tomato paste
-    quantity: 75
-    unit: g
-    note: (about 1/3 cup)
+    quantity: 0.33
+    unit: cups
   - name: beef better than bouillon
-    quantity: 15
-    unit: g
-    note: (about 1 Tbsp)
+    quantity: 1
+    unit: tbsp
   - name: crushed tomatoes
     quantity: 800
     unit: g
-    note: (28oz can)
+    note: (800g is a 28oz can)
   - name: water
     quantity: 800
-    unit: g
-    note: (enough to fill tomato can)
+    unit: ml
   - name: granulated sugar
-    quantity: 7
-    unit: g
-    note: (about 2 tsp)
+    quantity: 2
+    unit: tsp
   - name: fresh basil
-    quantity: 10
-    unit: g
-    note: (about 3 Tbsp, chopped)
+    quantity: 3
+    unit: tbsp
   - name: dried spaghetti
     quantity: 340
     unit: g
     note: (broken in half)
   - name: grated parmesan
-    quantity: 50
-    unit: g
-    note: (about 1/2 cup, plus extra for garnish)
+    quantity: 0.5
+    unit: cups
 ---
 
 ## Notes
 
-- Meant to use dry spaghetti and cook it right in the sauce
+- Works great to cook the noodles right in pot, but does have a different texture. If you cook the noodles separately you might not need the added water, depending on how saucy you like it.
 
 ## Instructions
 
