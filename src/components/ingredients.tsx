@@ -107,7 +107,7 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
     unit: string | undefined,
     quantity: number | undefined,
   ) {
-    if (unit === undefined) return undefined;
+    if (unit === undefined) return "";
     const unitInfo = [
       { match: /cup/i, singular: "cup", plural: "cups" },
       { match: /clove/i, singular: "clove", plural: "cloves" },
@@ -128,7 +128,7 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
     return (
       <li key={index}>
         {scaledQuantity !== undefined
-          ? `${decimalToFraction(scaledQuantity)} ${unit} ${ingredient.name}`
+          ? `${decimalToFraction(scaledQuantity)} ${unit ?? ""} ${ingredient.name}`
           : ingredient.name}{" "}
         {ingredient.note}
       </li>
