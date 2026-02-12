@@ -2,8 +2,8 @@
 @plugin '@tailwindcss/typography';
 
 :root {
-  --background: hsl(0.72 0.11 178);
-  font-family: 'JetBrains Mono Variable'; 
+  --background: #1f1f28;
+  font-family: 'JetBrains Mono Variable';
 }
 
 
@@ -35,11 +35,19 @@
 }
 
 @theme {
-  --color-background: hsl(198, 52%, 5%);
-  --color-foreground: hsl(60, 11%, 72%);
+  --color-background: #1f1f28;
+  --color-foreground: #dcd7ba;
+  --color-primary: #7e9cd8;
+  --color-secondary: #2d4f67;
+  --color-secondary-foreground: #c8c093;
+  --color-muted: #2a2a37;
+  --color-muted-foreground: #727169;
+  --color-accent: #dca561;
+  --color-border: #363646;
+  --color-card: #16161d;
   --font-sans: "DM Sans Variable", sans-serif;
   --font-serif: "DM Serif Display", serif;
-  --font-mono: "JetBrains Mono Variable", serif; 
+  --font-mono: "JetBrains Mono Variable", serif;
 
   --animate-spin-slow: spin 8s linear infinite;
   @keyframes spin-slow {
@@ -61,7 +69,7 @@
 
 @layer components {
   .fancy-link {
-    @apply text-amber-600 hover:underline underline-offset-4 transition-all duration-300;
+    @apply text-accent hover:underline underline-offset-4 transition-all duration-300;
   }
 }
 

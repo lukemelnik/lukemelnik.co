@@ -8,7 +8,7 @@ const navItems = [
   { label: "Recipes", href: "/recipes", isExternal: false },
   {
     label: "Music",
-    href: "https://open.spotify.com/artist/4musCItyvLBJYaHClwbTLd",
+    href: "https://lukeroes.com",
     isExternal: true,
   },
   { label: "About", href: "/about", isExternal: false },
@@ -22,7 +22,7 @@ const navItems = [
     <nav class="px-H flex h-16 w-full items-center justify-between sm:px-0">
       <!-- Logo/Brand -->
       <div
-        class="group flex items-center gap-2 text-2xl transition-colors duration-300 hover:text-amber-600"
+        class="group flex items-center gap-2 text-2xl transition-colors duration-300 hover:text-accent"
       >
         <span class="animate-spin-slow">
           <SquareIcon />
@@ -43,7 +43,7 @@ const navItems = [
             <li>
               <a
                 href={href}
-                class="group relative flex items-center text-base transition-colors duration-300 hover:text-amber-600"
+                class="group relative flex items-center text-base transition-colors duration-300 hover:text-accent"
                 {...(isExternal && {
                   target: "_blank",
                   rel: "noopener noreferrer",

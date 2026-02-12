@@ -22,14 +22,14 @@ const sortedProjects = projects.sort((a, b) =>
       <p>A showcase of my development work, experiments, and side projects.</p>
     </div>
     
-    <div class="space-y-12">
+    <div class="space-y-6">
       {sortedProjects.length > 0 ? (
         sortedProjects.map((project) => (
           <ContentCard item={project} type="projects" />
         ))
       ) : (
         <div class="text-center py-10">
-          <p class="text-gray-500 italic">Projects coming soon...</p>
+          <p class="text-muted-foreground italic">Projects coming soon...</p>
         </div>
       )}
     </div>

@@ -53,7 +53,7 @@ const ContentCard = ({
             <a
               key={tag}
               href={`/${collectionType}?search=${tag}`}
-              className="text-foreground/60 text-sm font-extralight transition-colors hover:text-amber-600"
+              className="text-foreground/60 text-sm font-extralight transition-colors hover:text-accent"
             >
               #{tag}
             </a>

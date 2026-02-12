@@ -23,7 +23,7 @@ const typeLabels = {
       </a>
     </h2>
     {showDate && (
-      <time datetime={item.data.publishDate.toISOString()} class="text-sm -mt-2 text-gray-600 block mb-2">
+      <time datetime={item.data.publishDate.toISOString()} class="text-sm -mt-2 text-foreground/60 block mb-2">
         {item.data.publishDate.toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long',

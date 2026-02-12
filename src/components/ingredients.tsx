@@ -1,5 +1,8 @@
 import { Minus, Plus } from "lucide-react";
 import { useState, useEffect } from "react";
+import { convertIngredient } from "../utils/unit-conversion";
+
+type UnitSystem = "original" | "metric" | "imperial";
 
 type Ingredient = {
   name: string;
@@ -19,6 +22,7 @@ type IngredientsProps = {
 
 export default function Ingredients({ ingredients }: IngredientsProps) {
   const [scale, setScale] = useState(1);
+  const [unitSystem, setUnitSystem] = useState<UnitSystem>("original");
   const [yeastLimitReached, setYeastLimitReached] = useState(false);
   const yeastLimit = 10;
 
@@ -68,7 +72,6 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
     return Number.isInteger(decimal)
       ? decimal.toString()
       : decimal.toFixed(1).replace(/\.0$/, "");
-    return decimal.toFixed(1);
   }
 
   function scaleQuantity(ingredient: Ingredient) {
@@ -121,9 +124,38 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
     return unit;
   }
 
+  function formatQuantity(quantity: number, system: UnitSystem, unit: string): string {
+    // Metric: round to whole grams/ml, use decimals for other units
+    if (system !== "original" && (unit === "g" || unit === "ml")) {
+      return Math.round(quantity).toString();
+    }
+    return decimalToFraction(quantity);
+  }
+
   // Render a single ingredient
   const renderIngredient = (ingredient: Ingredient, index: number) => {
     const scaledQuantity = scaleQuantity(ingredient);
+
+    // Apply unit conversion after scaling
+    if (scaledQuantity !== undefined && ingredient.unit && unitSystem !== "original") {
+      const converted = convertIngredient(
+        ingredient.name,
+        scaledQuantity,
+        ingredient.unit,
+        unitSystem,
+      );
+      if (converted) {
+        const displayUnit = fixIngredientPlural(converted.unit, converted.quantity);
+        return (
+          <li key={index}>
+            {formatQuantity(converted.quantity, unitSystem, converted.unit)} {displayUnit} {ingredient.name}{" "}
+            {ingredient.note}
+          </li>
+        );
+      }
+    }
+
+    // Original display (no conversion or unconvertible)
     const unit = fixIngredientPlural(ingredient?.unit, scaledQuantity);
     return (
       <li key={index}>
@@ -134,6 +166,12 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
       </li>
     );
   };
+
+  const unitSystemOptions: { value: UnitSystem; label: string }[] = [
+    { value: "original", label: "Original" },
+    { value: "metric", label: "Metric" },
+    { value: "imperial", label: "Imperial" },
+  ];
 
   return (
     <div>
@@ -172,7 +210,7 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-3">
           <p>Recipe scale: </p>
-          <p className={`min-w-8 ${scale > 1 && "text-amber-600"}`}>{scale}x</p>
+          <p className={`min-w-8 ${scale > 1 && "text-accent"}`}>{scale}x</p>
           <div>
             <div className="flex items-center gap-1">
               <button
@@ -191,8 +229,28 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
             </div>
           </div>
         </div>
+
+        <div className="flex items-center gap-3">
+          <p>Units: </p>
+          <div className="flex gap-1">
+            {unitSystemOptions.map((option) => (
+              <button
+                key={option.value}
+                className={`rounded-lg px-3 py-1 text-sm transition-colors ${
+                  unitSystem === option.value
+                    ? "bg-foreground text-background"
+                    : "bg-muted text-foreground hover:bg-muted-foreground/30"
+                }`}
+                onClick={() => setUnitSystem(option.value)}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {yeastLimitReached && (
-          <p className="text-amber-600">
+          <p className="text-accent">
             * No more yeast required after {yeastLimit}g
           </p>
         )}

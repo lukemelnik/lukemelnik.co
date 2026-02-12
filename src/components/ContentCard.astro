@@ -11,8 +11,8 @@ const { item, type, showDate = true } = Astro.props;
 const href = `/${type}/${item.id}`;
 ---
 
-<article class="pb-8">
-  <h2 class="text-2xl font-semibold mb-2">
+<article class="border-b-[1px]/80 pb-8">
+  <h2 class="text-2xl font-bold mb-2">
     <a href={href} class="">
       {item.data.title}
     </a>
@@ -34,7 +34,7 @@ const href = `/${type}/${item.id}`;
         {item.data.tags.map((tag: string) => (
           <a 
             href={`/${type}/tag/${tag}`} 
-            class="text-sm text-foreground/60 hover:text-amber-600 transition-colors"
+            class="text-sm text-foreground/60 hover:text-accent transition-colors"
           >
             #{tag}
           </a>
