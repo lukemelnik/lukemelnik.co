@@ -97,6 +97,12 @@ function convertToMetric(
   }
 }
 
+// Round to nearest practical measuring increment
+function roundCups(n: number): number { return Math.round(n * 8) / 8; }    // nearest 1/8 cup
+function roundSpoons(n: number): number { return Math.round(n * 4) / 4; }  // nearest 1/4 tsp/tbsp
+function roundOz(n: number): number { return Math.round(n * 2) / 2; }      // nearest 1/2 oz
+function roundLb(n: number): number { return Math.round(n * 4) / 4; }      // nearest 1/4 lb
+
 function convertToImperial(
   name: string,
   quantity: number,
@@ -109,42 +115,38 @@ function convertToImperial(
       if (density) {
         const cups = quantity / density;
         if (cups >= 0.25) {
-          return { quantity: cups, unit: "cup" };
+          return { quantity: roundCups(cups), unit: "cup" };
         }
-        // Step down to tbsp
         const tbsp = cups * VOLUME_RATIOS.tbspPerCup;
         if (tbsp >= 1) {
-          return { quantity: tbsp, unit: "tbsp" };
+          return { quantity: roundSpoons(tbsp), unit: "tbsp" };
         }
-        // Step down to tsp
-        return { quantity: tbsp * VOLUME_RATIOS.tspPerTbsp, unit: "tsp" };
+        return { quantity: roundSpoons(tbsp * VOLUME_RATIOS.tspPerTbsp), unit: "tsp" };
       }
       // Fallback: grams to oz
-      return { quantity: quantity / VOLUME_RATIOS.gramsPerOz, unit: "oz" };
+      return { quantity: roundOz(quantity / VOLUME_RATIOS.gramsPerOz), unit: "oz" };
     }
     case "kg": {
       const grams = quantity * 1000;
       if (density) {
-        const cups = grams / density;
-        return { quantity: cups, unit: "cup" };
+        return { quantity: roundCups(grams / density), unit: "cup" };
       }
-      return { quantity: grams / VOLUME_RATIOS.gramsPerLb, unit: "lb" };
+      return { quantity: roundLb(grams / VOLUME_RATIOS.gramsPerLb), unit: "lb" };
     }
     case "ml": {
       const cups = quantity / VOLUME_RATIOS.mlPerCup;
       if (cups >= 0.25) {
-        return { quantity: cups, unit: "cup" };
+        return { quantity: roundCups(cups), unit: "cup" };
       }
       const tbsp = quantity / VOLUME_RATIOS.mlPerTbsp;
       if (tbsp >= 1) {
-        return { quantity: tbsp, unit: "tbsp" };
+        return { quantity: roundSpoons(tbsp), unit: "tbsp" };
       }
-      return { quantity: quantity / VOLUME_RATIOS.mlPerTsp, unit: "tsp" };
+      return { quantity: roundSpoons(quantity / VOLUME_RATIOS.mlPerTsp), unit: "tsp" };
     }
     case "l": {
       const ml = quantity * 1000;
-      const cups = ml / VOLUME_RATIOS.mlPerCup;
-      return { quantity: cups, unit: "cup" };
+      return { quantity: roundCups(ml / VOLUME_RATIOS.mlPerCup), unit: "cup" };
     }
     default:
       return null;

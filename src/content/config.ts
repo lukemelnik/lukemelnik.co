@@ -16,10 +16,21 @@ const blog = defineCollection({
 });
 
 // Define the ingredient schema to be reused
+const validUnits = z.enum([
+  // Imperial volume
+  "cup", "tbsp", "tsp",
+  // Imperial weight
+  "oz", "lb",
+  // Metric
+  "g", "kg", "ml", "l",
+  // Count/descriptive
+  "whole", "can", "clove", "cloves", "full", "small", "large bowl",
+]);
+
 const ingredientSchema = z.object({
   name: z.string(),
   quantity: z.number().optional(),
-  unit: z.string().optional(),
+  unit: validUnits.optional(),
   note: z.string().optional(),
 });
 

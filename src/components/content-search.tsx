@@ -90,10 +90,9 @@ export default function ContentSearch({
     ignoreLocation: true,
   });
 
-  // Get the 5 most recent items
-  const recentItems = [...collection]
-    .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-    .slice(0, 5);
+  // All items sorted by date
+  const allItems = [...collection]
+    .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 
   // Handle search on mount to check for URL parameters
   useEffect(() => {
@@ -166,9 +165,7 @@ export default function ContentSearch({
                 } for "${searchQuery}"`}
           </p>
         </div>
-      ) : (
-        <h2 className="mb-4 text-lg font-extralight">Recent Additions:</h2>
-      )}
+      ) : null}
 
       <div className="space-y-6">
         {searchQuery ? (
@@ -186,7 +183,7 @@ export default function ContentSearch({
             </div>
           )
         ) : (
-          recentItems.map((item) => (
+          allItems.map((item) => (
             <ContentCard
               key={item.id}
               item={item}
