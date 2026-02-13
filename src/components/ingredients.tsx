@@ -1,8 +1,8 @@
 import { Minus, Plus } from "lucide-react";
-import { useState, useEffect } from "react";
-import { convertIngredient } from "../utils/unit-conversion";
+import { useState, useEffect, useMemo } from "react";
+import { convertIngredient, detectSystem } from "../utils/unit-conversion";
 
-type UnitSystem = "original" | "metric" | "imperial";
+type UnitSystem = "metric" | "imperial";
 
 type Ingredient = {
   name: string;
@@ -22,9 +22,33 @@ type IngredientsProps = {
 
 export default function Ingredients({ ingredients }: IngredientsProps) {
   const [scale, setScale] = useState(1);
-  const [unitSystem, setUnitSystem] = useState<UnitSystem>("original");
   const [yeastLimitReached, setYeastLimitReached] = useState(false);
   const yeastLimit = 10;
+
+  // Helper to check if an item is a section
+  function isSection(
+    item: Ingredient | IngredientSection,
+  ): item is IngredientSection {
+    return "section" in item && "items" in item;
+  }
+
+  // Detect the recipe's native unit system from its ingredients
+  const nativeSystem = useMemo<UnitSystem>(() => {
+    const allItems = ingredients.flatMap((item) =>
+      isSection(item) ? item.items : [item],
+    );
+    let imperial = 0;
+    let metric = 0;
+    for (const item of allItems) {
+      if (!item.unit) continue;
+      const system = detectSystem(item.unit);
+      if (system === "imperial") imperial++;
+      if (system === "metric") metric++;
+    }
+    return metric > imperial ? "metric" : "imperial";
+  }, [ingredients]);
+
+  const [unitSystem, setUnitSystem] = useState<UnitSystem>(nativeSystem);
 
   function handleScaleUp() {
     setScale(scale + 1);
@@ -84,13 +108,6 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
     return scaled;
   }
 
-  // Helper to check if an item is a section
-  function isSection(
-    item: Ingredient | IngredientSection,
-  ): item is IngredientSection {
-    return "section" in item && "items" in item;
-  }
-
   // Get all ingredients from all sections for yeast limit check
   const allIngredients = ingredients.flatMap((item) =>
     isSection(item) ? item.items : [item],
@@ -124,9 +141,8 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
     return unit;
   }
 
-  function formatQuantity(quantity: number, system: UnitSystem, unit: string): string {
-    // Metric: round to whole grams/ml, use decimals for other units
-    if (system !== "original" && (unit === "g" || unit === "ml")) {
+  function formatQuantity(quantity: number, unit: string): string {
+    if (unit === "g" || unit === "ml") {
       return Math.round(quantity).toString();
     }
     return decimalToFraction(quantity);
@@ -137,7 +153,7 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
     const scaledQuantity = scaleQuantity(ingredient);
 
     // Apply unit conversion after scaling
-    if (scaledQuantity !== undefined && ingredient.unit && unitSystem !== "original") {
+    if (scaledQuantity !== undefined && ingredient.unit) {
       const converted = convertIngredient(
         ingredient.name,
         scaledQuantity,
@@ -148,14 +164,14 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
         const displayUnit = fixIngredientPlural(converted.unit, converted.quantity);
         return (
           <li key={index}>
-            {formatQuantity(converted.quantity, unitSystem, converted.unit)} {displayUnit} {ingredient.name}{" "}
+            {formatQuantity(converted.quantity, converted.unit)} {displayUnit} {ingredient.name}{" "}
             {ingredient.note}
           </li>
         );
       }
     }
 
-    // Original display (no conversion or unconvertible)
+    // No conversion needed (already in target system, no unit, or unconvertible)
     const unit = fixIngredientPlural(ingredient?.unit, scaledQuantity);
     return (
       <li key={index}>
@@ -168,7 +184,6 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
   };
 
   const unitSystemOptions: { value: UnitSystem; label: string }[] = [
-    { value: "original", label: "Original" },
     { value: "metric", label: "Metric" },
     { value: "imperial", label: "Imperial" },
   ];
