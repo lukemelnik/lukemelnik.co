@@ -2,7 +2,6 @@
 title: Helen Rennie Noodles
 description: Homemade pasta recipe from Helen Rennie.
 publishDate: 2024-12-06
-source: https://www.youtube.com/watch?v=m_fu5RaXMVk
 tags:
   - "noodles"
   - "pasta"
@@ -22,6 +21,8 @@ ingredients:
 ---
 
 ## Notes
+
+Originally from [this Helen Rennie video](https://www.youtube.com/watch?v=awElfbsX5WE).
 
 She recommends 00 flour originally, but bread flour is fine. This recipe uses a ridiculous amount of eggs and turns out quite dry but that makes the rolling so much nicer.
 

@@ -2,7 +2,6 @@
 title: Spaghetti
 description: One-pot spaghetti with noodles cooked directly in the sauce. Originally from Brian Lagerstrom.
 publishDate: 2024-12-24
-source: https://www.youtube.com/watch?v=vrFQkLyGLzc
 tags:
   - "pasta"
   - "italian"
@@ -55,6 +54,7 @@ ingredients:
 
 ## Notes
 
+- Originally from [this Brian Lagerstrom video](https://youtu.be/vrFQkLyGLzc?si=eHPEk0CQOqMsZw67)
 - Works great to cook the noodles right in pot, but does have a different texture. If you cook the noodles separately you might not need the added water, depending on how saucy you like it.
 
 ## Instructions

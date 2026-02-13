@@ -7,7 +7,6 @@ tags:
   - cookies
   - chocolate chip
   - baking
-source: Sally's Baking Addiction
 ingredients:
   - name: unsalted butter
     quantity: 1
@@ -47,6 +46,10 @@ ingredients:
     unit: cup
     note: (Add more if you like them really chocolatey)
 ---
+
+## Notes
+
+- Originally from [Sally's Baking Addiction](https://sallysbakingaddiction.com/brown-butter-chocolate-chip-cookies/)
 
 ## Instructions
 

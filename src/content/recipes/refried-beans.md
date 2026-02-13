@@ -2,7 +2,6 @@
 title: Refried Beans Recipe
 description: Homemade refried beans using pinto beans and bacon fat.
 publishDate: 2024-12-22
-source: https://www.youtube.com/watch?v=fO5BosTSo6I
 tags:
   - "beans"
   - "mexican"
@@ -30,6 +29,7 @@ ingredients:
 
 ## Notes
 
+- Originally from [this Cooking Con Claudia video](https://youtu.be/fO5BosTSo6I?si=XWQ6IeefQvwPEMtK)
 - Save the bean broth after cooking for best flavor
 
 ## Instructions
