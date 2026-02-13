@@ -15,11 +15,18 @@ const { title, description, publishDate, image, ingredients, source } =
 
 <BaseLayout title={title} description={description} image={image}>
   <article
-    class="prose-a:no-underline prose-a:hover:underline prose-strong:text-foreground prose-strong:font-bold prose-headings:mb-2 prose-headings:mt-6 prose-a:text-accent prose-h1:text-4xl prose-a:font-bold prose-p:text-base prose prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground text-foreground/80 prose-headings:text-foreground prose-li:m-0 prose-p:my-2 mx-auto w-full max-w-2xl pt-8 marker:text-accent"
+    class="prose-a:no-underline prose-a:hover:underline prose-strong:text-foreground prose-strong:font-bold prose-headings:mb-2 prose-headings:mt-6 prose-a:text-accent prose-h1:text-4xl prose-a:font-bold prose-p:text-base prose prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground text-foreground/80 prose-headings:text-foreground prose-li:m-0 prose-p:my-2 marker:text-accent mx-auto w-full max-w-2xl pt-6 pb-12"
   >
-    <a href="/recipes" class="text-sm font-extralight"><span class="items-center flex gap group hover:underline"><ArrowLeft size={15} className="group-hover:-translate-x-1 transition-all duration-300"/>  Back to recipes</span></a>
+    <a href="/recipes" class="text-sm font-extralight"
+      ><span class="gap group flex items-center"
+        ><ArrowLeft
+          size={15}
+          className="transition-all duration-300 group-hover:-translate-x-1"
+        /> Back to recipes</span
+      ></a
+    >
     <div class="flex flex-col justify-between gap-1 md:flex-row md:gap-0">
-      <h1 class="mb-0">
+      <h1 class="">
         {title}{
           source === "Family Recipe" ? <sup class="ml-1 text-xs">F</sup> : ""
         }
