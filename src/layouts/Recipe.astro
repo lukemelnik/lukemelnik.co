@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { recipe } = Astro.props;
-const { title, description, publishDate, image, ingredients, source } =
+const { title, description, publishDate, image, ingredients, source, bread } =
   recipe.data;
 ---
 
@@ -35,7 +35,7 @@ const { title, description, publishDate, image, ingredients, source } =
     <p>{description}</p>
     <div class="border-b-1"></div>
     <h2>Ingredients</h2>
-    <Ingredients ingredients={ingredients} client:load />
+    <Ingredients ingredients={ingredients} bread={bread} client:load />
     <div class="my-3 border-b-1"></div>
     <slot />
   </article>

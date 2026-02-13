@@ -1,6 +1,6 @@
 import { Minus, Plus } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
-import { convertIngredient, detectSystem } from "../utils/unit-conversion";
+import { convertIngredient, detectSystem, toGrams } from "../utils/unit-conversion";
 
 type UnitSystem = "metric" | "imperial";
 
@@ -18,9 +18,10 @@ type IngredientSection = {
 
 type IngredientsProps = {
   ingredients: (Ingredient | IngredientSection)[];
+  bread?: boolean;
 };
 
-export default function Ingredients({ ingredients }: IngredientsProps) {
+export default function Ingredients({ ingredients, bread }: IngredientsProps) {
   const [scale, setScale] = useState(1);
   const [yeastLimitReached, setYeastLimitReached] = useState(false);
   const yeastLimit = 10;
@@ -112,6 +113,27 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
   const allIngredients = ingredients.flatMap((item) =>
     isSection(item) ? item.items : [item],
   );
+
+  const hydration = useMemo(() => {
+    if (!bread) return null;
+    const flourPattern = /\bflour\b/i;
+    const waterPattern = /\bwater\b/i;
+    let totalFlour = 0;
+    let totalWater = 0;
+    for (const item of allIngredients) {
+      if (!item.quantity || !item.unit) continue;
+      if (flourPattern.test(item.name)) {
+        const grams = toGrams(item.name, item.quantity, item.unit);
+        if (grams) totalFlour += grams;
+      }
+      if (waterPattern.test(item.name)) {
+        const grams = toGrams(item.name, item.quantity, item.unit);
+        if (grams) totalWater += grams;
+      }
+    }
+    if (totalFlour === 0) return null;
+    return Math.round((totalWater / totalFlour) * 100);
+  }, [bread, allIngredients]);
 
   useEffect(() => {
     const hasYeastOverLimit = allIngredients.some(
@@ -221,6 +243,10 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
           return null;
         }
       })}
+
+      {hydration !== null && (
+        <p className="mb-4 text-sm">Hydration: {hydration}%</p>
+      )}
 
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-3">

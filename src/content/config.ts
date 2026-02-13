@@ -52,6 +52,7 @@ const recipes = defineCollection({
       z.array(ingredientSchema),
       z.array(sectionSchema),
     ]),
+    bread: z.boolean().optional(),
     draft: z.boolean().optional(),
     tags: z.array(z.string()).optional(),
     image: z.string().optional(),

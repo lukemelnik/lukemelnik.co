@@ -59,6 +59,40 @@ export function convertIngredient(
   }
 }
 
+export function toGrams(name: string, quantity: number, unit: string): number | null {
+  const normalized = normalizeUnit(unit);
+  switch (normalized) {
+    case "g":
+      return quantity;
+    case "kg":
+      return quantity * 1000;
+    case "ml":
+      return quantity;
+    case "l":
+      return quantity * 1000;
+    case "cup": {
+      const density = lookupDensity(name);
+      return density ? quantity * density : null;
+    }
+    case "tbsp": {
+      const density = lookupDensity(name);
+      if (!density) return null;
+      return (quantity / VOLUME_RATIOS.tbspPerCup) * density;
+    }
+    case "tsp": {
+      const density = lookupDensity(name);
+      if (!density) return null;
+      return (quantity / (VOLUME_RATIOS.tbspPerCup * VOLUME_RATIOS.tspPerTbsp)) * density;
+    }
+    case "oz":
+      return quantity * VOLUME_RATIOS.gramsPerOz;
+    case "lb":
+      return quantity * VOLUME_RATIOS.gramsPerLb;
+    default:
+      return null;
+  }
+}
+
 function convertToMetric(
   name: string,
   quantity: number,

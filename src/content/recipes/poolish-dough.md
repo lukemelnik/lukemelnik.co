@@ -2,6 +2,7 @@
 title: "Poolish Dough Recipe"
 description: "Pizza dough recipe using poolish preferment"
 publishDate: 2024-12-07
+bread: true
 tags:
   - "bread"
   - "pizza"

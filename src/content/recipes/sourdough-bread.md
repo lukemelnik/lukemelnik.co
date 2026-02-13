@@ -2,11 +2,10 @@
 title: Sourdough Bread
 description: Sourdough bread with semolina. Originally from Gluten Morgen.
 publishDate: 2024-12-22
+bread: true
 tags:
   - "bread"
   - "sourdough"
-category:
-  - Recipes
 ingredients:
   - name: flour
     quantity: 647
