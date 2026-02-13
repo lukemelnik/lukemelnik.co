@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Fuse from "fuse.js";
-import ClearButton from "./ClearButton";
+import { X } from "lucide-react";
 
 type ContentItem = {
   id: string;
@@ -23,9 +23,11 @@ type ContentSearchProps = {
 const ContentCard = ({
   item,
   collectionType,
+  onTagClick,
 }: {
   item: ContentItem;
   collectionType: string;
+  onTagClick: (tag: string) => void;
 }) => (
   <article className="border-b-[1px]/80 pb-8">
     <h2 className="text-2xl font-bold">
@@ -50,13 +52,13 @@ const ContentCard = ({
       {item.data.tags && item.data.tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {item.data.tags.map((tag: string) => (
-            <a
+            <button
               key={tag}
-              href={`/${collectionType}?search=${tag}`}
-              className="text-foreground/60 text-sm font-extralight transition-colors hover:text-accent"
+              onClick={() => onTagClick(tag)}
+              className="text-foreground/60 cursor-pointer text-sm font-extralight transition-colors hover:text-accent"
             >
               #{tag}
-            </a>
+            </button>
           ))}
         </div>
       )}
@@ -80,55 +82,75 @@ export default function ContentSearch({
   collectionType,
 }: ContentSearchProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeTags, setActiveTags] = useState<string[]>([]);
   const [searchResults, setSearchResults] = useState<ContentItem[]>([]);
 
-  // Initialize Fuse.js
-  const fuse = new Fuse(collection, {
-    keys: ["data.title", "data.description", "data.tags"],
-    includeScore: true,
-    threshold: 0.1,
-    ignoreLocation: true,
-  });
-
   // All items sorted by date
-  const allItems = [...collection]
-    .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+  const allItems = useMemo(
+    () =>
+      [...collection].sort(
+        (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+      ),
+    [collection],
+  );
 
-  // Handle search on mount to check for URL parameters
+  // Filter by all active tags (must match every tag)
+  const tagFilteredItems = useMemo(() => {
+    if (activeTags.length === 0) return allItems;
+    return allItems.filter((item) =>
+      activeTags.every((tag) => item.data.tags?.includes(tag)),
+    );
+  }, [activeTags, allItems]);
+
+  function toggleTag(tag: string) {
+    setActiveTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+    );
+  }
+
+  function removeTag(tag: string) {
+    setActiveTags((prev) => prev.filter((t) => t !== tag));
+  }
+
+  // Handle URL params on mount
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const query = params.get("search") || "";
-    setSearchQuery(query);
+    setSearchQuery(params.get("search") || "");
+    const tags = params.getAll("tag");
+    if (tags.length > 0) setActiveTags(tags);
   }, []);
 
-  // Perform search as user types and update URL
+  // Perform search and update URL
   useEffect(() => {
-    if (searchQuery) {
-      const results = fuse.search(searchQuery).map((result) => result.item);
-      setSearchResults(results);
+    const params = new URLSearchParams();
+    for (const tag of activeTags) params.append("tag", tag);
+    if (searchQuery) params.set("search", searchQuery);
+    const qs = params.toString();
+    window.history.pushState(
+      {},
+      "",
+      qs ? `${window.location.pathname}?${qs}` : window.location.pathname,
+    );
 
-      // Update URL without full page reload
-      const params = new URLSearchParams(window.location.search);
-      params.set("search", searchQuery);
-      window.history.pushState(
-        {},
-        "",
-        `${window.location.pathname}?${params.toString()}`,
-      );
+    if (searchQuery) {
+      const fuse = new Fuse(tagFilteredItems, {
+        keys: ["data.title", "data.description", "data.tags"],
+        includeScore: true,
+        threshold: 0.1,
+        ignoreLocation: true,
+      });
+      setSearchResults(fuse.search(searchQuery).map((r) => r.item));
     } else {
       setSearchResults([]);
-      // Remove search param from URL if search is cleared
-      window.history.pushState({}, "", window.location.pathname);
     }
-  }, [searchQuery]);
+  }, [searchQuery, tagFilteredItems]);
 
-  const clearSearch = () => {
-    setSearchQuery("");
-  };
+  const displayedItems = searchQuery ? searchResults : tagFilteredItems;
+  const isFiltering = searchQuery || activeTags.length > 0;
 
   return (
     <div>
-      <div className="mb-6 sm:mb-10">
+      <div className="mb-4 sm:mb-6">
         <div className="flex-col items-center justify-between sm:flex sm:flex-row">
           <h1 className="flex items-center sm:m-0">
             {collectionType === "blog" ? "Blog" : "Recipes"}
@@ -136,16 +158,22 @@ export default function ContentSearch({
               ({collection.length} total)
             </span>
           </h1>
-          <div className="flex items-center gap-2">
+          <div className="relative">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={`Search ${collectionType}...`}
-              className="bg-foreground text-background m-0 rounded-lg px-2 py-2 text-base"
+              className="border-foreground/30 focus:border-foreground/60 m-0 rounded-lg border bg-transparent px-3 py-2 text-base outline-none transition-colors"
             />
-
-            <ClearButton onClick={clearSearch} />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="text-foreground/50 hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer transition-colors"
+              >
+                <X size={16} />
+              </button>
+            )}
           </div>
         </div>
         {collectionType === "recipes" && (
@@ -155,42 +183,40 @@ export default function ContentSearch({
         )}
       </div>
 
-      {searchQuery ? (
+      {activeTags.length > 0 && (
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          {activeTags.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => removeTag(tag)}
+              className="text-foreground bg-foreground/10 hover:bg-foreground/20 flex items-center gap-1 rounded-full px-3 py-1 text-sm transition-colors"
+            >
+              #{tag}
+              <X size={14} />
+            </button>
+          ))}
+        </div>
+      )}
+
+      {isFiltering && (
         <div className="mb-6">
           <p className="text-sm">
-            {searchResults.length === 0
-              ? `No ${collectionType} found for "${searchQuery}"`
-              : `Found ${searchResults.length} ${collectionType}${
-                  searchResults.length === 1 ? "" : "s"
-                } for "${searchQuery}"`}
+            {displayedItems.length === 0
+              ? "No results found"
+              : `Found ${displayedItems.length} result${displayedItems.length === 1 ? "" : "s"}`}
           </p>
         </div>
-      ) : null}
+      )}
 
       <div className="space-y-6">
-        {searchQuery ? (
-          searchResults.length > 0 ? (
-            searchResults.map((item) => (
-              <ContentCard
-                key={item.id}
-                item={item}
-                collectionType={collectionType}
-              />
-            ))
-          ) : (
-            <div className="py-10 text-center">
-              <p>No {collectionType} found.</p>
-            </div>
-          )
-        ) : (
-          allItems.map((item) => (
-            <ContentCard
-              key={item.id}
-              item={item}
-              collectionType={collectionType}
-            />
-          ))
-        )}
+        {displayedItems.map((item) => (
+          <ContentCard
+            key={item.id}
+            item={item}
+            collectionType={collectionType}
+            onTagClick={toggleTag}
+          />
+        ))}
       </div>
     </div>
   );
