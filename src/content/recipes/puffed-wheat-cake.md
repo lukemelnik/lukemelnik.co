@@ -2,7 +2,7 @@
 title: Puffed Wheat Cake 
 description: A Western Canadian desert staple. From Bonnie McBain.
 publishDate: 2025-05-19
-source: Family Recipe
+familyRecipe: true
 tags:
   - "dessert"
   - "cereal"

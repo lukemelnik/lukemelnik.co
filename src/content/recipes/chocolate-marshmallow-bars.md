@@ -2,7 +2,7 @@
 title: Deluxe Chocolate Marshmallow Bars (Mary Smith)
 description: Chocolate marshmallow bar.
 publishDate: 2025-05-19
-source: Family Recipe
+familyRecipe: true
 tags:
   - "dessert"
   - "bars"

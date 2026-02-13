@@ -2,7 +2,6 @@
 title: Buttermilk Pancakes
 description: Fluffy buttermilk pancakes.
 publishDate: 2025-01-02
-source: https://sugarspunrun.com
 tags:
   - "breakfast"
   - "pancakes"

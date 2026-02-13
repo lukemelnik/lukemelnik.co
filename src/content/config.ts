@@ -46,7 +46,7 @@ const recipes = defineCollection({
     title: z.string(),
     description: z.string(),
     publishDate: z.date(),
-    source: z.string().optional(),
+    familyRecipe: z.boolean().optional(),
     ingredients: z.union([
       // Support both flat arrays of ingredients and sectioned ingredients
       z.array(ingredientSchema),

@@ -2,7 +2,7 @@
 title: Pizza Dough
 description: A higher-hydration variation of The Ultimate Dough with olive oil. Keeps in the fridge for a week.
 publishDate: 2026-02-13
-source: Family Recipe
+familyRecipe: true
 bread: true
 tags:
   - "bread"

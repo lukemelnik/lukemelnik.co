@@ -6,7 +6,6 @@ tags:
   - "beans"
   - "recipe"
   - "instantpot"
-source: "https://www.youtube.com/watch?v=JeQQCIZIZww"
 ingredients:
   - name: onion
     quantity: 0.25

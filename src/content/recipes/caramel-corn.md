@@ -2,7 +2,7 @@
 title: Caramel Corn
 description: Caramel-coated popcorn.
 publishDate: 2025-05-19
-source: Family Recipe
+familyRecipe: true
 tags:
   - "snack"
   - "caramel"

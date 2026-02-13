@@ -2,7 +2,7 @@
 title: BBQ Shrimp (Christmas Eve)
 description: Marinated shrimp grilled or broiled. 
 publishDate: 2025-05-12
-source: Family Recipe
+familyRecipe: true
 tags:
   - "shrimp"
   - "bbq"

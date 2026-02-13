@@ -2,7 +2,7 @@
 title: Baba's Classic Chocolate Cake
 description: Chocolate cake with a hint of coffee.
 publishDate: 2025-05-19
-source: Family Recipe
+familyRecipe: true
 tags:
   - "dessert"
   - "cake"

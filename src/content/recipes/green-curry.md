@@ -2,7 +2,6 @@
 title: Green Curry
 description: Thai green curry with fresh aromatics
 publishDate: 2025-01-02
-source: https://www.youtube.com/watch?v=KwSODsgqY5k
 tags:
   - "curry"
   - "thai"

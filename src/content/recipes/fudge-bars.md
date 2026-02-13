@@ -2,7 +2,7 @@
 title: Fudge Bars (Mary Smith)
 description: Fudge bars with oatmeal.  
 publishDate: 2025-05-19
-source: Family Recipe
+familyRecipe: true
 tags:
   - dessert
   - bars

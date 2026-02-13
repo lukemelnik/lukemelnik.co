@@ -2,7 +2,7 @@
 title: The Ultimate Double Chocolate Brownie 
 description: A rich and fudgy double chocolate brownie. From Mary Smith.
 publishDate: 2025-05-19
-source: Family Recipe
+familyRecipe: true
 tags:
   - "dessert"
   - "brownie"

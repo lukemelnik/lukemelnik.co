@@ -2,7 +2,7 @@
 title: Dad's Favourite Salad Dressing
 description: A tangy and sweet homemade salad dressing.
 publishDate: 2025-05-12
-source: Family Recipe
+familyRecipe: true
 tags:
   - "salad"
   - "dressing"

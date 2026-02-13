@@ -2,7 +2,7 @@
 title: 3-2-1 Pancakes
 description: A super easy Dutch style crepe
 publishDate: 2025-08-02
-source: Family Recipe
+familyRecipe: true
 tags:
   - "breakfast"
   - "pancakes"

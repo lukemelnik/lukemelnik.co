@@ -2,7 +2,7 @@
 title: The Ultimate Dough
 description: An all-purpose dough that can be used for anything from baguettes to loaves to buns.
 publishDate: 2026-02-13
-source: Family Recipe
+familyRecipe: true
 bread: true
 tags:
   - "bread"

@@ -7,7 +7,7 @@ type ContentItem = {
   data: {
     title: string;
     description: string;
-    source?: string;
+    familyRecipe?: boolean;
     publishDate: Date;
     tags?: string[];
     [key: string]: any;
@@ -33,7 +33,7 @@ const ContentCard = ({
     <h2 className="text-2xl font-bold">
       <a href={`/${collectionType}/${item.id}`} className="">
         {item.data.title}
-        {item.data.source === "Family Recipe" && (
+        {item.data.familyRecipe && (
           <sup className="ml-1 text-xs">F</sup>
         )}
       </a>

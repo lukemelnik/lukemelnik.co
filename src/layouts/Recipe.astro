@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { recipe } = Astro.props;
-const { title, description, publishDate, image, ingredients, source, bread } =
+const { title, description, publishDate, image, ingredients, familyRecipe, bread } =
   recipe.data;
 ---
 
@@ -28,7 +28,7 @@ const { title, description, publishDate, image, ingredients, source, bread } =
     <div class="flex flex-col justify-between gap-1 md:flex-row md:gap-0">
       <h1 class="">
         {title}{
-          source === "Family Recipe" ? <sup class="ml-1 text-xs">F</sup> : ""
+          familyRecipe ? <sup class="ml-1 text-xs">F</sup> : ""
         }
       </h1>
     </div>

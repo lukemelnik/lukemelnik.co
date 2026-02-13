@@ -2,7 +2,7 @@
 title: Sponge Toffee (Dad's special recipe)
 description: A light and airy sponge toffee with a crisp texture.
 publishDate: 2025-05-19
-source: Family Recipe
+familyRecipe: true
 tags:
   - "dessert"
   - "toffee"

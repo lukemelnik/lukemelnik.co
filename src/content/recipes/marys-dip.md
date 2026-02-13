@@ -2,7 +2,7 @@
 title: Mary's Dip
 description: A classic creamy vegetable dip. 
 publishDate: 2025-05-19
-source: Family Recipe
+familyRecipe: true
 ingredients:
   - name: sour cream
     quantity: 1

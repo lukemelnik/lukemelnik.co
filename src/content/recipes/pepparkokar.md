@@ -2,7 +2,7 @@
 title: Pepparkokar (Mary's Swedish Christmas cookies)
 description: Traditional Swedish Christmas cookies. 
 publishDate: 2025-05-19
-source: Family Recipe
+familyRecipe: true
 tags:
   - "dessert"
   - "cookie"

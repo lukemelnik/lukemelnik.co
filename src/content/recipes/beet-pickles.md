@@ -2,7 +2,7 @@
 title: Nellie's Beet Pickles
 description: Traditional canned beet pickle.  
 publishDate: 2025-05-19
-source: Family Recipe
+familyRecipe: true
 ingredients:
   - name: vinegar
     quantity: 1.5

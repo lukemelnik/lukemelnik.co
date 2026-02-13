@@ -2,7 +2,7 @@
 title: Mary's Brownies
 description: Classic homemade brownies. 
 publishDate: 2025-05-19
-source: Family Recipe
+familyRecipe: true
 ingredients:
   - name: sugar
     quantity: 2

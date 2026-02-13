@@ -2,7 +2,7 @@
 title: Mary's Buns 
 description: A versatile dough recipe with oil. 
 publishDate: 2025-05-19
-source: Family Recipe
+familyRecipe: true
 tags:
   - "bread"
   - "yeast"

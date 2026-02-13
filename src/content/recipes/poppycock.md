@@ -2,7 +2,7 @@
 title: Celine Reichert's Poppycock
 description: Popcorn and nuts with a caramel coating.
 publishDate: 2025-05-19
-source: Family Recipe
+familyRecipe: true
 tags:
   - "snack"
   - "popcorn"
