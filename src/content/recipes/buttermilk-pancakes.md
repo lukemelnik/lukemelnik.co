@@ -6,8 +6,6 @@ source: https://sugarspunrun.com
 tags:
   - "breakfast"
   - "pancakes"
-category:
-  - Recipes
 ingredients:
   - name: all-purpose flour
     quantity: 250

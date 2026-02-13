@@ -8,8 +8,6 @@ tags:
   - "popcorn"
   - "caramel"
   - "nuts"
-category:
-  - Recipes
 ingredients:
   - name: popped corn
     quantity: 1

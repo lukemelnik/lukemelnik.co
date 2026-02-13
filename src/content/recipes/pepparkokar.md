@@ -8,8 +8,6 @@ tags:
   - "cookie"
   - "Swedish"
   - "Christmas"
-category:
-  - Recipes
 ingredients:
   - name: all-purpose flour
     quantity: 10

@@ -7,8 +7,6 @@ tags:
   - "shrimp"
   - "bbq"
   - "seafood"
-category:
-  - Recipes
 ingredients:
   - name: shrimp
     quantity: 2

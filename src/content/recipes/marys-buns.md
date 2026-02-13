@@ -8,8 +8,6 @@ tags:
   - "yeast"
   - "buns"
   - "pizza"
-category:
-  - Recipes
 ingredients:
   - name: warm water
     quantity: 1

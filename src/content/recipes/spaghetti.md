@@ -6,8 +6,6 @@ source: https://www.youtube.com/watch?v=vrFQkLyGLzc
 tags:
   - "pasta"
   - "italian"
-category:
-  - Recipes
 ingredients:
   - name: meat
     quantity: 1.5

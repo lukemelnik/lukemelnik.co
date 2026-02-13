@@ -7,8 +7,6 @@ tags:
   - "pickle"
   - "dill"
   - "preserved"
-category:
-  - Recipes
 ingredients:
   - name: pickling or coarse salt
     quantity: 0.75

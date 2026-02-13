@@ -8,8 +8,6 @@ tags:
   - "bars"
   - "chocolate"
   - "marshmallow"
-category:
-  - Recipes
 ingredients:
   - name: butter
     quantity: 0.75

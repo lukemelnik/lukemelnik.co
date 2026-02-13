@@ -7,8 +7,6 @@ tags:
   - "frosting"
   - "buttercream"
   - "dessert"
-category:
-  - Recipes
 ingredients:
   - name: milk
     quantity: 1

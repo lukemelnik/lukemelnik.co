@@ -6,8 +6,6 @@ source: https://www.youtube.com/watch?v=KwSODsgqY5k
 tags:
   - "curry"
   - "thai"
-category:
-  - Recipes
 ingredients:
   - section: "Aromatics"
     items:

@@ -6,8 +6,6 @@ source: Family Recipe
 tags:
   - "salad"
   - "dressing"
-category:
-  - Recipes
 ingredients:
   - name: vinegar
     quantity: 0.25

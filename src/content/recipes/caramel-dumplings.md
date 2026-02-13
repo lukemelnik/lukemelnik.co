@@ -7,8 +7,6 @@ tags:
   - "dessert"
   - "dumplings"
   - "caramel"
-category:
-  - Recipes
 ingredients:
   - name: butter
     quantity: 2

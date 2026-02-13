@@ -7,8 +7,6 @@ tags:
   - "dessert"
   - "cookie"
   - "chocolate"
-category:
-  - Recipes
 ingredients:
   - name: all-purpose flour
     quantity: 2

@@ -7,8 +7,6 @@ tags:
   - "snack"
   - "caramel"
   - "popcorn"
-category:
-  - Recipes
 ingredients:
   - name: brown sugar
     quantity: 1

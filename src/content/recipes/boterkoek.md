@@ -7,8 +7,6 @@ tags:
   - "dessert"
   - "cake"
   - "Dutch"
-category:
-  - Recipes
 ingredients:
   - name: butter
     quantity: 0.67

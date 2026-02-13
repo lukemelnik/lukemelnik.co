@@ -7,8 +7,6 @@ tags:
   - "dessert"
   - "toffee"
   - "candy"
-category:
-  - Recipes
 ingredients:
   - name: sugar
     quantity: 1

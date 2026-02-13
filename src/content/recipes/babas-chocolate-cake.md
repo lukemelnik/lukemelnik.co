@@ -7,8 +7,6 @@ tags:
   - "dessert"
   - "cake"
   - "chocolate"
-category:
-  - Recipes
 ingredients:
   - name: sugar
     quantity: 2

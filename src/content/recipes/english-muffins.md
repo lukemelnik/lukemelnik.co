@@ -5,8 +5,6 @@ publishDate: 2025-01-03
 tags:
   - "bread"
   - "breakfast"
-category:
-  - Recipes
 ingredients:
   - name: all-purpose flour
     quantity: 660

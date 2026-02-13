@@ -6,8 +6,6 @@ source: https://www.youtube.com/watch?v=m_fu5RaXMVk
 tags:
   - "noodles"
   - "pasta"
-category:
-  - Recipes
 ingredients:
   - name: flour
     quantity: 600

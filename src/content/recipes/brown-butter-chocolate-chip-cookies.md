@@ -8,8 +8,6 @@ tags:
   - chocolate chip
   - baking
 source: Sally's Baking Addiction
-category:
-  - Recipes
 ingredients:
   - name: unsalted butter
     quantity: 1

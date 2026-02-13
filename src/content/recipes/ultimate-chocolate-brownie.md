@@ -7,8 +7,6 @@ tags:
   - "dessert"
   - "brownie"
   - "chocolate"
-category:
-  - Recipes
 ingredients:
   - name: baking cocoa
     quantity: 0.75

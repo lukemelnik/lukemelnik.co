@@ -6,8 +6,6 @@ source: https://www.youtube.com/watch?v=fO5BosTSo6I
 tags:
   - "beans"
   - "mexican"
-category:
-  - Recipes
 ingredients:
   - name: pinto beans
     quantity: 454

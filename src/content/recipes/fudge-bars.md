@@ -7,8 +7,6 @@ tags:
   - dessert
   - bars
   - chocolate
-category:
-  - Recipes
 ingredients:
   - name: butter
     quantity: 1

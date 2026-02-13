@@ -7,8 +7,6 @@ tags:
   - "dessert"
   - "cereal"
   - "bar"
-category:
-  - Recipes
 ingredients:
   - name: margarine
     quantity: 0.33

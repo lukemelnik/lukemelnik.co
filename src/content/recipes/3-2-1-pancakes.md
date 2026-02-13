@@ -6,8 +6,6 @@ source: Family Recipe
 tags:
   - "breakfast"
   - "pancakes"
-category:
-  - Recipes
 ingredients:
   - name: flour
     quantity: 1
