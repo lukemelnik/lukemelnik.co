@@ -1,6 +1,6 @@
 ---
 title: "Shopping Hungry"
-description: "Know what you want before you open the browser."
+description: "Training our attention in the new age."
 publishDate: 2025-07-18
 tags: ["thoughts", "learning"]
 ---
