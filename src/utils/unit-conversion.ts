@@ -137,6 +137,25 @@ function roundSpoons(n: number): number { return Math.round(n * 4) / 4; }  // ne
 function roundOz(n: number): number { return Math.round(n * 2) / 2; }      // nearest 1/2 oz
 function roundLb(n: number): number { return Math.round(n * 4) / 4; }      // nearest 1/4 lb
 
+function convertGramsToImperialMass(quantity: number): { quantity: number; unit: string } {
+  const teaspoons = quantity / VOLUME_RATIOS.mlPerTsp;
+  if (teaspoons < 3) {
+    return { quantity: roundSpoons(teaspoons), unit: "tsp" };
+  }
+
+  const tablespoons = teaspoons / VOLUME_RATIOS.tspPerTbsp;
+  if (tablespoons < 4) {
+    return { quantity: roundSpoons(tablespoons), unit: "tbsp" };
+  }
+
+  const ounces = quantity / VOLUME_RATIOS.gramsPerOz;
+  if (ounces < 16) {
+    return { quantity: roundOz(ounces), unit: "oz" };
+  }
+
+  return { quantity: roundLb(quantity / VOLUME_RATIOS.gramsPerLb), unit: "lb" };
+}
+
 function convertToImperial(
   name: string,
   quantity: number,
@@ -157,15 +176,14 @@ function convertToImperial(
         }
         return { quantity: roundSpoons(tbsp * VOLUME_RATIOS.tspPerTbsp), unit: "tsp" };
       }
-      // Fallback: grams to oz
-      return { quantity: roundOz(quantity / VOLUME_RATIOS.gramsPerOz), unit: "oz" };
+      return convertGramsToImperialMass(quantity);
     }
     case "kg": {
       const grams = quantity * 1000;
       if (density) {
         return { quantity: roundCups(grams / density), unit: "cup" };
       }
-      return { quantity: roundLb(grams / VOLUME_RATIOS.gramsPerLb), unit: "lb" };
+      return convertGramsToImperialMass(grams);
     }
     case "ml": {
       const cups = quantity / VOLUME_RATIOS.mlPerCup;
