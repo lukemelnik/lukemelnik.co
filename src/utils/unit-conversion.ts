@@ -5,6 +5,7 @@ type UnitSystem = "metric" | "imperial" | "unknown";
 const IMPERIAL_UNITS = ["cup", "cups", "tbsp", "tsp", "oz", "lb", "lbs", "pint", "quart", "gallon"];
 const METRIC_UNITS = ["g", "kg", "ml", "l", "gram", "grams", "kilogram", "kilograms", "milliliter", "milliliters", "liter", "liters"];
 const UNCONVERTIBLE_UNITS = ["whole", "can", "cans", "clove", "cloves", "pinch", "dash", "slice", "slices", "piece", "pieces", "bunch", "head", "sprig", "sprigs", "leaf", "leaves", "stalk", "stalks", "ear", "ears"];
+const PREFER_IMPERIAL_MASS = ["dried spaghetti", "crushed tomatoes"];
 
 export function detectSystem(unit: string): UnitSystem {
   const lower = unit.toLowerCase().trim();
@@ -36,6 +37,13 @@ function normalizeUnit(unit: string): string {
   if (lower === "ml" || lower === "milliliter" || lower === "milliliters") return "ml";
   if (lower === "l" || lower === "liter" || lower === "liters") return "l";
   return lower;
+}
+
+function shouldPreferImperialMass(name: string): boolean {
+  const lower = name.toLowerCase().trim();
+  return PREFER_IMPERIAL_MASS.some(
+    (ingredient) => lower.includes(ingredient) || ingredient.includes(lower),
+  );
 }
 
 export function convertIngredient(
@@ -165,7 +173,7 @@ function convertToImperial(
 
   switch (unit) {
     case "g": {
-      if (density) {
+      if (density && !shouldPreferImperialMass(name)) {
         const cups = quantity / density;
         if (cups >= 0.25) {
           return { quantity: roundCups(cups), unit: "cup" };
@@ -180,7 +188,7 @@ function convertToImperial(
     }
     case "kg": {
       const grams = quantity * 1000;
-      if (density) {
+      if (density && !shouldPreferImperialMass(name)) {
         return { quantity: roundCups(grams / density), unit: "cup" };
       }
       return convertGramsToImperialMass(grams);

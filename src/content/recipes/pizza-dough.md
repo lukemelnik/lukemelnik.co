@@ -20,7 +20,6 @@ ingredients:
   - name: yeast
     quantity: 3
     unit: g
-    note: (~1 tsp)
   - name: olive oil
     quantity: 2
     unit: tbsp
