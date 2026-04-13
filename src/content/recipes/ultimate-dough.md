@@ -25,8 +25,10 @@ ingredients:
 
 ## Notes
 
+- YEAST CONTROLS SPEED. That, and the temp of your proofing environment.
+  - So if you want dough fast, just double or triple the yeast and put in a warm spot (you can turn the oven on for 30s then turn it off).
+  - Keeping it light means it can proof on the counter all day or overnight without exploding out of the bowl.
 - Makes two loaves in a standard loaf pan.
-- If you want the bread faster, add an extra teaspoon of yeast and proof in a warm environment like a gently heated oven. You can have the dough ready in as fast as one hour.
 - See also: [Pizza Dough](/recipes/pizza-dough), a higher-hydration variation of this recipe.
 
 ## Instructions
