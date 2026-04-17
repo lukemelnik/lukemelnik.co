@@ -2,7 +2,7 @@
 import BaseLayout from "./BaseLayout.astro";
 import { type CollectionEntry } from "astro:content";
 import Ingredients from "../components/ingredients";
-import { ArrowLeft } from "lucide-react";
+import { ArrowUpLeft } from "lucide-react";
 
 interface Props {
   recipe: CollectionEntry<"recipes">;
@@ -14,29 +14,44 @@ const { title, description, publishDate, image, ingredients, familyRecipe, bread
 ---
 
 <BaseLayout title={title} description={description} image={image}>
-  <article
-    class="prose-a:no-underline prose-a:hover:underline prose-strong:text-foreground prose-strong:font-bold prose-headings:mb-2 prose-headings:mt-6 prose-a:text-accent prose-h1:text-4xl prose-a:font-bold prose-p:text-base prose prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground text-foreground/80 prose-headings:text-foreground prose-li:m-0 prose-p:my-2 marker:text-accent mx-auto w-full max-w-2xl pt-6 pb-12"
-  >
-    <a href="/recipes" class="text-sm font-extralight"
-      ><span class="gap group flex items-center"
-        ><ArrowLeft
-          size={15}
-          className="transition-all duration-300 group-hover:-translate-x-1"
-        /> Back to recipes</span
-      ></a
+  <article class="mx-auto w-full max-w-2xl pt-14 pb-24">
+    <a
+      href="/recipes"
+      class="text-muted-foreground hover:text-accent group inline-flex items-center gap-1.5 font-mono text-sm transition-colors"
     >
-    <div class="flex flex-col justify-between gap-1 md:flex-row md:gap-0">
-      <h1 class="">
-        {title}{
-          familyRecipe ? <sup class="ml-1 text-xs">F</sup> : ""
-        }
+      <ArrowUpLeft
+        size={14}
+        className="transition-transform duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5"
+      />
+      Recipes
+    </a>
+
+    <header class="mt-8 mb-6">
+      <h1 class="text-foreground text-3xl font-bold">
+        {title}{familyRecipe && <sup class="ml-1 text-xs">F</sup>}
       </h1>
+      {
+        description && (
+          <p class="text-foreground/85 mt-3 text-base leading-relaxed">
+            {description}
+          </p>
+        )
+      }
+    </header>
+
+    <div class="border-border border-b"></div>
+
+    <section class="mt-8">
+      <h2 class="text-foreground mb-4 text-xl font-bold">Ingredients</h2>
+      <Ingredients ingredients={ingredients} bread={bread} client:load />
+    </section>
+
+    <div class="border-border my-8 border-b"></div>
+
+    <div
+      class="prose prose-a:no-underline prose-a:hover:underline prose-strong:text-foreground prose-strong:font-bold prose-headings:mb-3 prose-headings:mt-8 prose-a:text-accent prose-a:font-bold prose-p:text-base prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground prose-headings:text-foreground prose-li:m-0 prose-p:my-2 text-foreground/85 marker:text-accent"
+    >
+      <slot />
     </div>
-    <p>{description}</p>
-    <div class="border-b-1"></div>
-    <h2>Ingredients</h2>
-    <Ingredients ingredients={ingredients} bread={bread} client:load />
-    <div class="my-3 border-b-1"></div>
-    <slot />
   </article>
 </BaseLayout>

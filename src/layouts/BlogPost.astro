@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import { type CollectionEntry } from "astro:content";
-import { ArrowLeft } from "lucide-react";
+import { ArrowUpLeft } from "lucide-react";
 
 interface Props {
   post: CollectionEntry<"blog">;
@@ -12,14 +12,24 @@ const { title, description, publishDate, cover, tags } = post.data;
 ---
 
 <BaseLayout title={title} description={description} image={cover}>
-  <article
-    class="prose-a:no-underline prose-a:hover:underline prose-strong:text-foreground prose-strong:font-bold prose-headings:mb-4 prose-a:text-accent prose-h1:text-4xl prose-a:font-bold prose-p:text-base prose prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground lg:prose-lg text-foreground/80 prose-headings:text-foreground mx-auto max-w-2xl py-12 marker:text-accent"
-  >
-    <a href="/blog" class="text-sm font-extralight"><span class="items-center flex gap group"><ArrowLeft size={15} className="group-hover:-translate-x-1 transition-all duration-300"/>  Back to blog</span></a>
-    <h1 class="">{title}</h1>
-    <div>
-      <div class="flex flex-col sm:flex-row text-sm sm:items-center sm:gap-6">
-        <time datetime={publishDate.toISOString()} class="">
+  <article class="mx-auto w-full max-w-2xl pt-14 pb-24">
+    <a
+      href="/writing"
+      class="text-muted-foreground hover:text-accent group inline-flex items-center gap-1.5 font-mono text-sm transition-colors"
+    >
+      <ArrowUpLeft
+        size={14}
+        className="transition-transform duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5"
+      />
+      Writing
+    </a>
+
+    <header class="mt-8 mb-8">
+      <h1 class="text-foreground mb-3 text-3xl font-bold">{title}</h1>
+      <div
+        class="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs"
+      >
+        <time datetime={publishDate.toISOString()}>
           {
             publishDate.toLocaleDateString("en-US", {
               year: "numeric",
@@ -28,18 +38,22 @@ const { title, description, publishDate, cover, tags } = post.data;
             })
           }
         </time>
-        <div>
-          {
-            tags?.map((tag) => (
-              <span>
-                <a class="fancy-link" href={`/blog/?search=${tag}`}>
-                  #{tag}
-                </a>
-              </span>
-            ))
-          }
-        </div>
+        {
+          tags && tags.length > 0 && (
+            <span class="text-muted-foreground/60">·</span>
+          )
+        }
+        {
+          tags?.map((tag) => (
+            <span class="text-muted-foreground">{tag}</span>
+          ))
+        }
       </div>
+    </header>
+
+    <div
+      class="prose lg:prose-lg prose-a:no-underline prose-a:hover:underline prose-strong:text-foreground prose-strong:font-bold prose-headings:mb-4 prose-a:text-accent prose-a:font-bold prose-p:text-base prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground prose-headings:text-foreground text-foreground/85 marker:text-accent"
+    >
       <slot />
     </div>
   </article>

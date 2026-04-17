@@ -9,6 +9,11 @@ export default defineConfig({
   site: "https://lukemelnik.co",
   integrations: [react(), mdx(), sitemap()],
 
+  redirects: {
+    "/blog": "/writing",
+    "/blog/[...slug]": "/[...slug]",
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },

@@ -6,6 +6,7 @@ technologies: ["TypeScript", "TanStack Start", "OpenAPI SDK"]
 url: "https://lukeroes.com"
 github: "lukemelnik/lukeroes"
 tags: ["projects"]
+featured: true
 ---
 
 My artist website, built with TanStack Start and powered by the Songkeeper API through an auto-generated OpenAPI SDK. Displays music, releases, and session credits.

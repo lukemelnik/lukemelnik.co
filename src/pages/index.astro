@@ -1,121 +1,210 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SquareIcon from "../components/SquareIcon.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
-import LatestContentCard from "../components/LatestContentCard.astro";
-import { Code, BookOpen, Utensils } from "lucide-astro";
 
-// Get blog posts
-const blogPosts = await getCollection(
-  "blog",
-  ({ data }: { data: CollectionEntry<"blog">["data"] }) => {
-    return import.meta.env.PROD ? data.draft !== true : true;
-  },
+const filterDraft = ({ data }: { data: { draft?: boolean } }) =>
+  import.meta.env.PROD ? data.draft !== true : true;
+
+const blogPosts = (await getCollection("blog", filterDraft)).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
 );
+const latestWriting = blogPosts.slice(0, 3);
 
-// Sort and get latest blog post
-const latestBlogPost = blogPosts
-  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .at(0);
-
-// Get recipes (assuming you have a "recipes" collection)
-const recipes = await getCollection(
-  "recipes",
-  ({ data }: { data: CollectionEntry<"recipes">["data"] }) => {
-    return import.meta.env.PROD ? data.draft !== true : true;
-  },
-);
-
-// Sort and get latest recipe
-const latestRecipe = recipes
-  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .at(0);
-
-const projects = await getCollection(
-  "projects",
-  ({ data }: { data: CollectionEntry<"projects">["data"] }) => {
-    return import.meta.env.PROD ? data.draft !== true : true;
-  },
-);
-
-const latestProject = projects
-  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .at(0);
+const projects = await getCollection("projects", filterDraft);
+const building = projects
+  .filter((p: CollectionEntry<"projects">) => p.data.status === "wip")
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+const featuredProjects = projects
+  .filter(
+    (p: CollectionEntry<"projects">) =>
+      p.data.featured === true && p.data.status !== "wip",
+  )
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 ---
 
 <BaseLayout
   title="Luke Melnik"
-  description="Developer and musician."
-  image="/social-image.jpg"
+  description="Full-stack TypeScript developer. Ten years in the music industry as a producer and engineer, now building software full-time."
 >
-  <main class="mx-auto min-h-screen w-full max-w-2xl pt-6">
-    <section class="mb-10">
-      <p class="text-foreground/80 text-xl leading-relaxed">
-        Hey, I'm Luke. Welcome to my digital garden 🪴
+  <main class="mx-auto w-full max-w-2xl pt-18 pb-24">
+    <div class="mb-8 flex items-center gap-3">
+      <span class="animate-spin-slow text-accent">
+        <SquareIcon />
+      </span>
+      <span class="font-mono text-lg font-bold">Luke Melnik</span>
+    </div>
+
+    <p class="text-foreground/90 mb-4 text-[17px] leading-relaxed">
+      Hey, I'm Luke. Self-taught full-stack developer. Mech-eng degree, ten
+      years in the music industry as a producer, audio engineer, and artist.
+      Currently exploring the limits of agentic engineering and building <a
+        href="https://songkeeper.io"
+        target="_blank"
+        class="text-accent hover:underline">Songkeeper</a
+      >.
+    </p>
+
+    <div class="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-8">
+      <section class="flex flex-col">
+        <h2
+          class="text-muted-foreground mb-4 font-mono text-xs font-medium tracking-wider uppercase"
+        >
+          Building
+        </h2>
+        <div class="flex-1 space-y-4">
+          {
+            building.map((project) => (
+              <div>
+                <a
+                  href={`/projects/${project.id}`}
+                  class="hover:text-accent text-[15px] font-medium transition-colors"
+                >
+                  {project.data.title}
+                </a>
+                <p class="text-muted-foreground mt-0.5 text-sm leading-snug">
+                  {project.data.description}
+                </p>
+                {project.data.url && (
+                  <a
+                    href={project.data.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-accent mt-1 inline-block font-mono text-[13px] hover:underline hover:underline-offset-4"
+                  >
+                    {project.data.url.replace(/^https?:\/\//, "")} ↗
+                  </a>
+                )}
+              </div>
+            ))
+          }
+          {
+            building.length === 0 && (
+              <p class="text-muted-foreground text-sm italic">
+                Between things.
+              </p>
+            )
+          }
+        </div>
+      </section>
+
+      <section class="flex flex-col">
+        <h2
+          class="text-muted-foreground mb-4 font-mono text-xs font-medium tracking-wider uppercase"
+        >
+          Projects
+        </h2>
+        <div class="flex-1 space-y-4">
+          {
+            featuredProjects.map((project) => (
+              <div>
+                <a
+                  href={`/projects/${project.id}`}
+                  class="hover:text-accent text-[15px] font-medium transition-colors"
+                >
+                  {project.data.title}
+                </a>
+                <p class="text-muted-foreground mt-0.5 text-sm leading-snug">
+                  {project.data.description}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+        <a
+          href="/projects"
+          class="text-muted-foreground hover:text-accent mt-4 self-start font-mono text-[13px] transition-colors"
+        >
+          All projects →
+        </a>
+      </section>
+
+      <section class="flex flex-col">
+        <h2
+          class="text-muted-foreground mb-4 font-mono text-xs font-medium tracking-wider uppercase"
+        >
+          Writing
+        </h2>
+        <div class="flex-1 space-y-4">
+          {
+            latestWriting.map((post) => (
+              <div>
+                <a
+                  href={`/${post.id}`}
+                  class="hover:text-accent text-[15px] font-medium transition-colors"
+                >
+                  {post.data.title}
+                </a>
+                <p class="text-muted-foreground mt-0.5 text-sm leading-snug">
+                  {post.data.description}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+        <a
+          href="/writing"
+          class="text-muted-foreground hover:text-accent mt-4 self-start font-mono text-[13px] transition-colors"
+        >
+          All writing →
+        </a>
+      </section>
+    </div>
+
+    <section class="mt-18">
+      <h2
+        class="text-muted-foreground mb-3 font-mono text-xs font-medium tracking-wider uppercase"
+      >
+        Outside code
+      </h2>
+      <p class="text-foreground/90 text-base leading-relaxed">
+        I also still make music as
+        <a
+          href="https://lukeroes.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-accent hover:underline hover:underline-offset-4"
+          >Luke Roes</a
+        >, and love to bake glutenous things — see
+        <a
+          href="/recipes"
+          class="text-accent hover:underline hover:underline-offset-4"
+          >recipes</a
+        >.
       </p>
     </section>
 
-    <div class="flex flex-col gap-10">
-      <!-- Latest Project -->
-      <section class="space-y-4">
-        <div
-          class="text-foreground/80 flex items-center justify-between border-b"
+    <section class="mt-12">
+      <h2
+        class="text-muted-foreground mb-3 font-mono text-xs font-medium tracking-wider uppercase"
+      >
+        Links
+      </h2>
+      <div class="flex flex-wrap gap-6">
+        <a
+          href="https://github.com/lukemelnik"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-accent transition-colors">GitHub ↗</a
         >
-          <h2 class="flex items-center gap-2 text-lg font-light tracking-tight">
-            <a href="/projects">What I'm Building</a>
-          </h2>
-          <Code size={24} />
-        </div>
-        {
-          latestProject ? (
-            <LatestContentCard
-              item={latestProject}
-              type="projects"
-              showDate={false}
-            />
-          ) : (
-            <p class="text-muted-foreground italic">Projects coming soon...</p>
-          )
-        }
-      </section>
-
-      <!-- Latest Blog Post -->
-      <section class="space-y-4">
-        <div
-          class="text-foreground/80 flex items-center justify-between border-b tracking-tight"
+        <a
+          href="https://linkedin.com/in/lukemelnik"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-accent transition-colors">LinkedIn ↗</a
         >
-          <h2 class="flex items-center gap-2 text-lg font-light">
-            <a href="blog/">What I'm Thinking About</a>
-          </h2>
-          <BookOpen size={24} />
-        </div>
-        {
-          latestBlogPost && (
-            <LatestContentCard item={latestBlogPost} type="blog" />
-          )
-        }
-      </section>
-
-      <!-- Latest Recipe -->
-      <section class="space-y-4">
-        <div
-          class="text-foreground/80 flex items-center justify-between border-b"
+        <a
+          href="https://x.com/lukemelnik"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-accent transition-colors">X ↗</a
         >
-          <h2
-            class="flex items-center gap-2 text-lg font-light tracking-tight"
-          >
-            <a href="recipes/">What I'm Cooking</a>
-          </h2>
-          <Utensils size={24} />
-        </div>
-        {
-          latestRecipe ? (
-            <LatestContentCard item={latestRecipe} type="recipes" />
-          ) : (
-            <p class="text-muted-foreground italic">Recipes coming soon...</p>
-          )
-        }
-      </section>
-    </div>
+        <a
+          href="mailto:luke.melnik@gmail.com"
+          class="hover:text-accent transition-colors">Email ↗</a
+        >
+      </div>
+    </section>
   </main>
 </BaseLayout>

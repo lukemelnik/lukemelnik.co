@@ -73,6 +73,7 @@ const projects = defineCollection({
     image: z.string().optional(),
     role: z.enum(["solo", "lead", "contributor"]).optional(),
     status: z.enum(["shipped", "wip", "archived"]).optional(),
+    featured: z.boolean().optional(),
   }),
 });
 
