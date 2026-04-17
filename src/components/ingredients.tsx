@@ -100,87 +100,106 @@ export default function Ingredients({ ingredients, bread }: IngredientsProps) {
   ];
 
   return (
-    <div>
-      {ingredients.map((item, idx) => {
-        if (isSection(item)) {
-          return (
-            <div key={idx} className="mb-6">
-              <h3 className="mb-2 text-lg font-medium">{item.section}</h3>
-              <ul className="mb-4 list-disc pl-5">
-                {item.items.map((ingredient, index) =>
-                  renderIngredient(ingredient, index),
-                )}
-              </ul>
-            </div>
-          );
-        } else {
-          if (idx === 0) {
+    <div className="grid grid-cols-1 gap-8 sm:grid-cols-[1fr_auto]">
+      <div>
+        {ingredients.map((item, idx) => {
+          if (isSection(item)) {
             return (
-              <ul key={idx} className="mb-4 list-disc pl-5">
-                {ingredients
-                  .filter((i) => !isSection(i))
-                  .map((ingredient, index) =>
-                    renderIngredient(ingredient as Ingredient, index),
+              <div key={idx} className="mb-6">
+                <h3 className="mb-2 text-lg font-medium">{item.section}</h3>
+                <ul className="mb-4 list-disc pl-5">
+                  {item.items.map((ingredient, index) =>
+                    renderIngredient(ingredient, index),
                   )}
-              </ul>
+                </ul>
+              </div>
             );
+          } else {
+            if (idx === 0) {
+              return (
+                <ul key={idx} className="mb-4 list-disc pl-5">
+                  {ingredients
+                    .filter((i) => !isSection(i))
+                    .map((ingredient, index) =>
+                      renderIngredient(ingredient as Ingredient, index),
+                    )}
+                </ul>
+              );
+            }
+            return null;
           }
-          return null;
-        }
-      })}
+        })}
+        {hydration !== null && (
+          <p className="text-muted-foreground mt-3 font-mono text-xs">
+            Hydration: {hydration}%
+          </p>
+        )}
+      </div>
 
-      {hydration !== null && (
-        <p className="mb-4 text-sm">Hydration: {hydration}%</p>
-      )}
-
-      <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-3">
-          <p>Recipe scale: </p>
-          <p className={`min-w-8 ${scale > 1 && "text-accent"}`}>{scale}x</p>
-          <div>
-            <div className="flex items-center gap-1">
-              <button
-                className="bg-foreground text-background flex size-8 items-center justify-center rounded-lg text-center"
-                onClick={handleScaleUp}
-              >
-                <Plus size={16} className="text-background" />
-              </button>
-              <button
-                className="bg-foreground text-background flex size-8 items-center justify-center rounded-lg"
-                onClick={handleScaleDown}
-                disabled={scale <= 1}
-              >
-                <Minus size={16} />
-              </button>
-            </div>
+      <aside className="flex flex-col gap-5 sm:w-40">
+        <div>
+          <div className="text-muted-foreground mb-2 font-mono text-xs tracking-wider uppercase">
+            Scale
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={handleScaleDown}
+              disabled={scale <= 1}
+              className="border-border text-muted-foreground hover:border-accent hover:text-accent disabled:hover:border-border disabled:hover:text-muted-foreground flex size-7 items-center justify-center rounded-full border transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+              aria-label="Decrease scale"
+            >
+              <Minus size={14} />
+            </button>
+            <span
+              className={`min-w-8 text-center font-mono text-sm ${
+                scale > 1 ? "text-accent" : "text-foreground"
+              }`}
+            >
+              {scale}x
+            </span>
+            <button
+              type="button"
+              onClick={handleScaleUp}
+              className="border-border text-muted-foreground hover:border-accent hover:text-accent flex size-7 items-center justify-center rounded-full border transition-colors"
+              aria-label="Increase scale"
+            >
+              <Plus size={14} />
+            </button>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <p>Units: </p>
-          <div className="flex gap-1">
-            {unitSystemOptions.map((option) => (
-              <button
-                key={option.value}
-                className={`rounded-lg px-3 py-1 text-sm transition-colors ${
-                  unitSystem === option.value
-                    ? "bg-foreground text-background"
-                    : "bg-muted text-foreground hover:bg-muted-foreground/30"
-                }`}
-                onClick={() => setUnitSystem(option.value)}
-              >
-                {option.label}
-              </button>
-            ))}
+        <div>
+          <div className="text-muted-foreground mb-2 font-mono text-xs tracking-wider uppercase">
+            Units
+          </div>
+          <div className="flex gap-1.5">
+            {unitSystemOptions.map((option) => {
+              const active = unitSystem === option.value;
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => setUnitSystem(option.value)}
+                  className={`rounded-full border px-3 py-0.5 font-mono text-[11px] transition-colors ${
+                    active
+                      ? "bg-accent border-accent text-background"
+                      : "border-border text-muted-foreground hover:border-accent hover:text-accent"
+                  }`}
+                >
+                  {option.label}
+                </button>
+              );
+            })}
           </div>
         </div>
 
         {yeastLimitReached && (
-          <p className="text-accent">
+          <p className="text-accent font-mono text-xs">
             * No more yeast required after {YEAST_LIMIT}g
           </p>
         )}
-      </div>
+      </aside>
     </div>
   );
 }
