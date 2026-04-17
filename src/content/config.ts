@@ -71,6 +71,8 @@ const projects = defineCollection({
     draft: z.boolean().optional(),
     tags: z.array(z.string()).optional(),
     image: z.string().optional(),
+    role: z.enum(["solo", "lead", "contributor"]).optional(),
+    status: z.enum(["shipped", "wip", "archived"]).optional(),
   }),
 });
 

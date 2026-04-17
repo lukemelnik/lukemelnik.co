@@ -1,60 +1,114 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import { type CollectionEntry } from 'astro:content';
-import { ArrowLeft } from 'lucide-react';
+import BaseLayout from "./BaseLayout.astro";
+import { type CollectionEntry } from "astro:content";
+import { ArrowLeft } from "lucide-react";
 
 interface Props {
-  project: CollectionEntry<'projects'>;
+  project: CollectionEntry<"projects">;
 }
 
 const { project } = Astro.props;
-const { title, description, publishDate, image, technologies, url, github } = project.data;
+const { title, description, publishDate, image, technologies, url, github, role, status } = project.data;
+
+const roleLabel = role
+  ? { solo: "Solo", lead: "Lead", contributor: "Contributor" }[role]
+  : null;
+
+const statusLabel = status
+  ? { shipped: "Shipped", wip: "In progress", archived: "Archived" }[status]
+  : null;
+
+const dateLabel = publishDate?.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "short",
+});
 ---
 
 <BaseLayout title={title} description={description} image={image}>
-  <article class="prose-a:no-underline prose-a:hover:underline prose-strong:text-foreground prose-strong:font-bold prose-headings:mb-4 prose-a:text-accent prose-h1:text-4xl prose-a:font-bold prose-p:text-base prose prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground lg:prose-lg text-foreground/80 prose-headings:text-foreground mx-auto max-w-2xl w-full py-12 marker:text-accent">
-    <a href="/projects" class="text-sm font-extralight"><span class="items-center flex gap group"><ArrowLeft size={15} className="group-hover:-translate-x-1 transition-all duration-300"/>  Back to projects</span></a>
-    <div class="flex justify-between mb-5">
-      <h1 class="mb-0">{title}</h1>
-      <time datetime={publishDate?.toISOString()} class="font-extralight">
-        {publishDate?.toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        })}
-      </time>
+  <article class="mx-auto w-full max-w-2xl py-12">
+    <a href="/projects" class="text-sm font-extralight">
+      <span class="group flex items-center gap-1">
+        <ArrowLeft size={15} className="transition-all duration-300 group-hover:-translate-x-1" />
+        Back to projects
+      </span>
+    </a>
+
+    <header class="mt-6">
+      <h1 class="text-4xl font-bold text-foreground">{title}</h1>
+      <p class="mt-3 text-lg text-foreground/80">{description}</p>
+
+      <div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+        {roleLabel && (
+          <span class="rounded border border-border/80 px-2 py-0.5 text-xs uppercase tracking-wide text-muted-foreground">
+            {roleLabel}
+          </span>
+        )}
+        {statusLabel && (
+          <span class="rounded border border-border/80 px-2 py-0.5 text-xs uppercase tracking-wide text-muted-foreground">
+            {statusLabel}
+          </span>
+        )}
+        {dateLabel && (
+          <time datetime={publishDate?.toISOString()} class="text-xs text-muted-foreground">
+            {dateLabel}
+          </time>
+        )}
+
+        {technologies && technologies.length > 0 && (
+          <>
+            <span class="text-muted-foreground/50">·</span>
+            <div class="flex flex-wrap gap-1.5">
+              {technologies.map((tech) => (
+                <span class="rounded-md bg-secondary px-2 py-0.5 text-xs text-secondary-foreground">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </>
+        )}
+
+        {(url || github) && (
+          <>
+            <span class="text-muted-foreground/50">·</span>
+            <div class="flex gap-3">
+              {url && (
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="fancy-link text-sm font-medium"
+                >
+                  Visit site →
+                </a>
+              )}
+              {github && (
+                <a
+                  href={`https://github.com/${github}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="fancy-link text-sm font-medium"
+                >
+                  GitHub →
+                </a>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </header>
+
+    {image && (
+      <img
+        src={image}
+        alt={title}
+        class="mt-8 w-full rounded-lg border border-border/80"
+      />
+    )}
+
+    <div class="my-8 border-b border-border/80"></div>
+
+    <div class="prose lg:prose-lg prose-a:no-underline prose-a:hover:underline prose-strong:text-foreground prose-strong:font-bold prose-headings:mb-4 prose-a:text-accent prose-a:font-bold prose-p:text-base prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground prose-headings:text-foreground text-foreground/80 marker:text-accent">
+      <slot />
     </div>
-    <p>{description}</p>
-    
-    {technologies && technologies.length > 0 && (
-      <div class="my-4">
-        <h2>Technologies</h2>
-        <div class="flex flex-wrap gap-2">
-          {technologies.map((tech) => (
-            <span class="bg-secondary text-secondary-foreground px-3 py-1 rounded-md text-sm">
-              {tech}
-            </span>
-          ))}
-        </div>
-      </div>
-    )}
-
-    {(url || github) && (
-      <div class="flex gap-4 my-4 not-prose">
-        {url && (
-          <a href={url} target="_blank" rel="noopener noreferrer" class="fancy-link font-medium">
-            Visit site →
-          </a>
-        )}
-        {github && (
-          <a href={`https://github.com/${github}`} target="_blank" rel="noopener noreferrer" class="fancy-link font-medium">
-            GitHub →
-          </a>
-        )}
-      </div>
-    )}
-
-    <div class="border-b-1 my-3"></div>
-    <slot />
   </article>
 </BaseLayout>
