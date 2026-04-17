@@ -149,7 +149,7 @@ If notes or a writeup already exist:
 ## File locations
 
 ```
-lukemelnik.co/
+lukemelnik-web/
 ├── .agents/skills/project-showcase/
 │   ├── SKILL.md
 │   └── interviews/

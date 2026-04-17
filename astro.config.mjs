@@ -6,7 +6,7 @@ import sitemap from "@astrojs/sitemap";
 import remarkCallout from "@r4ai/remark-callout";
 
 export default defineConfig({
-  site: "https://lukemelnik.co",
+  site: "https://lukemelnik.ca",
   integrations: [react(), mdx(), sitemap()],
 
   redirects: {

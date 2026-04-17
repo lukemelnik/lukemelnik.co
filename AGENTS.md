@@ -1,4 +1,4 @@
-# lukemelnik.co — Agent Instructions
+# lukemelnik — Agent Instructions
 
 Personal website. Astro static site with blog, projects, and recipes.
 
