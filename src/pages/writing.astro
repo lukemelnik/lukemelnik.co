@@ -1,16 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
+import ContentList from "../components/content-search";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
-const posts = (
-  await getCollection(
-    "blog",
-    ({ data }: { data: CollectionEntry<"blog">["data"] }) =>
-      import.meta.env.PROD ? data.draft !== true : true,
-  )
-).sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+const posts = await getCollection(
+  "blog",
+  ({ data }: { data: CollectionEntry<"blog">["data"] }) =>
+    import.meta.env.PROD ? data.draft !== true : true,
+);
 ---
 
 <BaseLayout
@@ -26,35 +25,6 @@ const posts = (
       Writing
     </h1>
 
-    <div class="flex flex-col">
-      {
-        posts.map((post) => (
-          <div class="border-border flex items-baseline justify-between gap-4 border-b py-3.5">
-            <div class="min-w-0 flex-1">
-              <a
-                href={`/${post.id}`}
-                class="hover:text-accent text-[15px] font-medium transition-colors"
-              >
-                {post.data.title}
-              </a>
-              {post.data.description && (
-                <p class="text-muted-foreground mt-1 text-sm leading-snug">
-                  {post.data.description}
-                </p>
-              )}
-            </div>
-            <time
-              datetime={post.data.publishDate.toISOString()}
-              class="text-muted-foreground shrink-0 font-mono text-xs"
-            >
-              {post.data.publishDate.toLocaleDateString("en-US", {
-                year: "2-digit",
-                month: "short",
-              })}
-            </time>
-          </div>
-        ))
-      }
-    </div>
+    <ContentList client:load collection={posts} type="blog" />
   </main>
 </BaseLayout>

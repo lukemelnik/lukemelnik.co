@@ -1,40 +1,42 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import SquareIcon from "../components/SquareIcon.astro";
+import SiteHeader from "../components/SiteHeader.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
 const filterDraft = ({ data }: { data: { draft?: boolean } }) =>
   import.meta.env.PROD ? data.draft !== true : true;
 
+const HOME_COLUMN_LIMIT = 3;
+
 const blogPosts = (await getCollection("blog", filterDraft)).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
 );
-const latestWriting = blogPosts.slice(0, 3);
+const featuredPosts = blogPosts.filter((p) => p.data.featured === true);
+const homeWriting = (
+  featuredPosts.length > 0 ? featuredPosts : blogPosts
+).slice(0, HOME_COLUMN_LIMIT);
 
 const projects = await getCollection("projects", filterDraft);
 const building = projects
   .filter((p: CollectionEntry<"projects">) => p.data.status === "wip")
-  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, HOME_COLUMN_LIMIT);
 const featuredProjects = projects
   .filter(
     (p: CollectionEntry<"projects">) =>
       p.data.featured === true && p.data.status !== "wip",
   )
-  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, HOME_COLUMN_LIMIT);
 ---
 
 <BaseLayout
   title="Luke Melnik"
   description="Full-stack TypeScript developer. Ten years in the music industry as a producer and engineer, now building software full-time."
 >
-  <main class="mx-auto w-full max-w-2xl pt-18 pb-24">
-    <div class="mb-8 flex items-center gap-3">
-      <span class="animate-spin-slow text-accent">
-        <SquareIcon />
-      </span>
-      <span class="font-mono text-lg font-bold">Luke Melnik</span>
-    </div>
+  <main class="mx-auto w-full max-w-2xl pt-14 pb-24">
+    <SiteHeader home />
 
     <p class="text-foreground/90 mb-4 text-[17px] leading-relaxed">
       Hey, I'm Luke. Self-taught full-stack developer. Mech-eng degree, ten
@@ -128,7 +130,7 @@ const featuredProjects = projects
         </h2>
         <div class="flex-1 space-y-4">
           {
-            latestWriting.map((post) => (
+            homeWriting.map((post) => (
               <div>
                 <a
                   href={`/${post.id}`}
@@ -159,18 +161,18 @@ const featuredProjects = projects
         Outside code
       </h2>
       <p class="text-foreground/90 text-base leading-relaxed">
-        I also still make music as
+        I still make music as
         <a
           href="https://lukeroes.com"
           target="_blank"
           rel="noopener noreferrer"
           class="text-accent hover:underline hover:underline-offset-4"
           >Luke Roes</a
-        >, and love to bake glutenous things — see
+        >, play a lot of guitar, and love to bake glutenous things.
         <a
           href="/recipes"
           class="text-accent hover:underline hover:underline-offset-4"
-          >recipes</a
+          >I keep all my recipes here</a
         >.
       </p>
     </section>

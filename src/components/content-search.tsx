@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import Fuse from "fuse.js";
 import { X } from "lucide-react";
 
-type Recipe = {
+type Item = {
   id: string;
   data: {
     title: string;
@@ -15,10 +15,18 @@ type Recipe = {
 };
 
 type Props = {
-  collection: Recipe[];
+  collection: Item[];
+  type: "blog" | "recipes";
+  searchable?: boolean;
+  searchPlaceholder?: string;
 };
 
-export default function RecipeSearch({ collection }: Props) {
+export default function ContentList({
+  collection,
+  type,
+  searchable = false,
+  searchPlaceholder,
+}: Props) {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTags, setActiveTags] = useState<string[]>([]);
 
@@ -76,17 +84,25 @@ export default function RecipeSearch({ collection }: Props) {
     );
   }
 
+  function href(item: Item) {
+    return type === "blog" ? `/${item.id}` : `/recipes/${item.id}`;
+  }
+
+  const emptyLabel = type === "blog" ? "No posts match." : "No recipes match.";
+
   return (
     <div>
-      <div className="border-border mb-5 flex items-center border-b">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search recipes…"
-          className="placeholder:text-muted-foreground w-full bg-transparent py-2 text-sm outline-none"
-        />
-      </div>
+      {searchable && (
+        <div className="border-border mb-5 flex items-center border-b">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={searchPlaceholder ?? "Search…"}
+            className="placeholder:text-muted-foreground w-full bg-transparent py-2 text-sm outline-none"
+          />
+        </div>
+      )}
 
       {activeTags.length > 0 && (
         <div className="text-muted-foreground mb-4 flex flex-wrap items-center gap-2 font-mono text-xs">
@@ -113,11 +129,11 @@ export default function RecipeSearch({ collection }: Props) {
           >
             <div className="min-w-0 flex-1">
               <a
-                href={`/recipes/${item.id}`}
+                href={href(item)}
                 className="hover:text-accent text-[15px] font-medium transition-colors"
               >
                 {item.data.title}
-                {item.data.familyRecipe && (
+                {type === "recipes" && item.data.familyRecipe && (
                   <sup className="ml-1 text-[10px]">F</sup>
                 )}
               </a>
@@ -152,7 +168,7 @@ export default function RecipeSearch({ collection }: Props) {
         ))}
         {displayed.length === 0 && (
           <p className="text-muted-foreground py-6 text-sm italic">
-            No recipes match.
+            {emptyLabel}
           </p>
         )}
       </div>
