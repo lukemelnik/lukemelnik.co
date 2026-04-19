@@ -1,6 +1,6 @@
 ---
 title: Brown Butter Chocolate Chip Cookies
-description: Brown butter chocolate chip cookies originally from Sally's Baking Addiction.
+description: Brown butter chocolate chip cookies.
 publishDate: 2025-05-25
 tags:
   - dessert
@@ -49,7 +49,7 @@ ingredients:
 
 ## Notes
 
-- Originally from [Sally's Baking Addiction](https://sallysbakingaddiction.com/brown-butter-chocolate-chip-cookies/)
+- Adapted from [Sally's Baking Addiction](https://sallysbakingaddiction.com/brown-butter-chocolate-chip-cookies/)
 
 ## Instructions
 
