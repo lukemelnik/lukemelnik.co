@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# local project-showcase interview notes
+.agents/skills/project-showcase/interviews/*.md
