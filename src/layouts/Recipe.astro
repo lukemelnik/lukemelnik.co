@@ -13,7 +13,7 @@ const { title, description, publishDate, image, ingredients, familyRecipe, bread
   recipe.data;
 ---
 
-<BaseLayout title={title} description={description} image={image}>
+<BaseLayout title={title} description={description} image={image?.src}>
   <article class="mx-auto w-full max-w-2xl pt-14 pb-24">
     <a
       href="/recipes"
@@ -49,7 +49,7 @@ const { title, description, publishDate, image, ingredients, familyRecipe, bread
     <div class="border-border my-8 border-b"></div>
 
     <div
-      class="prose prose-a:no-underline prose-a:hover:underline prose-strong:text-foreground prose-strong:font-bold prose-headings:mb-3 prose-headings:mt-8 prose-a:text-accent prose-a:font-bold prose-p:text-base prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground prose-headings:text-foreground prose-li:m-0 prose-p:my-2 text-foreground/85 marker:text-accent"
+      class="prose prose-a:no-underline prose-a:hover:underline prose-strong:text-foreground prose-strong:font-bold prose-headings:mb-3 prose-headings:mt-8 prose-a:text-accent prose-a:font-bold prose-p:text-base prose-blockquote:text-foreground prose-pre:border-1 prose-pre:border-foreground prose-headings:text-foreground prose-code:text-accent prose-code:font-normal prose-code:before:content-none prose-code:after:content-none prose-li:m-0 prose-p:my-2 text-foreground/85 marker:text-accent"
     >
       <slot />
     </div>
