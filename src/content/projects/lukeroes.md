@@ -5,6 +5,7 @@ publishDate: 2025-01-10
 technologies: ["TypeScript", "TanStack Start", "OpenAPI SDK", "SQLite", "Drizzle", "Cloudflare R2", "Litestream", "Docker"]
 url: "https://lukeroes.com"
 github: "lukemelnik/lukeroes"
+image: "./lukeroes-hero.png"
 role: "solo"
 status: "shipped"
 draft: false
