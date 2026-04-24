@@ -10,7 +10,37 @@ Produces two files per project:
 1. **Interview notes** — `.agents/skills/project-showcase/interviews/<slug>.md` (source of truth, not published)
 2. **Project writeup** — `src/content/projects/<slug>.md` (published)
 
-The writeup is a narrative drawn from the notes, not a dump of them.
+The writeup should be a concise, high-quality project overview drawn from the notes — not a narrative essay and not a dump of the transcript.
+
+## Desired writeup shape
+
+Default to a scannable, matter-of-fact format unless the user explicitly asks for a more personal essay.
+
+Recommended structure:
+
+```markdown
+Opening paragraph: what it is, who it is for, current state.
+
+## Problem
+## Solution
+## What I built
+## Technical architecture
+## Product decisions
+## Agent-assisted development   # only if agents were materially used
+## Current status
+## What I learned
+```
+
+Guidelines:
+
+- Prefer bullets and short paragraphs over long narrative sections.
+- Make the value obvious to a busy reader in the first screen.
+- Tie features to problems solved; avoid feature lists with no context.
+- Include technical specificity: stack, architecture, infrastructure, integrations, platform surfaces, testing/deployment approach.
+- Include product judgment: trade-offs, what was moved deeper, what was cut, what was deliberately not built.
+- Include learning and ownership signals that make the work understandable: domain modeling, scope control, debugging, deployment, feedback loops, maintainability.
+- Use first person sparingly and concretely. Prefer “I built…” / “I moved…” / “I learned…” over memoir-style prose.
+- Do not invent metrics, users, outcomes, or business traction. Ask or omit.
 
 ## Workflow
 
@@ -25,31 +55,38 @@ Before starting the interview, read what the project already tells you:
 - `package.json` / `go.mod` / `Cargo.toml` / `Podfile` — for stack
 - Top-level file structure, 1–2 levels deep
 - `.github/workflows/*` — for CI / deployment signals
+- Deployment files (`Dockerfile`, `docker-compose*.yml`, `fly.toml`, `vercel.json`, `railway.json`, `terraform`, etc.)
+- Storage/media integrations, auth, payments, background jobs, and other major services if visible in code
 - Any existing writeup at `src/content/projects/<slug>.md`
 - Any existing interview notes at `.agents/skills/project-showcase/interviews/<slug>.md`
 
-Summarize to yourself what you already know. Skip interview questions the code has already answered.
+Summarize to yourself what you already know. Skip interview questions the code has already answered, but verify anything that looks stale or ambiguous.
 
 ### 2. Interview — conversational capture
 
-Have a conversation. Don't march through a question list.
+Have a conversation. Don't march through a question list, but make sure the notes capture enough material for the case-study structure.
 
-- Follow interesting threads instead of interrupting to hit the next topic
-- Ask follow-ups when something is vague, interesting, or surprising
-- Tangents often contain the best material — capture them
-- If an answer is short and you sense there's more, probe once, then move on
+- Follow interesting threads instead of interrupting to hit the next topic.
+- Ask follow-ups when something is vague, interesting, or surprising.
+- Tangents often contain the best material — capture them.
+- If an answer is short and you sense there's more, probe once, then move on.
+- Ask for concrete examples whenever possible: “What was a screen or feature where this trade-off showed up?”
 
 Topics to get to eventually (not in order, not all required — skip what doesn't apply):
 
-- **Pitch** — a 30-second plain description of what this is and who it's for
-- **Origin** — what started it; prior pain point or attempt that led here
-- **Hard parts** — problems encountered and how they were resolved (or aren't yet)
-- **Technical choices and trade-offs** — what was picked, what was rejected, why
-- **Architecture** — only if non-obvious or genuinely interesting
-- **Agents vs. manual** — what was delegated to agents, what was kept manual
-- **Learnings** — what surprised, what would be done differently
-- **What's still open** — active unknowns, roadmap, things still stuck on
-- **Visuals** — what to screenshot, what captions matter
+- **Pitch** — a 30-second plain description of what this is and who it's for.
+- **Problem** — what pain point exists, who feels it, what current tools/workarounds miss.
+- **Solution** — the product’s approach, what makes it different, why this shape solves the problem.
+- **What was built** — major user-facing features, platforms/mediums (web, mobile, desktop, CLI, etc.), integrations, workflows, admin/internal surfaces.
+- **Architecture** — stack, app surfaces, data model, infrastructure, storage/media, auth, payments, deployment, testing.
+- **Interfaces and automation** — if there is a CLI/API/import/export/tooling surface, ask who it is for, whether it is scriptable, and whether it was designed for agents or other automation.
+- **Product decisions and trade-offs** — what was picked, rejected, hidden, moved deeper, cut, or simplified.
+- **Hard parts** — problems encountered and how they were resolved (or aren't yet).
+- **Agents vs. manual** — what was delegated to agents, what guardrails existed, what stayed human-owned, and whether the product itself includes agent-facing affordances.
+- **Learnings** — what surprised, what would be done differently, how the project changed the builder’s process.
+- **Current status** — live/private/wip, testers/customers, roadmap, active unknowns, what is next.
+- **Evidence** — real metrics, screenshots, links, demos, testimonials, or concrete artifacts. If none, omit.
+- **Visuals** — what to screenshot, what captions matter.
 
 Append answers to the notes file as the conversation goes. Light inline tagging is fine; don't force structure yet.
 
@@ -61,23 +98,27 @@ At the end of the interview, reorganize the notes into standard H2 sections so l
 # Project Interview: <Title>
 
 ## Pitch
-## Origin
-## Hard parts
-## Technical choices & trade-offs
+## Problem
+## Solution
+## What I built
 ## Architecture
+## Interfaces & automation
+## Product decisions & trade-offs
+## Hard parts
 ## Agents vs. manual
+## Current status
 ## Learnings
-## What's still open
 ## Visuals
 ## Notes
 ```
 
-- Merge repeated or related points
-- Keep specificity; don't paraphrase away interesting detail
-- Anything that doesn't fit a standard section goes under `## Notes`
-- If a section had nothing in the conversation, omit it or leave `—`
-- Do not add material that wasn't in the conversation
-- Show the reorganized file for review before proceeding
+- Merge repeated or related points.
+- Keep specificity; don't paraphrase away interesting detail.
+- Anything that doesn't fit a standard section goes under `## Notes`.
+- If a section had nothing in the conversation, omit it or leave `—`.
+- Do not add material that wasn't in the conversation or code crawl.
+- Mark code-crawl facts separately from interview answers if they were inferred from the repo.
+- Show the reorganized file for review before proceeding.
 
 ### 4. Screenshots
 
@@ -100,12 +141,14 @@ Set the `image` frontmatter field to the hero. Reference inline screenshots in t
 
 Using the organized notes:
 
-1. Ask which topics or points should make it into the writeup. Cutting is expected — a writeup is narrative, not a transcript.
-2. Propose a heading structure driven by the project's own story, not a template. Good headings name the real beats of what happened — e.g., "The problem from a decade in the industry," "Why I'm building this solo," "Where agents earned their keep." Avoid "Overview / Features / Tech stack / Conclusion."
-3. Draft the prose. Specific verbs. Real numbers. First person.
-4. Open with 2–3 sentences of overview — what it is, who it's for, current state.
-5. Include a "How agents were used" section only if agents were actually used. Describe what was delegated and what was kept manual.
-6. Close with something real — what's next, what's open, what was learned. Not a summary.
+1. Ask which topics or points should make it into the writeup. Cutting is expected — a writeup is a focused case study, not a transcript.
+2. Use the recommended case-study structure unless the project clearly needs a different shape.
+3. Open with 2–3 sentences: what it is, who it's for, and current state.
+4. Draft in short paragraphs and bullets. Make it easy to skim.
+5. Include a “Technical architecture” section with concrete stack and infrastructure details.
+6. Include a “Product decisions” section for trade-offs and judgment.
+7. Include an “Agent-assisted development” section only if agents were materially used. Describe guardrails, verification, and what stayed human-owned.
+8. Close with current status and/or learnings, not a generic summary.
 
 Draft, show, iterate, then save. Don't publish silently.
 
@@ -135,20 +178,22 @@ Keep `draft: true` until the writeup is approved.
 
 If notes or a writeup already exist:
 
-- Read existing notes; summarize what's captured
-- Interview only about what's new or updated — don't repeat old ground
-- Append to the same notes file; re-run the cleanup pass
-- When redrafting the writeup, preserve existing edited prose unless asked to rewrite
+- Read existing notes; summarize what's captured.
+- Interview only about what's new, stale, or missing — don't repeat old ground.
+- Verify ambiguous stack/infrastructure details against the repo when possible.
+- Append to or update the same notes file; re-run the cleanup pass.
+- When redrafting the writeup, preserve existing edited prose unless asked to rewrite.
 
 ## Rules
 
 - **Do not fabricate.** If a metric, user count, technology, or outcome wasn't stated or isn't in the code, it doesn't go in the writeup. Ask or omit.
-- **Do not commit or push.** Leave changes staged for review.
+- **Do not commit or push.** Leave changes unstaged unless the user asks otherwise.
 - **Do not dump notes into the writeup.** The notes file exists so the writeup doesn't need to contain everything.
+- **Do not over-narrate by default.** The default output should be clear, structured, and easy to scan.
 
 ## File locations
 
-```
+```text
 lukemelnik-web/
 ├── .agents/skills/project-showcase/
 │   ├── SKILL.md
