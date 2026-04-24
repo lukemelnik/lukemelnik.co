@@ -81,4 +81,5 @@ astro.config.mjs
 ## Anti-patterns
 
 - Do not add new collections or new frontmatter fields ad hoc. Update `src/content/config.ts` deliberately, then use the field.
+- Do not commit draft blog posts unless the user explicitly asks. If `src/content/blog/*` files are in draft, leave them unstaged by default.
 - Do not push, deploy, or open PRs unless asked.
