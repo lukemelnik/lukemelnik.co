@@ -151,6 +151,7 @@ Using the organized notes:
 8. Close with current status and/or learnings, not a generic summary.
 
 Draft, show, iterate, then save. Don't publish silently.
+9. Keep `draft: true` while the writeup is being reviewed. Once the user explicitly approves the writeup, flip it to published state by removing `draft: true` or setting `draft: false`, following the project's convention.
 
 ### 6. Frontmatter
 
@@ -172,7 +173,7 @@ tags: ["projects"]
 ---
 ```
 
-Keep `draft: true` until the writeup is approved.
+Keep `draft: true` while the writeup is being reviewed. Once the user explicitly approves the writeup, remove `draft: true` or set `draft: false`, following the project's convention.
 
 ### 7. Re-runs
 
