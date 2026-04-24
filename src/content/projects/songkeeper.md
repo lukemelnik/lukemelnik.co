@@ -2,12 +2,29 @@
 title: "Songkeeper"
 description: "A music production management platform across web, desktop, and iOS for organizing files, metadata, collaboration, and release administration."
 publishDate: 2026-04-17
-technologies: ["TypeScript", "React", "TanStack Start", "tRPC", "Hono", "Drizzle", "PostgreSQL", "SwiftUI", "Electron", "Commander", "Bun", "Docker", "Traefik", "Backblaze B2", "Cloudflare"]
+technologies:
+  [
+    "TypeScript",
+    "React",
+    "TanStack Start",
+    "tRPC",
+    "Hono",
+    "Drizzle",
+    "PostgreSQL",
+    "SwiftUI",
+    "Electron",
+    "Commander",
+    "Bun",
+    "Docker",
+    "Traefik",
+    "Backblaze B2",
+    "Cloudflare",
+  ]
 url: "https://songkeeper.io"
 image: "./songkeeper/dashboard.png"
 role: "solo"
 status: "wip"
-draft: true
+draft: false
 tags: ["projects"]
 ---
 
