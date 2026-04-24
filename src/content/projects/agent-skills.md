@@ -6,7 +6,7 @@ technologies: ["Markdown", "YAML", "Bash", "Claude Code", "Codex", "Pi"]
 github: "lukemelnik/agent-skills"
 role: "solo"
 status: "shipped"
-draft: true
+draft: false
 tags: ["projects"]
 ---
 
