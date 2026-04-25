@@ -99,7 +99,7 @@ export default function ContentList({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={searchPlaceholder ?? "Search…"}
-            className="placeholder:text-muted-foreground w-full bg-transparent py-2 text-sm outline-none"
+            className="placeholder:text-muted-foreground w-full bg-transparent py-2 text-base outline-none"
           />
         </div>
       )}
