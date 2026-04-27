@@ -24,6 +24,28 @@ pnpm preview     # astro preview
 pnpm test        # vitest run
 ```
 
+## Creating a blog draft
+
+```bash
+pnpm blog
+```
+
+The generator prompts for a title and optional description, then creates a draft markdown file in `src/content/blog/` with today’s date and a slug generated from the title.
+
+Fast path:
+
+```bash
+pnpm blog "Post title"
+```
+
+Useful flags:
+
+```bash
+pnpm blog "Post title" -- --description "One-line summary" --tags "thoughts,web"
+pnpm blog "Post title" -- --publish
+pnpm blog "Post title" -- --no-open
+```
+
 ## Project structure
 
 ```
