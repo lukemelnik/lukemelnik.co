@@ -8,7 +8,7 @@ github: "songkeeper/gnome"
 image: "./gnome-metronome/hero.webp"
 role: "solo"
 status: "shipped"
-draft: true
+draft: false
 tags: ["projects"]
 ---
 
