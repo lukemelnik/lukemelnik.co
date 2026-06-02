@@ -6,6 +6,7 @@ technologies: ["Go", "Cobra", "YAML", "tmux", "GitHub Actions", "GoReleaser"]
 github: "lukemelnik/grove"
 role: "solo"
 status: "shipped"
+featured: true
 draft: false
 tags: ["projects"]
 ---

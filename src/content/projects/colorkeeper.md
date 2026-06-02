@@ -7,7 +7,7 @@ github: "lukemelnik/colorkeeper"
 image: "./colorkeeper-hero.png"
 role: "solo"
 status: "shipped"
-featured: true
+featured: false
 draft: false
 tags: ["projects"]
 ---
