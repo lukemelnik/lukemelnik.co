@@ -112,6 +112,16 @@ describe("scaleIngredientQuantity", () => {
     ).toBe(200);
   });
 
+  it("preserves exact quantities at half-scale increments", () => {
+    expect(
+      scaleIngredientQuantity(
+        { name: "flour", quantity: 1.5, unit: "cup" },
+        0.5,
+        10,
+      ),
+    ).toBe(0.75);
+  });
+
   it("returns undefined when quantity is missing", () => {
     expect(
       scaleIngredientQuantity({ name: "salt", unit: "pinch" }, 3, 10),
@@ -140,21 +150,13 @@ describe("scaleIngredientQuantity", () => {
 describe("hasYeastOverLimit", () => {
   it("returns true when yeast scaled exceeds limit", () => {
     expect(
-      hasYeastOverLimit(
-        [{ name: "yeast", quantity: 5, unit: "g" }],
-        3,
-        10,
-      ),
+      hasYeastOverLimit([{ name: "yeast", quantity: 5, unit: "g" }], 3, 10),
     ).toBe(true);
   });
 
   it("returns false when yeast scaled stays under limit", () => {
     expect(
-      hasYeastOverLimit(
-        [{ name: "yeast", quantity: 3, unit: "g" }],
-        2,
-        10,
-      ),
+      hasYeastOverLimit([{ name: "yeast", quantity: 3, unit: "g" }], 2, 10),
     ).toBe(false);
   });
 
@@ -231,13 +233,19 @@ describe("decimalToFraction", () => {
     expect(decimalToFraction(0.67)).toBe("⅔");
   });
 
+  it("formats sixths produced by half-scale increments", () => {
+    expect(decimalToFraction(0.33 * 0.5)).toBe("⅙");
+    expect(decimalToFraction(0.33 * 2.5)).toBe("⅚");
+  });
+
   it("combines whole number with fraction", () => {
     expect(decimalToFraction(1.5)).toBe("1 ½");
     expect(decimalToFraction(2.25)).toBe("2 ¼");
   });
 
-  it("falls back to decimal for non-common values", () => {
+  it("preserves precision for non-common values", () => {
     expect(decimalToFraction(0.4)).toBe("0.4");
+    expect(decimalToFraction(0.05)).toBe("0.05");
   });
 
   it("handles tolerance near common fractions", () => {
@@ -252,6 +260,7 @@ describe("fixUnitPlural", () => {
   });
 
   it("uses singular for quantity <= 1", () => {
+    expect(fixUnitPlural("cup", 0.5)).toBe("cup");
     expect(fixUnitPlural("cup", 1)).toBe("cup");
     expect(fixUnitPlural("cloves", 1)).toBe("clove");
     expect(fixUnitPlural("lbs", 1)).toBe("lb");

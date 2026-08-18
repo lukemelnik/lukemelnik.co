@@ -32,11 +32,15 @@ export function detectNativeSystem(
   let imperial = 0;
   let metric = 0;
   const imperialUnits = new Set([
-    "cup", "cups", "tbsp", "tsp", "oz", "lb", "lbs",
+    "cup",
+    "cups",
+    "tbsp",
+    "tsp",
+    "oz",
+    "lb",
+    "lbs",
   ]);
-  const metricUnits = new Set([
-    "g", "kg", "ml", "l", "gram", "grams",
-  ]);
+  const metricUnits = new Set(["g", "kg", "ml", "l", "gram", "grams"]);
   for (const item of flattenIngredients(items)) {
     if (!item.unit) continue;
     const u = item.unit.toLowerCase().trim();
@@ -93,11 +97,15 @@ export function calculateHydration(ingredients: Ingredient[]): number | null {
 }
 
 export function decimalToFraction(decimal: number): string {
-  if (Number.isInteger(decimal)) return decimal.toString();
-
   const tolerance = 0.01;
+  const nearestInteger = Math.round(decimal);
+  if (Math.abs(decimal - nearestInteger) < tolerance) {
+    return nearestInteger.toString();
+  }
+
   const commonFractions: [number, string][] = [
     [0.125, "⅛"],
+    [1 / 6, "⅙"],
     [0.25, "¼"],
     [0.33, "⅓"],
     [0.375, "⅜"],
@@ -105,6 +113,7 @@ export function decimalToFraction(decimal: number): string {
     [0.625, "⅝"],
     [0.67, "⅔"],
     [0.75, "¾"],
+    [5 / 6, "⅚"],
     [0.875, "⅞"],
   ];
 
@@ -117,7 +126,7 @@ export function decimalToFraction(decimal: number): string {
     }
   }
 
-  return decimal.toFixed(1).replace(/\.0$/, "");
+  return Number(decimal.toFixed(3)).toString();
 }
 
 export function fixUnitPlural(

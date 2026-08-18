@@ -17,6 +17,8 @@ import {
 } from "../utils/recipe-math";
 
 const YEAST_LIMIT = 10;
+const SCALE_STEP = 0.5;
+const MIN_SCALE = 0.5;
 
 type IngredientsProps = {
   ingredients: (Ingredient | IngredientSection)[];
@@ -45,17 +47,15 @@ export default function Ingredients({ ingredients, bread }: IngredientsProps) {
   );
 
   useEffect(() => {
-    setYeastLimitReached(
-      hasYeastOverLimit(allIngredients, scale, YEAST_LIMIT),
-    );
+    setYeastLimitReached(hasYeastOverLimit(allIngredients, scale, YEAST_LIMIT));
   }, [allIngredients, scale]);
 
   function handleScaleUp() {
-    setScale(scale + 1);
+    setScale((currentScale) => currentScale + SCALE_STEP);
   }
 
   function handleScaleDown() {
-    if (scale > 1) setScale(scale - 1);
+    setScale((currentScale) => Math.max(MIN_SCALE, currentScale - SCALE_STEP));
   }
 
   const renderIngredient = (ingredient: Ingredient, index: number) => {
@@ -145,15 +145,16 @@ export default function Ingredients({ ingredients, bread }: IngredientsProps) {
             <button
               type="button"
               onClick={handleScaleDown}
-              disabled={scale <= 1}
+              disabled={scale <= MIN_SCALE}
               className="border-border text-muted-foreground hover:border-accent hover:text-accent disabled:hover:border-border disabled:hover:text-muted-foreground flex size-7 items-center justify-center rounded-full border transition-colors disabled:cursor-not-allowed disabled:opacity-40"
-              aria-label="Decrease scale"
+              aria-label="Decrease scale by 0.5"
             >
               <Minus size={14} />
             </button>
             <span
+              aria-live="polite"
               className={`min-w-8 text-center font-mono text-sm ${
-                scale > 1 ? "text-accent" : "text-foreground"
+                scale !== 1 ? "text-accent" : "text-foreground"
               }`}
             >
               {scale}x
@@ -162,7 +163,7 @@ export default function Ingredients({ ingredients, bread }: IngredientsProps) {
               type="button"
               onClick={handleScaleUp}
               className="border-border text-muted-foreground hover:border-accent hover:text-accent flex size-7 items-center justify-center rounded-full border transition-colors"
-              aria-label="Increase scale"
+              aria-label="Increase scale by 0.5"
             >
               <Plus size={14} />
             </button>
