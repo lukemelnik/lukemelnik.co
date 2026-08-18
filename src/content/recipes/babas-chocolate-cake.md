@@ -26,10 +26,10 @@ ingredients:
     quantity: 1
     unit: tsp
   - name: all-purpose flour
-    quantity: 1.5
+    quantity: 1.75
     unit: cup
   - name: cocoa
-    quantity: 0.5
+    quantity: 0.75
     unit: cup
   - name: baking soda
     quantity: 2
